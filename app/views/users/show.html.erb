@@ -1,0 +1,17 @@
+<div class="row">
+  <h1><%= @user.name %>#show</h1>
+
+  <%if false%>
+      <!-- testing purpose, created by Charlene -->
+      <br>
+      <%= link_to "Billing Sites", billing_sites_path %>
+  <%end%>
+
+  <h1>Upload Files</h1>
+  <i class="fa fa-folder-open-o"></i><%= link_to "Import", users_import_path, class: "btn btn-primary" %>
+  <!-- Indicates a successful or positive action -->
+
+  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+</div>
+
+

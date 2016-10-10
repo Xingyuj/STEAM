@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @ftp_server.name %>
+</p>
+
+<p>
+  <strong>Server:</strong>
+  <%= @ftp_server.server %>
+</p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @ftp_server.username %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @ftp_server.password %>
+</p>
+
+<p>
+  <strong>Last poll:</strong>
+  <%= @ftp_server.last_poll %>
+</p>
+
+<p>
+  <strong>Next poll:</strong>
+  <%= @ftp_server.next_poll %>
+</p>
+
+<p>
+  <strong>Poll unit:</strong>
+  <%= @ftp_server.poll_unit %>
+</p>
+
+<p>
+  <strong>Poll value:</strong>
+  <%= @ftp_server.poll_value %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @ftp_server.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_ftp_server_path(@ftp_server) %> |
+<%= link_to 'Back', ftp_servers_path %>

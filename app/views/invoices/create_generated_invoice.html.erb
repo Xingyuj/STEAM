@@ -1,0 +1,13 @@
+<h1>This is generated invoice</h1>
+
+<% if Rails.env.development? %>
+    <%= debug params %> <br>
+<% end %>
+
+<%=  link_to 'Generate another', generateNew_invoices_path%> <br>
+
+<div>
+    <% @invoice.attributes.each_pair do |name, value| %>
+    <%= name %>: <%= value %> <br>
+  <% end %>
+</div>

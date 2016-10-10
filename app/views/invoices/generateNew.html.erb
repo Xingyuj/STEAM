@@ -1,0 +1,12 @@
+<%= form_for :invoice, url: { action: "create_generated_invoice"} do |f| %>
+  <div>
+    <%= f.label "generate an invoice:" %>
+  </div>
+  <div class="field">
+    <%= f.label :invoice %><br>
+    <%= f.select :invoice_id, @invoices.collect{|u| [u.file, u.id]}, :prompt=>"select an imported invoice" %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

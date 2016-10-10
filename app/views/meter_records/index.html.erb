@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1 class="page-header">Listing Meter Records</h1>
+  </div>
+</div>
+
+
+<%= link_to 'Import', meter_records_import_path %>&nbsp;&nbsp;
+<%= link_to 'Truncate', meter_records_truncate_path %>&nbsp;&nbsp;
+<%= link_to 'Multiple Meter Usage', meter_records_multiple_usage_path %>&nbsp;&nbsp;
+<%= link_to 'Single Meter Usage', meter_records_single_usage_path %>&nbsp;&nbsp;
+<%= link_to 'Multiple Meter Predicted Usage', meter_records_multiple_predicted_usage_path %>&nbsp;&nbsp;
+<%= link_to 'Single Meter Predicted Usage', meter_records_single_predicted_usage_path %><br /><br />
+<%=@meter_records.length%> Records<br /><br />
+<table>
+  <thead>
+    <tr>
+      <th>Meter&nbsp;&nbsp;</th>
+      <th>Register&nbsp;&nbsp;</th>
+      <th>Date&nbsp;&nbsp;</th>
+      <th>Interval&nbsp;&nbsp;</th>
+      <th>UOM&nbsp;&nbsp;</th>
+      <th>Usage</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @meter_records.each do |meter_record| %>
+      <tr>
+        <td><%= meter_record.meter_id %></td>
+        <td><%= meter_record.register %></td>
+        <td><%= meter_record.date %></td>
+        <td><%= meter_record.interval %></td>
+        <td><%= meter_record.unit_of_measurement %></td>
+        <td><%= meter_record.usage %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Import', meter_records_import_path %>&nbsp;&nbsp;
+<%= link_to 'Truncate', meter_records_truncate_path %>&nbsp;&nbsp;
+<%= link_to 'Multiple Meter Usage', meter_records_multiple_usage_path %>&nbsp;&nbsp;
+<%= link_to 'Single Meter Usage', meter_records_single_usage_path %>&nbsp;&nbsp;
+<%= link_to 'Multiple Meter Predicted Usage', meter_records_multiple_predicted_usage_path %>&nbsp;&nbsp;
+<%= link_to 'Single Meter Predicted Usage', meter_records_single_predicted_usage_path %><br /><br />

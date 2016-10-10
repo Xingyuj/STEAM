@@ -1,0 +1,29 @@
+<% content_for :title, "STEAM - Billing Time Periods" %>
+<p id="notice"><%= notice %></p>
+
+<h1>STEAM - Billing Time Periods</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @billings.each do |billing| %>
+      <tr>
+        <td><%= billing.start_time_hour %>:<%= billing.start_time_minute %></td>
+        <td><%= billing.end_time_hour %>:<%=billing.end_time_minute %></td>
+        <td><%= link_to 'Edit', edit_billing_path(billing) %></td>
+        <td><%= link_to 'Destroy', billing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Billing', new_billing_path %>

@@ -1,0 +1,116 @@
+<%= simple_form_for @retail_plan do |f| %>
+    <h3>Basic Information</h3>
+    <%= f.input :name, label: 'Name of the Retail Plan', error: 'Name of the plan is necessary'%>
+    <%= f.input :created, label: 'Date of Plan creation'%>
+    <%= f.input :start_date, label: 'Start Date of Plan' %>
+    <%= f.input :end_date, label: 'End date of Plan'%>
+    <%= f.input :expected_expiry_date, label: 'Expected Expiry date of plan'%>
+    <%= f.input :discount, label: 'Discount percentage'%>
+    <%= f.error :name, id: 'name_error' %>
+
+    <%= f.select :billing_site_id, BillingSite.all.collect{|u| [u.name, u.id]}, :prompt=>"Select a Billing Site" %>
+
+
+    <!-- show properly but cannot be updated -->
+    <% if false %>
+    <h3>DailyUsageCharge</h3>
+    <% @daily_usage_charges.each do |daily| %>
+        <%= f.simple_fields_for daily.charge_factory do |c| %>
+            <%= c.input :name, readonly: true %>
+            <%= c.input :rate %>
+         <% end %>
+        <%= f.simple_fields_for daily do |c|%>
+            <%= c.input :start_time %>
+            <%= c.input :end_time %>
+            <%= c.input :unit_of_measurement %>
+        <% end %>
+        <br>
+    <% end %>
+
+    <h3>GlobalUsageCharge</h3>
+    <% @global_usage_charges.each do |global| %>
+        <%= f.simple_fields_for global.charge_factory do |g| %>
+            <%= g.input :name, readonly: true %>
+            <%= g.input :rate %>
+        <% end %>
+        <%= f.simple_fields_for global do |g|%>
+            <%= g.input :unit_of_measurement %>
+        <% end %>
+        <br>
+    <% end %>
+
+    <h3>MeteringCharge</h3>
+    <% @metering_charges.each do |metering| %>
+        <%= f.simple_fields_for metering.charge_factory do |m| %>
+            <%= m.input :name, readonly: true %>
+            <%= m.input :rate %>
+        <% end %>
+        <br>
+    <% end %>
+
+    <h3>SupplyCharge</h3>
+    <% @supply_charges.each do |supply| %>
+        <%= f.simple_fields_for supply.charge_factory do |s| %>
+            <%= s.input :name, readonly: true %>
+            <%= s.input :rate %>
+        <% end %>
+        <br>
+    <% end %>
+
+    <% end %>
+
+    <!-- end -->
+
+    <br>
+
+
+
+    <%= f.simple_fields_for :charge_factories do |factory| %>
+        <!-- daily usage charges -->
+        <% if !factory.object.daily_usage_charges.blank? %>
+            <%= factory.input :name, readonly: true %>
+            <%= factory.simple_fields_for :daily_usage_charges do |d| %>
+                <%= d.input :start_time %>
+                <%= d.input :end_time %>
+                <%= d.input :unit_of_measurement %>
+            <% end %>
+            <%= factory.input :rate %>
+            <br>
+        <% end %>
+
+        <!-- global udage charges -->
+        <% if !factory.object.global_usage_charges.blank? %>
+            <%= factory.input :name, readonly: true %>
+            <%= factory.simple_fields_for :global_usage_charges do |d| %>
+                <%= d.input :unit_of_measurement %>
+            <% end %>
+            <%= factory.input :rate %>
+            <br>
+        <% end %>
+
+        <!-- metering charges -->
+        <% if !factory.object.metering_charges.blank? %>
+            <%= factory.input :name, readonly: true %>
+            <%= factory.simple_fields_for :metering_charges do |d| %>
+                <!-- nothing here -->
+            <% end %>
+            <%= factory.input :rate %>
+            <br>
+        <% end %>
+
+        <!-- supply charges -->
+        <% if !factory.object.supply_charges.blank? %>
+            <%= factory.input :name, readonly: true %>
+            <%= factory.simple_fields_for :supply_charges do |d| %>
+                <!-- nothing here -->
+            <% end %>
+            <%= factory.input :rate %>
+            <br>
+        <% end %>
+
+    <% end %>
+
+    <%= f.button :submit %>
+
+
+<% end %>

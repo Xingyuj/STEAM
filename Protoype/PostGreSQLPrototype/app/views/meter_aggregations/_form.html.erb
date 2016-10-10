@@ -1,0 +1,17 @@
+<%= form_for(@meter_aggregate) do |f| %>
+  <% if @meter_aggregate.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@meter_aggregate.errors.count, "error") %> prohibited this meter_aggregate from being saved:</h2>
+
+      <ul>
+      <% @meter_aggregate.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Meter Aggregations</h1>
+
+<%= link_to 'Truncate', meter_aggregations_truncate_path %><br />
+<%=@meter_aggregations.length%> Aggregations<br />
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Meter</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Usage</th>
+      <th>UOM</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @meter_aggregations.each do |meter_aggregation| %>
+      <tr>
+        <td><%=meter_aggregation.date%></td>
+        <td><%=meter_aggregation.meter_id%></td>
+        <td><%=meter_aggregation.start_time%></td>
+        <td><%=meter_aggregation.end_time%></td>
+        <td><%=meter_aggregation.usage%></td>
+        <td><%=meter_aggregation.unit_of_measurement%></td>
+        <td><%= link_to 'Show', meter_aggregation %></td>
+        <td><%= link_to 'Edit', edit_meter_aggregation_path(meter_aggregation) %></td>
+        <td><%= link_to 'Destroy', meter_aggregation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Truncate', meter_aggregations_truncate_path %>

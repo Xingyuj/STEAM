@@ -1,0 +1,44 @@
+<div class="modal-body">
+<%= simple_form_for(@site) do |f| %>
+  <% if @site.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@site.errors.count, "error") %> prohibited this site from being saved:</h2>
+
+      <ul>
+      <% @site.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <div class="field">
+    <%# f.label :name %><!-- <br> -->
+    <%# f.text_field :name %>
+    <%= f.input :name %>
+  </div>
+  <div class="field">
+    <%# f.label :address1 %><!-- <br> -->
+    <%# f.text_field :address1 %>
+    <%= f.input :address1 %>
+  </div>
+  <div class="field">
+    <%# f.label :address2 %><!-- <br> -->
+    <%# f.text_field :address2 %>
+    <%= f.input :address2 %>
+  </div>
+  <div class="field">
+    <%# f.label :created %><!-- <br> -->
+    <%# f.datetime_select :created %>
+    <%= f.input :created %>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="actions">
+    <%# f.submit %>
+    <%= f.button :submit, :class =>"btn btn-primary" %>
+    <%# link_to "Cancel", :back, {:class=>"btn btn-default"} %>
+    <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> -->
+  </div>
+</div>
+<% end %>

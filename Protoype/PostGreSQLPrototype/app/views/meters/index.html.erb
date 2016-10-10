@@ -1,0 +1,24 @@
+<% content_for :title, "STEAM - Meters" %>
+<p id="notice"><%= notice %></p>
+
+<h1>STEAM - Meters</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>NMI</th>
+      <th>Serial</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @meters.each do |meter| %>
+      <tr>
+        <td><%= meter.nmi %></td>
+        <td><%= meter.serial %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

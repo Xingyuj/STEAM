@@ -1,0 +1,37 @@
+<div class="modal-body">
+<%= simple_form_for(@billing_site) do |f| %>
+  <% if @billing_site.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@billing_site.errors.count, "error") %> prohibited this billing_site from being saved:</h2>
+
+      <ul>
+      <% @billing_site.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <!-- <%# f.label :name %><br> -->
+    <%# f.text_field :name %>
+    <%= f.input :name, label_html: { style: 'color: black' } %>
+  </div>
+  <div class="field">
+    <%= f.input :created, label_html: { style: 'color: black' } %>
+  </div>
+  <div class="field">
+    <!-- changed by Charlene -->
+    <%= f.hidden_field :site_id, :value=>params[:site_id] || site_id %>
+  </div>
+</div>
+  <!-- <div class="field">
+     <%# f.hidden_field :created, :value =>Time.now%>
+  </div> -->
+  <div class="modal-footer">
+    <div class="actions">
+      <%= f.submit :class =>"btn btn-primary" %>
+      <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> -->
+    </div>
+  </div>
+<% end %>

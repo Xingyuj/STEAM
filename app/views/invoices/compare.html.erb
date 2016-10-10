@@ -1,0 +1,418 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="page-header">
+      <h1 style="text-align:center;">Invoice Comparison</h1>
+
+      <div class="row">
+        <%
+          start_date = @result[0][:imported][:start_date]
+          end_date = @result[0][:imported][:end_date]
+        %>
+        <div class="col-md-2">
+          <h4><span class="label label-default">Start Date: <%= start_date %></span></h4>
+        </div>
+        <div class="col-md-2">
+          <h4><span class="label label-default">End Date: <%= end_date %></span></h4>
+        </div>
+        <div class="col-md-5 col-md-offset-3">
+          <h4 style="display: inline-block;"><span class="label label-default">Generated Date: </span></h4>
+          <!-- dropdown list, charlene -->
+          <%
+              url = request.original_url
+              u = URI.parse(url)
+              p = CGI.parse(u.query)
+          %>
+          <!-- p: {"invoice[Generated_id]"=>["15"], "invoice[Imported_id]"=>["14"]} -->
+          <%
+              #  Invoice table id for actable_type: ImportedInvoice
+             imported_id = p["invoice[Imported_id]"][0]
+              #  Invoice table id for actable_type: GeneratedInvoice
+             generated_id = p["invoice[Generated_id]"][0]
+          %>
+          <%
+             # ImportedInvoice id
+             actable_imported_id = Invoice.find(imported_id).actable_id
+             # GeneratedInvoice
+             associated_invoices = GeneratedInvoice.where("imported_invoice_id = ?", actable_imported_id)
+          %>
+
+          <form method="post" enctype="application/json" style="display: inline-block">
+          <%= select_tag "invoice", options_for_select(associated_invoices.collect{
+                                                            |i| [i.created_at.strftime('%d %B %Y, %I:%M %p'), i.acting_as.id] }, generated_id),
+                                              onchange: "compare_invoice(#{imported_id})" %>
+            <input type="hidden"
+                   value="<%= form_authenticity_token() %>"
+                   name="authenticity_token"/>
+          <!-- dropdown list end -->
+          </form>
+
+          <!-- dropdown lisr script -->
+          <script>
+            function compare_invoice(imported_id){
+                var selectValue = $('#invoice').val();
+                var invoice = {
+                    invoice: {
+                        Imported_id: imported_id,
+                        Generated_id: selectValue
+                    }
+                };
+                var traditional_invoice = $.param(invoice);
+                var action = 'compare?' + traditional_invoice;
+
+                console.log(invoice);
+                console.log(traditional_invoice);
+                console.log(action);
+
+                $('#invoice').parent('form').attr('action', action);
+                $('#invoice').parent('form').submit();
+            }
+          </script>
+          <!-- script end -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="panel panel-success">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+      <div class="row sr-only">
+        <div class="col-md-3 col-md-offset-3">
+          Real Invoice
+        </div>
+        <div class="col-md-3">
+          Generated Invoice
+        </div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <table class="table table-bordered" >
+      <% count = 0 %>
+      <thead>
+          <tr>
+            <td></td>
+            <td colspan="3">Real Invoice</td>
+            <td colspan="3">Generated Invoice</td>
+            <td colspan="2"></td>
+          </tr>
+      </thead>
+
+      <tbody onload="highlight()">
+
+          <!-- DailyUsageCharge -->
+          <% @result[0][:imported][:concrete_charges][:daily_charges].each do |meter, charge| %>
+            <tr class="alert alert-info">
+                <td style="color:#ce4844; font-weight: bold;">Meter&lt;<%= meter %>&gt;</td>
+                <td>Rate</td>
+                <td>Usage</td>
+                <td>Cost</td>
+                <td>Rate</td>
+                <td>Usage</td>
+                <td>Cost</td>
+                <td>Difference</td>
+                <td>Confidence</td>
+            </tr>
+
+            <% charge.each do |value| %>
+                  <tr id="<%= count%>"> <% count = count + 1 %>
+                    <td><%= value[:name] %></td>
+                    <td>$<%= value[:rate] %></td>
+                    <td><%= value[:usage] %></td>
+                    <td>$<%= value[:cost] %></td>
+                    <!-- generated invoice, charlene -->
+                    <% generated_meter = @result[0][:generated][:concrete_charges][:daily_charges].keys.select {
+                        |key| key.to_s == meter.to_s } %>
+                    <% generated_charge =
+                        @result[0][:generated][:concrete_charges][:daily_charges][generated_meter[0]].select { |charge| charge[:name].downcase == value[:name].downcase } %>
+                    <td>$<%= generated_charge[0][:rate] %></td>
+                    <td><%= generated_charge[0][:usage] %></td>
+                    <td>$<%= generated_charge[0][:cost] %></td>
+                    <td id="<%= count%>">
+                      <% serial = meter
+                         name = value[:name].downcase
+                         count = count + 1
+                      %>
+                      <%= '%.2f' %@result[1][serial][name] %>%
+                    </td>
+                    <td><%= generated_charge[0][:confidence] %></td>
+                    <!-- generated invoice end -->
+                  </tr>
+              <% end %>
+          <% end %>
+          <!-- DailyUsageCharge End-->
+
+          <!-- GlobalCharge-->
+          <tr class="alert alert-info">
+            <td></td>
+            <td>Rate</td>
+            <td>Usage</td>
+            <td>Cost</td>
+            <td>Rate</td>
+            <td>Usage</td>
+            <td>Cost</td>
+            <td>Difference</td>
+            <td>Confidence</td>
+          </tr>
+          <% @result[0][:imported][:concrete_charges][:global_charges].each do |charge| %>
+            <tr id="<%= count%>"> <% count = count + 1 %>
+                <td><%= charge[:name] %></td>
+                <td>$<%= charge[:rate] %></td>
+                <td><%= charge[:usage] %></td>
+                <td>$<%= charge[:cost] %></td>
+
+                <% generated_charge = @result[0][:generated][:concrete_charges][:global_charges].select {
+                          |key| key[:name] == charge[:name] } %>
+                <td>
+                  $<%= generated_charge[0][:rate] %>
+                </td>
+                <td>
+                  <%= generated_charge[0][:usage] %>
+                </td>
+                <td>
+                  $<%= generated_charge[0][:cost] %>
+                </td>
+                <td id="<%= count %>"> <% count = count + 1 %>
+                  <% name = charge[:name].downcase %>
+                  <%= '%.2f' %@result[1][name] %>%
+                </td>
+                <td>
+                  <%= generated_charge[0][:confidence] %>
+                </td>
+              </tr>
+          <% end %>
+          <!-- GlobalCharge End-->
+
+          <!-- Capacity Charge -->
+          <tr class="alert alert-info">
+            <td></td>
+            <td>Rate</td>
+            <td>Usage</td>
+            <td>Cost</td>
+            <td>Rate</td>
+            <td>Usage</td>
+            <td>Cost</td>
+            <td>Difference</td>
+            <td>Confidence</td>
+          </tr>
+          <% @result[0][:imported][:concrete_charges][:capacity_charges].each do |charge| %>
+            <tr id="<%= count %>"> <% count = count + 1 %>
+                <td><%= charge[:name] %></td>
+                <td>$<%= charge[:rate] %></td>
+                <td><%= charge[:usage] %></td>
+                <td>$<%= charge[:cost] %></td>
+
+                <% generated_charge = @result[0][:generated][:concrete_charges][:capacity_charges].select {
+                          |key| key[:name] == charge[:name] } %>
+                <td>
+                  $<%= generated_charge[0][:rate] %>
+                </td>
+                <td>
+                  <%= generated_charge[0][:usage] %>
+                </td>
+                <td>
+                  $<%= generated_charge[0][:cost] %>
+                </td>
+                <td id="<%= count %>"> <% count = count + 1 %>
+                  <% name = charge[:name].downcase %>
+                  <%= '%.2f' %@result[1][name] %>%
+                </td>
+                <td>
+                  <%= generated_charge[0][:confidence] %>
+                </td>
+              </tr>
+          <% end %>
+          <!-- Capacity Charge End -->
+
+          <!-- Certificate Charge -->
+          <tr class="alert alert-info">
+            <td></td>
+            <td>Rate</td>
+            <td>Usage</td>
+            <td>Cost</td>
+            <td>Rate</td>
+            <td>Usage</td>
+            <td>Cost</td>
+            <td>Difference</td>
+            <td>Confidence</td>
+          </tr>
+          <% @result[0][:imported][:concrete_charges][:certificate_charges].each do |charge| %>
+            <tr id="<%= count %>"> <% count = count + 1 %>
+                <td><%= charge[:name] %></td>
+                <td>$<%= charge[:invoice_rate] %></td>
+                <td><%= charge[:usage] %></td>
+                <td>$<%= charge[:cost] %></td>
+
+                <% generated_charge = @result[0][:generated][:concrete_charges][:certificate_charges].select {
+                          |key| key[:name] == charge[:name] } %>
+                <td>
+                  $<%= generated_charge[0][:rate] %>
+                </td>
+                <td>
+                  <%= generated_charge[0][:usage] %>
+                </td>
+                <td>
+                  $<%= generated_charge[0][:cost] %>
+                </td>
+                <td id="<%= count %>"> <% count = count + 1 %>
+                  <% name = charge[:name].downcase %>
+                  <%= '%.2f' %@result[1][name] %>%
+                </td>
+                <td>
+                  <%= generated_charge[0][:confidence] %>
+                </td>
+              </tr>
+          <% end %>
+          <!-- Certificate Charge End -->
+
+          <!-- Metering Charge -->
+          <tr class="alert alert-info">
+            <td></td>
+            <td>Rate</td>
+            <td>Usage</td>
+            <td>Cost</td>
+            <td>Rate</td>
+            <td>Usage</td>
+            <td>Cost</td>
+            <td>Difference</td>
+            <td>Confidence</td>
+          </tr>
+          <% @result[0][:imported][:concrete_charges][:metering_charges].each do |charge| %>
+            <tr id="<%= count %>"> <% count = count + 1 %>
+                <td><%= charge[:name] %></td>
+                <td>$<%= charge[:rate] %></td>
+                <td><%= charge[:usage] %></td>
+                <td>$<%= charge[:cost] %></td>
+
+                <% generated_charge = @result[0][:generated][:concrete_charges][:metering_charges].select {
+                          |key| key[:name] == charge[:name] } %>
+                <td>
+                  $<%= generated_charge[0][:rate] %>
+                </td>
+                <td>
+                  <%= generated_charge[0][:usage] %>
+                </td>
+                <td>
+                  $<%= generated_charge[0][:cost] %>
+                </td>
+                <td id="<%= count %>"> <% count = count + 1 %>
+                  <% name = charge[:name].downcase %>
+                  <%= '%.2f' %@result[1][name] %>%
+                </td>
+                <td>
+                  <%= generated_charge[0][:confidence] %>
+                </td>
+              </tr>
+          <% end %>
+          <!-- Metering Charge End -->
+
+          <!-- Supply Charge -->
+          <tr class="alert alert-info">
+            <td></td>
+            <td>Rate</td>
+            <td>Days</td>
+            <td>Cost</td>
+            <td>Rate</td>
+            <td>Days</td>
+            <td>Cost</td>
+            <td>Difference</td>
+            <td>Confidence</td>
+          </tr>
+          <% @result[0][:imported][:concrete_charges][:supply_charges].each do |charge| %>
+            <tr id="<%= count %>"> <% count = count + 1 %>
+                <td><%= charge[:name] %></td>
+                <td>$<%= charge[:rate] %></td>
+                <td><%= charge[:days] %></td>
+                <td>$<%= charge[:cost] %></td>
+
+                <% generated_charge = @result[0][:generated][:concrete_charges][:supply_charges].select {
+                          |key| key[:name] == charge[:name] } %>
+                <td>
+                  <%= generated_charge[0][:rate] %>
+                </td>
+                <td>
+                  <%= generated_charge[0][:days] %>
+                </td>
+                <td>
+                  <%= generated_charge[0][:cost] %>
+                </td>
+                <td id="<%= count %>"> <% count = count + 1 %>
+                  <% name = charge[:name].downcase %>
+                  <%= '%.2f' %@result[1][name] %>%
+                </td>
+                <td>
+                  <%= generated_charge[0][:confidence] %>
+                </td>
+              </tr>
+          <% end %>
+          <!-- Supply Charge End -->
+
+          <!-- Total Charge -->
+          <tr class="alert alert-info">
+              <td colspan="7" style="font-weight: bold">Total Charges</td>
+              <td>Difference</td>
+              <td></td>
+          </tr>
+          <tr>
+            <td>Total</td>
+            <td colspan="3">$<%= @result[0][:imported][:total_charges] %></td>
+            <td colspan="3">$<%= @result[0][:generated][:total_charges] %></td>
+            <td><%= '%.2f' %@result[1][:total] %>%</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Discount</td>
+            <td colspan="8">$<%= @result[0][:imported][:discount] %></td>
+          </tr>
+          <tr>
+            <td>Total with discount</td>
+            <td colspan="3">$<%= @result[0][:imported][:total_charges]-@result[0][:imported][:discount] %></td>
+            <td colspan="3">$<%= @result[0][:generated][:total_charges]-@result[0][:imported][:discount] %></td>
+            <td></td>
+            <td></td>
+          </tr>
+      </tbody>
+
+      <script>
+          document.onload = highlight();
+          function highlight() {
+              var i;
+              var counter = <%= count %>;
+              for (i = 1; i < counter; i++) {
+                  var input = document.getElementById(i.toString()).innerHTML;
+                  var diff = parseFloat(input);
+
+                  var tr = i-1;
+                  var tr_id = tr.toString();
+
+                  if(diff < 5){
+                      document.getElementById(tr_id).style.background = "#EBF5CC";
+                  }
+                  else if(diff < 10){
+                      document.getElementById(tr_id).style.background = "#D6EB99";
+                  }
+                  else if(diff < 20){
+                      document.getElementById(tr_id).style.background = "#B2CC80";
+                  }
+                  else if(diff < 30){
+                      document.getElementById(tr_id).style.background = "#C2E066";
+                  }
+                  else if(diff < 40){
+                      document.getElementById(tr_id).style.background = "#ADD633";
+                  }
+                  else if(diff < 50){
+                      document.getElementById(tr_id).style.background = "#99CC00";
+                  }
+                  else{
+                      document.getElementById(tr_id).className = "alert-danger";
+                  }
+
+                  i = i+1;
+              }
+          }
+      </script>
+    </table>
+  </div>
+</div>

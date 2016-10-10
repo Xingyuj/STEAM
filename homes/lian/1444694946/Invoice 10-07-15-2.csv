@@ -1,0 +1,44 @@
+Start Date,19/03/2015,,
+End Date,19/04/2015,,
+State,VIC,,
+,,,
+Loss Factor Information,,,
+Distribution Loss Factor,3.75%,,
+Marginal Loss Factor,0.45%,,
+Unit of Measurement,kWh,,
+,,,
+Meter Identifier,61021930647,,
+Retail Peak,640,$0.0422,28.14840461
+Retail Shoulder,0,0,0
+Retail Off Peak,250,$0.0299,7.79185197
+Network Peak,767,$0.0422,33.73410365
+Network Shoulder,0,$0.0000,0
+Network Off peak,123,$0.0299,3.833591169
+,,,
+Meter Identifier,63054354691,,
+Retail Peak,640,$0.0422,28.14840461
+Retail Shoulder,0,0,0
+Retail Off Peak,250,$0.0299,7.79185197
+Network Peak,767,$0.0422,33.73410365
+Network Shoulder,0,$0.0000,0
+Network Off peak,123,$0.0299,3.833591169
+,,,
+Meter Identifier,63054354642,,
+Retail Peak,640,$0.0422,28.14840461
+Retail Shoulder,0,0,0
+Retail Off Peak,250,$0.0299,7.79185197
+Network Peak,767,$0.0422,33.73410365
+Network Shoulder,0,$0.0000,0
+Network Off peak,123,$0.0299,3.833591169
+,,,
+Maximum Demand,1920,$6.48,12449.43936
+Capacity Charge,1990,$8.78,17480.32517
+AEMO Ancillary Charge,2670,$0.0005,1.47731634
+AEMO Pool Charge,2670,$0.0004,0.99878826
+Total AEMO Charge,,,
+SREC Charge,2670,0.1045,12501.54609
+LRET Charge,2670,9.87%,11807.68037
+ESC Charge,2670,0,0
+Metering Charge,3,650,1950
+Supply Charge,0,0,0
+,,,56411.99095

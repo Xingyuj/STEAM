@@ -1,0 +1,1803 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>class LinearRegressionPredictor - Rails Application Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">ActiveRecord::Base
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-calculate">::calculate</a>
+    
+    <li ><a href="#method-c-check_meter">::check_meter</a>
+    
+    <li ><a href="#method-c-check_meters">::check_meters</a>
+    
+    <li ><a href="#method-c-check_time">::check_time</a>
+    
+    <li ><a href="#method-c-check_times">::check_times</a>
+    
+    <li ><a href="#method-c-date_to_offset_integer">::date_to_offset_integer</a>
+    
+    <li ><a href="#method-c-dates_to_offset_integers">::dates_to_offset_integers</a>
+    
+    <li ><a href="#method-c-detailed_usage_by_meter">::detailed_usage_by_meter</a>
+    
+    <li ><a href="#method-c-detailed_usage_by_time">::detailed_usage_by_time</a>
+    
+    <li ><a href="#method-c-make_daily_meter_hash_array">::make_daily_meter_hash_array</a>
+    
+    <li ><a href="#method-c-make_meter_daily_hash_array">::make_meter_daily_hash_array</a>
+    
+    <li ><a href="#method-c-make_prediction">::make_prediction</a>
+    
+    <li ><a href="#method-c-midday">::midday</a>
+    
+    <li ><a href="#method-c-offset_integer_to_date">::offset_integer_to_date</a>
+    
+    <li ><a href="#method-c-offset_integers_to_dates">::offset_integers_to_dates</a>
+    
+    <li ><a href="#method-c-predict_for_period">::predict_for_period</a>
+    
+    <li ><a href="#method-c-predict_whole_day">::predict_whole_day</a>
+    
+    <li ><a href="#method-c-sum_usage">::sum_usage</a>
+    
+    <li ><a href="#method-c-usage_by_meter">::usage_by_meter</a>
+    
+    <li ><a href="#method-c-usage_by_time">::usage_by_time</a>
+    
+    <li ><a href="#method-c-use">::use</a>
+    
+    <li ><a href="#method-i-daily_usage">#daily_usage</a>
+    
+    <li ><a href="#method-i-predict">#predict</a>
+    
+    <li ><a href="#method-i-usage_by_meter">#usage_by_meter</a>
+    
+    <li ><a href="#method-i-usage_by_time">#usage_by_time</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-LinearRegressionPredictor">
+  <h1 id="class-LinearRegressionPredictor" class="class">
+    class LinearRegressionPredictor
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="REFERENCE_DATE">REFERENCE_DATE
+        
+        <dd><p>need a reference date for creating integers for regression gem with the
+appropriate offsets</p>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-calculate" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">calculate</span><span
+            class="method-args">(start_date, end_date, daily_time_period, meter)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Calculates and saves a predictor of type <a
+href="LinearRegressionPredictor.html">LinearRegressionPredictor</a> for
+each daily time period and meter in the arrays</p>
+
+<p>Author: Peter McNamara</p>
+
+<h4 id="method-c-calculate-label-Inputs">Inputs<span><a href="#method-c-calculate-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>start_date</code> - Unused</p>
+</li><li>
+<p><code>end_date</code> - Unused</p>
+</li><li>
+<p><code>daily_time_period</code> - array of daily time periods, hash is
+specified in</p>
+
+<pre class="ruby"><span class="ruby-identifier">meter</span> <span class="ruby-identifier">interface</span> <span class="ruby-identifier">of</span> <span class="ruby-identifier">design</span> <span class="ruby-identifier">document</span>
+</pre>
+</li><li>
+<p><code>meter</code> - array of meters</p>
+</li></ul>
+
+<h3 id="method-c-calculate-label-Preconditions">Preconditions<span><a href="#method-c-calculate-label-Preconditions">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>Expects variables to be the correct type (see above) daily time periods
+have an end time after the start (or equal) The <a
+href="Metering.html">Metering</a> system has usage for this meter</p>
+
+<h3 id="method-c-calculate-label-Outputs">Outputs<span><a href="#method-c-calculate-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>adds <a href="LinearRegressionPredictor.html">LinearRegressionPredictor</a>
+to database (includes meterPredictor table entry via the inheritance) no
+return value</p>
+          
+          
+
+          
+          <div class="method-source-code" id="calculate-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 31</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">calculate</span>(<span class="ruby-identifier">start_date</span>, <span class="ruby-identifier">end_date</span>, <span class="ruby-identifier">daily_time_period</span>, <span class="ruby-identifier">meter</span>)
+    <span class="ruby-comment">#start_date and end_date parameters are currently unused by this method</span>
+    <span class="ruby-identifier">check_times</span>(<span class="ruby-identifier">daily_time_period</span>)
+    <span class="ruby-identifier">check_meters</span>(<span class="ruby-identifier">meter</span>)
+    <span class="ruby-comment">#get meter data broken down by day for daily time periods and meters</span>
+    <span class="ruby-identifier">from</span> = <span class="ruby-constant">Date</span><span class="ruby-operator">::</span><span class="ruby-identifier">strptime</span>(<span class="ruby-string">&#39;01-01-1900&#39;</span>,<span class="ruby-string">&#39;%d-%m-%Y&#39;</span>) <span class="ruby-comment"># earliest date, used to get all usage</span>
+    <span class="ruby-identifier">to</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">current</span> <span class="ruby-comment">#get usage up to now</span>
+    <span class="ruby-identifier">date_range</span> = [{<span class="ruby-value">:start_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">from</span>, <span class="ruby-value">:end_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">to</span>}]
+    <span class="ruby-identifier">detailed_usage</span> = (<span class="ruby-constant">Meter</span>.<span class="ruby-identifier">detailed_usage_by_meter</span>(<span class="ruby-identifier">date_range</span>, <span class="ruby-identifier">daily_time_period</span>, <span class="ruby-identifier">meter</span>))
+
+<span class="ruby-comment">#   We can loop the usage results rather than hard code a zero index</span>
+    <span class="ruby-identifier">detailed_usage</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">usage</span><span class="ruby-operator">|</span>
+
+      <span class="ruby-comment"># get the array of usage per meter</span>
+      <span class="ruby-identifier">meter_usages</span> = <span class="ruby-identifier">usage</span>[<span class="ruby-value">:meters</span>]
+
+<span class="ruby-comment">#     If there is no usage, don&#39;t do this bit</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">meter_usages</span>.<span class="ruby-identifier">blank?</span>
+        <span class="ruby-comment">#loop through the meters and usages</span>
+        <span class="ruby-identifier">meter</span>.<span class="ruby-identifier">zip</span>(<span class="ruby-identifier">meter_usages</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">each_meter</span>, <span class="ruby-identifier">meter_usage</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">meter_usage</span>.<span class="ruby-identifier">blank?</span>
+            <span class="ruby-comment"># get the array of usage per daily time period</span>
+            <span class="ruby-identifier">daily_time_period_usages</span> = <span class="ruby-identifier">meter_usage</span>[<span class="ruby-value">:daily_time_periods</span>]
+            <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">daily_time_period_usages</span>.<span class="ruby-identifier">blank?</span>
+              <span class="ruby-comment">#loop through the daily time period usages</span>
+              <span class="ruby-identifier">daily_time_period_usages</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">daily_time_period_usage</span><span class="ruby-operator">|</span>
+                <span class="ruby-comment">#initialise arrays to zero</span>
+                <span class="ruby-identifier">dates</span> = []
+                <span class="ruby-identifier">usages</span> = []
+                <span class="ruby-comment"># get the array of daily usage</span>
+                <span class="ruby-identifier">daily_usages</span> = <span class="ruby-identifier">daily_time_period_usage</span>[<span class="ruby-value">:daily_usage</span>]
+                <span class="ruby-comment">#loop through the daily time period usages</span>
+                <span class="ruby-identifier">daily_usages</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">daily_usage</span><span class="ruby-operator">|</span>
+                  <span class="ruby-identifier">dates</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">daily_usage</span>[<span class="ruby-value">:date</span>])
+                  <span class="ruby-identifier">usages</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">daily_usage</span>[<span class="ruby-value">:usage</span>])
+                <span class="ruby-keyword">end</span>
+                <span class="ruby-comment"># calculate the values used for the prediction</span>
+                <span class="ruby-identifier">intercept</span>, <span class="ruby-identifier">slope</span> = <span class="ruby-identifier">make_prediction</span>(<span class="ruby-identifier">usages</span>, <span class="ruby-identifier">dates</span>)
+                <span class="ruby-constant">LinearRegressionPredictor</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">meter_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">each_meter</span>.<span class="ruby-identifier">id</span>,
+                                                 <span class="ruby-identifier">start_time</span><span class="ruby-operator">:</span> <span class="ruby-identifier">daily_time_period_usage</span>[<span class="ruby-value">:start_time</span>],
+                                                 <span class="ruby-identifier">end_time</span><span class="ruby-operator">:</span> <span class="ruby-identifier">daily_time_period_usage</span>[<span class="ruby-value">:end_time</span>],
+                                                 <span class="ruby-identifier">calculated_date</span><span class="ruby-operator">:</span> <span class="ruby-identifier">to</span>,
+                                                 <span class="ruby-identifier">a</span><span class="ruby-operator">:</span> <span class="ruby-identifier">intercept</span>,
+                                                 <span class="ruby-identifier">b</span><span class="ruby-operator">:</span> <span class="ruby-identifier">slope</span>)
+              <span class="ruby-keyword">end</span>
+            <span class="ruby-keyword">end</span>
+          <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-check_meter" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_meter</span><span
+            class="method-args">(meter)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>check if input is a <a href="Meter.html">Meter</a> return error if it is
+not</p>
+          
+          
+
+          
+          <div class="method-source-code" id="check_meter-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 752</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">check_meter</span>(<span class="ruby-identifier">meter</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">meter</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Meter</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;not a meter&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-check_meters" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_meters</span><span
+            class="method-args">(meters)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>check if input is an array of Meters return error if it is not</p>
+          
+          
+
+          
+          <div class="method-source-code" id="check_meters-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 741</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">check_meters</span>(<span class="ruby-identifier">meters</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">meters</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
+    <span class="ruby-identifier">meters</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">meter</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">check_meter</span>(<span class="ruby-identifier">meter</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;not an array of meters&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-check_time" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_time</span><span
+            class="method-args">(daily_time_period)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>check if input is a daily time period (metering interface design document)</p>
+
+<p>Author: Peter McNamara</p>
+
+<h4 id="method-c-check_time-label-Inputs">Inputs<span><a href="#method-c-check_time-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>daily_time_period</code> -  array of daily_time period (see design)</p>
+</li></ul>
+
+<h3 id="method-c-check_time-label-Outputs">Outputs<span><a href="#method-c-check_time-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>raises error if :start_time value is not a Time raises error if :end_time
+value is not a Time raises error if :start_time value is greater than
+:end_time</p>
+          
+          
+
+          
+          <div class="method-source-code" id="check_time-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 731</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">check_time</span>(<span class="ruby-identifier">daily_time_period</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">daily_time_period</span>[<span class="ruby-value">:start_time</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Time</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;bad daily time period - start time not a time&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">daily_time_period</span>[<span class="ruby-value">:end_time</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Time</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;bad daily time period - end time not a time&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-check_times" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_times</span><span
+            class="method-args">(daily_time_periods)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>check if input is array of time periods (metering interface design
+document)</p>
+
+<p>Author: Peter McNamara</p>
+
+<h4 id="method-c-check_times-label-Inputs">Inputs<span><a href="#method-c-check_times-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>daily_time_periods</code> -  array of daily_time periods (see design)</p>
+</li></ul>
+
+<h3 id="method-c-check_times-label-Outputs">Outputs<span><a href="#method-c-check_times-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>checks each daily_time period raises error is not an array</p>
+          
+          
+
+          
+          <div class="method-source-code" id="check_times-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 710</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">check_times</span>(<span class="ruby-identifier">daily_time_periods</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">daily_time_periods</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
+    <span class="ruby-identifier">daily_time_periods</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">daily_time_period</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">check_time</span>(<span class="ruby-identifier">daily_time_period</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;daily time periods is not an array&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-date_to_offset_integer" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">date_to_offset_integer</span><span
+            class="method-args">(date)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>maps a date to  an integer offsets from a set date</p>
+
+<p>Author: Peter McNamara</p>
+
+<h4 id="method-c-date_to_offset_integer-label-Inputs">Inputs<span><a href="#method-c-date_to_offset_integer-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>dates</code> -  array of dates</p>
+</li></ul>
+
+<h3 id="method-c-date_to_offset_integer-label-Preconditions">Preconditions<span><a href="#method-c-date_to_offset_integer-label-Preconditions">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>It is expected that all the inputs are of the correct type</p>
+
+<h3 id="method-c-date_to_offset_integer-label-Outputs">Outputs<span><a href="#method-c-date_to_offset_integer-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>returns array of integers (offsets) error if not Date type</p>
+          
+          
+
+          
+          <div class="method-source-code" id="date_to_offset_integer-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 640</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">date_to_offset_integer</span>(<span class="ruby-identifier">date</span>)
+  <span class="ruby-comment">#make sure we have a date being passed</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">date</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Date</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;date_to_offset_integer: argument is not a date&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">output</span> = (<span class="ruby-identifier">date</span> <span class="ruby-operator">-</span> <span class="ruby-constant">REFERENCE_DATE</span>).<span class="ruby-identifier">to_i</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">output</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-dates_to_offset_integers" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">dates_to_offset_integers</span><span
+            class="method-args">(dates)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>maps dates to integer offsets from a set date so the linefit gem can use
+the data</p>
+
+<p>Author: Peter McNamara</p>
+
+<h4 id="method-c-dates_to_offset_integers-label-Inputs">Inputs<span><a href="#method-c-dates_to_offset_integers-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>dates</code> -  array of dates</p>
+</li></ul>
+
+<h3 id="method-c-dates_to_offset_integers-label-Preconditions">Preconditions<span><a href="#method-c-dates_to_offset_integers-label-Preconditions">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>It is expected that all the inputs are of the correct type</p>
+
+<h3 id="method-c-dates_to_offset_integers-label-Outputs">Outputs<span><a href="#method-c-dates_to_offset_integers-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>returns array of integers (offsets) error if not array</p>
+          
+          
+
+          
+          <div class="method-source-code" id="dates_to_offset_integers-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 611</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">dates_to_offset_integers</span>(<span class="ruby-identifier">dates</span>)
+  <span class="ruby-comment"># make sure we have an array being passed</span>
+  <span class="ruby-comment"># defer checking for dates to the function we call so not to do it twice</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">dates</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;dates_to_offset_integers: argument is not an Array&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">output</span> = []
+  <span class="ruby-comment"># loop through the array converting to integers for output</span>
+  <span class="ruby-identifier">dates</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">date</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">output</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">date_to_offset_integer</span>(<span class="ruby-identifier">date</span>))
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">output</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-detailed_usage_by_meter" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">detailed_usage_by_meter</span><span
+            class="method-args">(date_range, daily_time_period, meter)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Calculates usage, uses use for the functionality</p>
+
+<p>Author: Peter McNamara</p>
+
+<h4 id="method-c-detailed_usage_by_meter-label-Inputs">Inputs<span><a href="#method-c-detailed_usage_by_meter-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>date_range</code> - hash of start and end date see metering interface
+documentation</p>
+</li><li>
+<p><code>daily_time_period</code> - array of daily time periods, hash is
+specified in</p>
+
+<pre class="ruby"><span class="ruby-identifier">meter</span> <span class="ruby-identifier">interface</span> <span class="ruby-identifier">of</span> <span class="ruby-identifier">design</span> <span class="ruby-identifier">document</span>
+</pre>
+</li><li>
+<p><code>meter</code> - array of meters</p>
+</li></ul>
+
+<h3 id="method-c-detailed_usage_by_meter-label-Outputs">Outputs<span><a href="#method-c-detailed_usage_by_meter-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>returns hash array with single value, the hash is specified in meter
+interface of design document (by meter) (with <a
+href="LinearRegressionPredictor.html#method-i-daily_usage">#daily_usage</a>
+arrays)</p>
+          
+          
+
+          
+          <div class="method-source-code" id="detailed_usage_by_meter-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 134</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">detailed_usage_by_meter</span>(<span class="ruby-identifier">date_range</span>, <span class="ruby-identifier">daily_time_period</span>, <span class="ruby-identifier">meter</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-constant">LinearRegressionPredictor</span>.<span class="ruby-identifier">use</span>(<span class="ruby-identifier">date_range</span>, <span class="ruby-identifier">daily_time_period</span>, <span class="ruby-identifier">meter</span>, {<span class="ruby-value">:meters</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span> }, <span class="ruby-keyword">true</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-detailed_usage_by_time" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">detailed_usage_by_time</span><span
+            class="method-args">(date_range, daily_time_period, meter)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Calculates usage, uses use for the functionality</p>
+
+<p>Author: Peter McNamara</p>
+
+<h4 id="method-c-detailed_usage_by_time-label-Inputs">Inputs<span><a href="#method-c-detailed_usage_by_time-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>date_range</code> - hash of start and end date see metering interface
+documentation</p>
+</li><li>
+<p><code>daily_time_period</code> - array of daily time periods, hash is
+specified in</p>
+
+<pre class="ruby"><span class="ruby-identifier">meter</span> <span class="ruby-identifier">interface</span> <span class="ruby-identifier">of</span> <span class="ruby-identifier">design</span> <span class="ruby-identifier">document</span>
+</pre>
+</li><li>
+<p><code>meter</code> - array of meters</p>
+</li></ul>
+
+<h3 id="method-c-detailed_usage_by_time-label-Outputs">Outputs<span><a href="#method-c-detailed_usage_by_time-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>returns hash array with single value, the hash is specified in meter
+interface of design document (by daily usage period) (with <a
+href="LinearRegressionPredictor.html#method-i-daily_usage">#daily_usage</a>
+arrays)</p>
+          
+          
+
+          
+          <div class="method-source-code" id="detailed_usage_by_time-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 151</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">detailed_usage_by_time</span>(<span class="ruby-identifier">date_range</span>, <span class="ruby-identifier">daily_time_period</span>, <span class="ruby-identifier">meter</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-constant">LinearRegressionPredictor</span>.<span class="ruby-identifier">use</span>(<span class="ruby-identifier">date_range</span>, <span class="ruby-identifier">daily_time_period</span>, <span class="ruby-identifier">meter</span>, {}, <span class="ruby-keyword">true</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-make_daily_meter_hash_array" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">make_daily_meter_hash_array</span><span
+            class="method-args">(date_range, daily_time_periods, meters,detailed)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>makes the hash broken down by daily usage period first (see design document
+metering interface)</p>
+
+<p>Author: Peter McNamara</p>
+
+<h4 id="method-c-make_daily_meter_hash_array-label-Inputs">Inputs<span><a href="#method-c-make_daily_meter_hash_array-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>date_range</code> - hash of start and end date see metering interface
+documentation</p>
+</li><li>
+<p><code>daily_time_period</code> - array of daily time periods, hash is
+specified in</p>
+
+<pre class="ruby"><span class="ruby-identifier">meter</span> <span class="ruby-identifier">interface</span> <span class="ruby-identifier">of</span> <span class="ruby-identifier">design</span> <span class="ruby-identifier">document</span>
+</pre>
+</li><li>
+<p><code>meter</code> - array of meters</p>
+</li><li>
+<p><code>detailed</code> - boolean</p>
+</li></ul>
+
+<h3 id="method-c-make_daily_meter_hash_array-label-Preconditions">Preconditions<span><a href="#method-c-make_daily_meter_hash_array-label-Preconditions">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>It is expected that all the inputs are of the correct type
+LinearRegressionPredictors exist for the time periods and meter</p>
+
+<h3 id="method-c-make_daily_meter_hash_array-label-Outputs">Outputs<span><a href="#method-c-make_daily_meter_hash_array-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>returns hash array of the values for :each_daily_time_periods in the by
+meter return value specified in the design document metering interface
+returns <a
+href="LinearRegressionPredictor.html#method-i-daily_usage">#daily_usage</a>
+breakdowns if detailed is true</p>
+          
+          
+
+          
+          <div class="method-source-code" id="make_daily_meter_hash_array-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 385</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">make_daily_meter_hash_array</span>(<span class="ruby-identifier">date_range</span>, <span class="ruby-identifier">daily_time_periods</span>, <span class="ruby-identifier">meters</span>,<span class="ruby-identifier">detailed</span>)
+  <span class="ruby-identifier">output</span> = []
+  <span class="ruby-identifier">daily_time_periods</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">each_daily_time_period</span><span class="ruby-operator">|</span>
+    <span class="ruby-comment">#create hash to store this daily time periods values</span>
+    <span class="ruby-identifier">daily_output</span> = {}
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">each_daily_time_period</span>[<span class="ruby-value">:label</span>] <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>
+      <span class="ruby-identifier">daily_output</span>[<span class="ruby-value">:label</span>] = <span class="ruby-identifier">each_daily_time_period</span>[<span class="ruby-value">:label</span>]
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">daily_output</span>[<span class="ruby-value">:label</span>] = <span class="ruby-string">&#39;&#39;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">daily_output</span>[<span class="ruby-value">:start_time</span>] = <span class="ruby-identifier">each_daily_time_period</span>[<span class="ruby-value">:start_time</span>]
+    <span class="ruby-identifier">daily_output</span>[<span class="ruby-value">:end_time</span>] = <span class="ruby-identifier">each_daily_time_period</span>[<span class="ruby-value">:end_time</span>]
+    <span class="ruby-comment"># create totals for the daily period</span>
+    <span class="ruby-identifier">daily_time_period_usage</span> = <span class="ruby-value">0</span>
+    <span class="ruby-identifier">daily_time_period_daily_usage</span> = <span class="ruby-value">0</span>
+
+    <span class="ruby-identifier">daily_output</span>[<span class="ruby-value">:meters</span>] = []
+    <span class="ruby-comment"># for each meter</span>
+    <span class="ruby-identifier">meters</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">each_meter</span><span class="ruby-operator">|</span>
+      <span class="ruby-comment">#create hash to store this meter&#39;s values</span>
+      <span class="ruby-identifier">meter_output</span> = {}
+      <span class="ruby-identifier">meter_output</span>[<span class="ruby-value">:serial</span>] = <span class="ruby-identifier">each_meter</span>.<span class="ruby-identifier">serial</span>
+      <span class="ruby-comment"># predict for this period (daily hash)</span>
+      <span class="ruby-identifier">prediction</span> = <span class="ruby-identifier">predict_for_period</span>(<span class="ruby-identifier">each_meter</span>,
+                                      <span class="ruby-identifier">each_daily_time_period</span>[<span class="ruby-value">:start_time</span>],
+                                      <span class="ruby-identifier">each_daily_time_period</span>[<span class="ruby-value">:end_time</span>],
+                                      <span class="ruby-identifier">date_range</span>)
+      <span class="ruby-comment"># add usage for all days</span>
+      <span class="ruby-identifier">meter_output</span>[<span class="ruby-value">:usage</span>] = <span class="ruby-identifier">sum_usage</span>(<span class="ruby-identifier">prediction</span>)
+      <span class="ruby-comment"># add usage to total for the time period</span>
+      <span class="ruby-identifier">daily_time_period_usage</span> = <span class="ruby-identifier">daily_time_period_usage</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">meter_output</span>[<span class="ruby-value">:usage</span>]
+      <span class="ruby-comment"># if we need to add usage broken down by day (also calculate totals per day for use later)</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">detailed</span>
+        <span class="ruby-identifier">meter_output</span>[<span class="ruby-value">:daily_usage</span>] = <span class="ruby-identifier">prediction</span>
+        <span class="ruby-comment">#if no totals yet then set</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">daily_time_period_daily_usage</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+          <span class="ruby-identifier">daily_time_period_daily_usage</span> = <span class="ruby-identifier">prediction</span>
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-comment">#otherwise need to add usages for each day</span>
+          <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
+          <span class="ruby-keyword">while</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">daily_time_period_daily_usage</span>.<span class="ruby-identifier">length</span>
+            <span class="ruby-identifier">daily_time_period_daily_usage</span>[<span class="ruby-identifier">i</span>][<span class="ruby-value">:usage</span>] =
+                <span class="ruby-identifier">daily_time_period_daily_usage</span>[<span class="ruby-identifier">i</span>][<span class="ruby-value">:usage</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">prediction</span>[<span class="ruby-identifier">i</span>][<span class="ruby-value">:usage</span>]
+            <span class="ruby-identifier">i</span> = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+          <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-comment"># if not needed set to empty array</span>
+        <span class="ruby-identifier">meter_output</span>[<span class="ruby-value">:daily_usage</span>] = []
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-comment"># add hash to array of meters</span>
+      <span class="ruby-identifier">daily_output</span>[<span class="ruby-value">:meters</span>].<span class="ruby-identifier">push</span>(<span class="ruby-identifier">meter_output</span>)
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment"># add usage and detailed if required</span>
+    <span class="ruby-identifier">daily_output</span>[<span class="ruby-value">:usage</span>] = <span class="ruby-identifier">daily_time_period_usage</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">detailed</span>
+      <span class="ruby-identifier">daily_output</span>[<span class="ruby-value">:daily_usage</span>] = <span class="ruby-identifier">daily_time_period_daily_usage</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">daily_output</span>[<span class="ruby-value">:daily_usage</span>] = []
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment">#add this daily usage period to array</span>
+    <span class="ruby-identifier">output</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">daily_output</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">output</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-make_meter_daily_hash_array" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">make_meter_daily_hash_array</span><span
+            class="method-args">(date_range, daily_time_periods, meters,detailed)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>makes the hash broken down by meter first (see design document metering
+interface)</p>
+
+<p>Author: Peter McNamara</p>
+
+<h4 id="method-c-make_meter_daily_hash_array-label-Inputs">Inputs<span><a href="#method-c-make_meter_daily_hash_array-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>date_range</code> - hash of start and end date see metering interface
+documentation</p>
+</li><li>
+<p><code>daily_time_period</code> - array of daily time periods, hash is
+specified in</p>
+
+<pre class="ruby"><span class="ruby-identifier">meter</span> <span class="ruby-identifier">interface</span> <span class="ruby-identifier">of</span> <span class="ruby-identifier">design</span> <span class="ruby-identifier">document</span>
+</pre>
+</li><li>
+<p><code>meter</code> - array of meters</p>
+</li><li>
+<p><code>detailed</code> - boolean</p>
+</li></ul>
+
+<h3 id="method-c-make_meter_daily_hash_array-label-Preconditions">Preconditions<span><a href="#method-c-make_meter_daily_hash_array-label-Preconditions">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>It is expected that all the inputs are of the correct type
+LinearRegressionPredictors exist for the time periods and meter</p>
+
+<h3 id="method-c-make_meter_daily_hash_array-label-Outputs">Outputs<span><a href="#method-c-make_meter_daily_hash_array-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>returns hash array of the values for :meter in the by meter return value
+specified in the design document metering interface returns <a
+href="LinearRegressionPredictor.html#method-i-daily_usage">#daily_usage</a>
+breakdowns if detailed is true</p>
+          
+          
+
+          
+          <div class="method-source-code" id="make_meter_daily_hash_array-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 295</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">make_meter_daily_hash_array</span>(<span class="ruby-identifier">date_range</span>, <span class="ruby-identifier">daily_time_periods</span>, <span class="ruby-identifier">meters</span>,<span class="ruby-identifier">detailed</span>)
+  <span class="ruby-identifier">total_usage</span> = <span class="ruby-value">0</span>
+  <span class="ruby-identifier">total_daily_usage</span> = <span class="ruby-value">0</span>
+  <span class="ruby-identifier">output</span> = []
+  <span class="ruby-comment">#for each meter</span>
+  <span class="ruby-identifier">meters</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">each_meter</span><span class="ruby-operator">|</span>
+    <span class="ruby-comment">#add the each of the meter&#39;s values to a hash to add to the array</span>
+    <span class="ruby-identifier">meter_output</span> = {}
+    <span class="ruby-identifier">meter_output</span>[<span class="ruby-value">:serial</span>] = <span class="ruby-identifier">each_meter</span>.<span class="ruby-identifier">serial</span>
+
+    <span class="ruby-identifier">meter_output</span>[<span class="ruby-value">:daily_time_periods</span>] = []
+    <span class="ruby-comment">#for each daily time period</span>
+    <span class="ruby-identifier">daily_time_periods</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">each_daily_time_period</span><span class="ruby-operator">|</span>
+      <span class="ruby-comment">#add the each of the daily time period&#39;s values to a hash to add to the array</span>
+      <span class="ruby-identifier">daily_output</span> = {}
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">each_daily_time_period</span>[<span class="ruby-value">:label</span>] <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>
+        <span class="ruby-identifier">daily_output</span>[<span class="ruby-value">:label</span>] = <span class="ruby-identifier">each_daily_time_period</span>[<span class="ruby-value">:label</span>]
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">daily_output</span>[<span class="ruby-value">:label</span>] = <span class="ruby-string">&#39;&#39;</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">daily_output</span>[<span class="ruby-value">:start_time</span>] = <span class="ruby-identifier">each_daily_time_period</span>[<span class="ruby-value">:start_time</span>]
+      <span class="ruby-identifier">daily_output</span>[<span class="ruby-value">:end_time</span>] = <span class="ruby-identifier">each_daily_time_period</span>[<span class="ruby-value">:end_time</span>]
+
+      <span class="ruby-comment"># predict for this period (daily hash)</span>
+      <span class="ruby-identifier">prediction</span> = <span class="ruby-identifier">predict_for_period</span>(<span class="ruby-identifier">each_meter</span>,
+                                      <span class="ruby-identifier">each_daily_time_period</span>[<span class="ruby-value">:start_time</span>],
+                                      <span class="ruby-identifier">each_daily_time_period</span>[<span class="ruby-value">:end_time</span>],
+                                      <span class="ruby-identifier">date_range</span>)
+      <span class="ruby-identifier">daily_output</span>[<span class="ruby-value">:usage</span>] = <span class="ruby-identifier">sum_usage</span>(<span class="ruby-identifier">prediction</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">detailed</span>
+        <span class="ruby-identifier">daily_output</span>[<span class="ruby-value">:daily_usage</span>] = <span class="ruby-identifier">prediction</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">daily_output</span>[<span class="ruby-value">:daily_usage</span>] = []
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-comment">#add this daily usage period to array</span>
+      <span class="ruby-identifier">meter_output</span>[<span class="ruby-value">:daily_time_periods</span>].<span class="ruby-identifier">push</span>(<span class="ruby-identifier">daily_output</span>)
+
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment"># add for whole day now for this meter</span>
+    <span class="ruby-identifier">prediction</span> = <span class="ruby-identifier">predict_whole_day</span>(<span class="ruby-identifier">each_meter</span>, <span class="ruby-identifier">date_range</span>)
+    <span class="ruby-comment"># usage is sum of daily usages</span>
+    <span class="ruby-identifier">meter_output</span>[<span class="ruby-value">:usage</span>] = <span class="ruby-identifier">sum_usage</span>(<span class="ruby-identifier">prediction</span>)
+
+    <span class="ruby-comment"># total usage is sum of all the meters total usage</span>
+    <span class="ruby-identifier">total_usage</span> = <span class="ruby-identifier">total_usage</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">meter_output</span>[<span class="ruby-value">:usage</span>]
+    <span class="ruby-comment">#if detailed is needed add the breakdown by day (and add to total breakdown)</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">detailed</span>
+      <span class="ruby-identifier">meter_output</span>[<span class="ruby-value">:daily_usage</span>] = <span class="ruby-identifier">prediction</span>
+      <span class="ruby-comment">#no daily total usage stored yet</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">total_daily_usage</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+        <span class="ruby-identifier">total_daily_usage</span> = <span class="ruby-identifier">prediction</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-comment">#otherwise need to add usages for each day to the total for that day</span>
+        <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
+        <span class="ruby-keyword">while</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">total_daily_usage</span>.<span class="ruby-identifier">length</span>
+          <span class="ruby-identifier">total_daily_usage</span>[<span class="ruby-identifier">i</span>][<span class="ruby-value">:usage</span>] = <span class="ruby-identifier">total_daily_usage</span>[<span class="ruby-identifier">i</span>][<span class="ruby-value">:usage</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">prediction</span>[<span class="ruby-identifier">i</span>][<span class="ruby-value">:usage</span>]
+          <span class="ruby-identifier">i</span> = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-comment">#otherwise add blank</span>
+      <span class="ruby-identifier">meter_output</span>[<span class="ruby-value">:daily_usage</span>] = []
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment">#add hash to array of meters</span>
+    <span class="ruby-identifier">output</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">meter_output</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">total_usage</span>, <span class="ruby-identifier">total_daily_usage</span>, <span class="ruby-identifier">output</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-make_prediction" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">make_prediction</span><span
+            class="method-args">(daily_usages, dates)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>fit a line to the data using linear regression</p>
+
+<p>Author: Peter McNamara</p>
+
+<h4 id="method-c-make_prediction-label-Inputs">Inputs<span><a href="#method-c-make_prediction-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>daily_usages</code> -  array of daily usage values</p>
+</li><li>
+<p><code>dates</code> -  array of dates</p>
+</li></ul>
+
+<h3 id="method-c-make_prediction-label-Preconditions">Preconditions<span><a href="#method-c-make_prediction-label-Preconditions">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>It is expected that all the inputs are of the correct type arrays have the
+same length</p>
+
+<h3 id="method-c-make_prediction-label-Outputs">Outputs<span><a href="#method-c-make_prediction-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>returns y intercept and the slope of the line (fully describes the line)</p>
+          
+          
+
+          
+          <div class="method-source-code" id="make_prediction-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 585</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">make_prediction</span>(<span class="ruby-identifier">daily_usages</span>, <span class="ruby-identifier">dates</span>)
+  <span class="ruby-comment"># map days(Date object) to integer offsets from the reference date</span>
+  <span class="ruby-identifier">offset_integers</span> = <span class="ruby-identifier">dates_to_offset_integers</span>(<span class="ruby-identifier">dates</span>)
+
+  <span class="ruby-comment"># use predictor gem to create the regression and return the values</span>
+  <span class="ruby-identifier">linefitter</span> = <span class="ruby-constant">LineFit</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">linefitter</span>.<span class="ruby-identifier">setData</span>(<span class="ruby-identifier">offset_integers</span>, <span class="ruby-identifier">daily_usages</span>)
+  <span class="ruby-identifier">intercept</span>, <span class="ruby-identifier">slope</span> = <span class="ruby-identifier">linefitter</span>.<span class="ruby-identifier">coefficients</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">intercept</span>, <span class="ruby-identifier">slope</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-midday" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">midday</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>simple function to return the time representing noon (midday)</p>
+          
+          
+
+          
+          <div class="method-source-code" id="midday-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 759</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">midday</span>
+  <span class="ruby-constant">Time</span>.<span class="ruby-identifier">utc</span>(<span class="ruby-value">2000</span>,<span class="ruby-string">&#39;jan&#39;</span>,<span class="ruby-value">1</span>,<span class="ruby-value">12</span>,<span class="ruby-value">0</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-offset_integer_to_date" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">offset_integer_to_date</span><span
+            class="method-args">(offset_integer)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>maps integer offset from a set date to a  date</p>
+
+<p>Author: Peter McNamara</p>
+
+<h4 id="method-c-offset_integer_to_date-label-Inputs">Inputs<span><a href="#method-c-offset_integer_to_date-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>offset_integer</code> -  integer (offset)</p>
+</li></ul>
+
+<h3 id="method-c-offset_integer_to_date-label-Preconditions">Preconditions<span><a href="#method-c-offset_integer_to_date-label-Preconditions">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>It is expected that all the inputs are of the correct type</p>
+
+<h3 id="method-c-offset_integer_to_date-label-Outputs">Outputs<span><a href="#method-c-offset_integer_to_date-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>returns date raises error if type is not an integer</p>
+          
+          
+
+          
+          <div class="method-source-code" id="offset_integer_to_date-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 691</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">offset_integer_to_date</span>(<span class="ruby-identifier">offset_integer</span>)
+  <span class="ruby-comment">#make sure we have a date being passed</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">offset_integer</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;offset_integer_to_date: argument is not an integer&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">output</span> = (<span class="ruby-constant">REFERENCE_DATE</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">offset_integer</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">output</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-offset_integers_to_dates" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">offset_integers_to_dates</span><span
+            class="method-args">(offset_integers)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>maps integer offsets from a set date to dates</p>
+
+<p>Author: Peter McNamara</p>
+
+<h4 id="method-c-offset_integers_to_dates-label-Inputs">Inputs<span><a href="#method-c-offset_integers_to_dates-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>offset_integers</code> -  array of integers (offsets)</p>
+</li></ul>
+
+<h3 id="method-c-offset_integers_to_dates-label-Preconditions">Preconditions<span><a href="#method-c-offset_integers_to_dates-label-Preconditions">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>It is expected that all the inputs are of the correct type</p>
+
+<h3 id="method-c-offset_integers_to_dates-label-Outputs">Outputs<span><a href="#method-c-offset_integers_to_dates-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>returns array of integers (offsets) error if not array</p>
+          
+          
+
+          
+          <div class="method-source-code" id="offset_integers_to_dates-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 663</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">offset_integers_to_dates</span>(<span class="ruby-identifier">offset_integers</span>)
+  <span class="ruby-comment"># make sure we have an array being passed</span>
+  <span class="ruby-comment"># defer checking for dates to the function we call so not to do it twice</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">offset_integers</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;offset_integers_to_dates: argument is not an Array&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">output</span> = []
+  <span class="ruby-comment"># loop through the array converting to integers for output</span>
+  <span class="ruby-identifier">offset_integers</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">offset_integer</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">output</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">offset_integer_to_date</span>(<span class="ruby-identifier">offset_integer</span>))
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">output</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-predict_for_period" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">predict_for_period</span><span
+            class="method-args">(meter, start_time, end_time, date_range)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Calculates usage for daily time period corresponding to the whole day
+Author: Peter McNamara</p>
+
+<h4 id="method-c-predict_for_period-label-Inputs">Inputs<span><a href="#method-c-predict_for_period-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>meter</code> - single meter</p>
+</li><li>
+<p><code>start_time</code> - start time for daily time period</p>
+</li><li>
+<p><code>end_time</code> - end  time for daily time period</p>
+</li><li>
+<p><code>date_range</code> - hash of start and end date see metering interface
+documentation</p>
+</li></ul>
+
+<h3 id="method-c-predict_for_period-label-Preconditions">Preconditions<span><a href="#method-c-predict_for_period-label-Preconditions">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>It is expected that all the inputs are of the correct type
+LinearRegressionPredictors exist for the time period and meter</p>
+
+<h3 id="method-c-predict_for_period-label-Outputs">Outputs<span><a href="#method-c-predict_for_period-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>returns predicted usage in format specified in metering interface
+documentation for :daily_usage</p>
+          
+          
+
+          
+          <div class="method-source-code" id="predict_for_period-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 486</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">predict_for_period</span>(<span class="ruby-identifier">meter</span>, <span class="ruby-identifier">start_time</span>, <span class="ruby-identifier">end_time</span>, <span class="ruby-identifier">date_range</span>)
+  <span class="ruby-comment">#retrieve predictor to predict with</span>
+  <span class="ruby-identifier">predictor</span> = <span class="ruby-constant">LinearRegressionPredictor</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">meter_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">meter</span>.<span class="ruby-identifier">id</span>,
+                                              <span class="ruby-identifier">start_time</span><span class="ruby-operator">:</span> <span class="ruby-identifier">start_time</span>,
+                                              <span class="ruby-identifier">end_time</span><span class="ruby-operator">:</span> <span class="ruby-identifier">end_time</span>).<span class="ruby-identifier">take</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">predictor</span>.<span class="ruby-identifier">blank?</span>
+   <span class="ruby-identifier">prediction</span> = []
+ <span class="ruby-keyword">else</span>
+   <span class="ruby-identifier">prediction</span> = <span class="ruby-identifier">predictor</span>.<span class="ruby-identifier">daily_usage</span>(<span class="ruby-identifier">date_range</span>[<span class="ruby-value">0</span>][<span class="ruby-value">:start_date</span>], <span class="ruby-identifier">date_range</span>[<span class="ruby-value">0</span>][<span class="ruby-value">:end_date</span>])
+ <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">prediction</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-predict_whole_day" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">predict_whole_day</span><span
+            class="method-args">(meter, date_range)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Calculates usage for daily time period corresponding to the whole day
+Author: Peter McNamara</p>
+
+<h4 id="method-c-predict_whole_day-label-Inputs">Inputs<span><a href="#method-c-predict_whole_day-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>meter</code> - single meter</p>
+</li><li>
+<p><code>date_range</code> - hash of start and end date see metering interface
+documentation</p>
+</li></ul>
+
+<h3 id="method-c-predict_whole_day-label-Preconditions">Preconditions<span><a href="#method-c-predict_whole_day-label-Preconditions">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>It is expected that all the inputs are of the correct type
+LinearRegressionPredictors exist for the time periods and meter</p>
+
+<h3 id="method-c-predict_whole_day-label-Outputs">Outputs<span><a href="#method-c-predict_whole_day-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>returns predicted usage in format specified in metering interface
+documentation for :daily_usage</p>
+          
+          
+
+          
+          <div class="method-source-code" id="predict_whole_day-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 465</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">predict_whole_day</span>(<span class="ruby-identifier">meter</span>, <span class="ruby-identifier">date_range</span>)
+  <span class="ruby-comment">#midday specifies start of a day (inbuilt) used to denote entire day</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">predict_for_period</span>(<span class="ruby-identifier">meter</span>, <span class="ruby-identifier">midday</span>, <span class="ruby-identifier">midday</span>, <span class="ruby-identifier">date_range</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-sum_usage" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">sum_usage</span><span
+            class="method-args">(daily_usage)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Sums :daily_usage array (see metering interface documentation for
+reference) Author: Peter McNamara</p>
+
+<h4 id="method-c-sum_usage-label-Inputs">Inputs<span><a href="#method-c-sum_usage-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>daily_usage</code> - array of :daily_usage hashes</p>
+</li></ul>
+
+<h3 id="method-c-sum_usage-label-Preconditions">Preconditions<span><a href="#method-c-sum_usage-label-Preconditions">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>It is expected that all the inputs are of the correct type</p>
+
+<h3 id="method-c-sum_usage-label-Outputs">Outputs<span><a href="#method-c-sum_usage-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>returns sum of the :usage values in the hash array</p>
+          
+          
+
+          
+          <div class="method-source-code" id="sum_usage-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 510</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">sum_usage</span>(<span class="ruby-identifier">daily_usage</span>)
+  <span class="ruby-identifier">total</span> = <span class="ruby-value">0</span>
+  <span class="ruby-identifier">daily_usage</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">hash</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">total</span> = <span class="ruby-identifier">total</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:usage</span>]
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">total</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-usage_by_meter" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">usage_by_meter</span><span
+            class="method-args">(start_date, end_date, daily_time_period, meter)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Calculates usage, uses use for the functionality</p>
+
+<p>Author: Peter McNamara</p>
+
+<h4 id="method-c-usage_by_meter-label-Inputs">Inputs<span><a href="#method-c-usage_by_meter-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>start_date</code> - start date for the usage</p>
+</li><li>
+<p><code>end_date</code> - end date for the usage</p>
+</li><li>
+<p><code>daily_time_period</code> - array of daily time periods, hash is
+specified in</p>
+
+<pre class="ruby"><span class="ruby-identifier">meter</span> <span class="ruby-identifier">interface</span> <span class="ruby-identifier">of</span> <span class="ruby-identifier">design</span> <span class="ruby-identifier">document</span>
+</pre>
+</li><li>
+<p><code>meter</code> - array of meters</p>
+</li></ul>
+
+<h3 id="method-c-usage_by_meter-label-Outputs">Outputs<span><a href="#method-c-usage_by_meter-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>returns hash array with single value, the hash is specified in meter
+interface of design document (by meter) (daily_usage keys values are empty
+array)</p>
+          
+          
+
+          
+          <div class="method-source-code" id="usage_by_meter-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 97</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">usage_by_meter</span>(<span class="ruby-identifier">start_date</span>, <span class="ruby-identifier">end_date</span>, <span class="ruby-identifier">daily_time_period</span>, <span class="ruby-identifier">meter</span>)
+  <span class="ruby-identifier">date_range</span> = {<span class="ruby-value">:start_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">start_date</span>, <span class="ruby-value">:end_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">end_date</span>}
+  <span class="ruby-keyword">return</span> <span class="ruby-constant">LinearRegressionPredictor</span>.<span class="ruby-identifier">use</span>([<span class="ruby-identifier">date_range</span>], <span class="ruby-identifier">daily_time_period</span>, <span class="ruby-identifier">meter</span>, {<span class="ruby-value">:meters</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span> }, <span class="ruby-keyword">false</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-usage_by_time" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">usage_by_time</span><span
+            class="method-args">(start_date, end_date, daily_time_period, meter)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Calculates usage, uses use for the functionality</p>
+
+<p>Author: Peter McNamara</p>
+
+<h4 id="method-c-usage_by_time-label-Inputs">Inputs<span><a href="#method-c-usage_by_time-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>start_date</code> - start date for the usage</p>
+</li><li>
+<p><code>end_date</code> - end date for the usage</p>
+</li><li>
+<p><code>daily_time_period</code> - array of daily time periods, hash is
+specified in</p>
+
+<pre class="ruby"><span class="ruby-identifier">meter</span> <span class="ruby-identifier">interface</span> <span class="ruby-identifier">of</span> <span class="ruby-identifier">design</span> <span class="ruby-identifier">document</span>
+</pre>
+</li><li>
+<p><code>meter</code> - array of meters</p>
+</li></ul>
+
+<h3 id="method-c-usage_by_time-label-Outputs">Outputs<span><a href="#method-c-usage_by_time-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>returns hash array with single value, the hash is specified in meter
+interface of design document (by daily time period) (daily_usage keys
+values are empty array)</p>
+          
+          
+
+          
+          <div class="method-source-code" id="usage_by_time-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 116</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">usage_by_time</span>(<span class="ruby-identifier">start_date</span>, <span class="ruby-identifier">end_date</span>, <span class="ruby-identifier">daily_time_period</span>, <span class="ruby-identifier">meter</span>)
+  <span class="ruby-identifier">date_range</span> = {<span class="ruby-value">:start_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">start_date</span>, <span class="ruby-value">:end_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">end_date</span>}
+  <span class="ruby-keyword">return</span> <span class="ruby-constant">LinearRegressionPredictor</span>.<span class="ruby-identifier">use</span>([<span class="ruby-identifier">date_range</span>], <span class="ruby-identifier">daily_time_period</span>, <span class="ruby-identifier">meter</span>, {}, <span class="ruby-keyword">false</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-use" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">use</span><span
+            class="method-args">(date_range, daily_time_period, meter, broken_by, detailed)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>generic function to return usage in the complicated hash format specified
+Used by all the external functions that change the variables
+<code>broken_by</code> and <code>detailed</code> to get the desired output</p>
+
+<p>Author: Peter McNamara</p>
+
+<h4 id="method-c-use-label-Inputs">Inputs<span><a href="#method-c-use-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>date_range</code> - hash of start and end date see metering interface
+documentation</p>
+</li><li>
+<p><code>daily_time_period</code> - array of daily time periods, hash is
+specified in</p>
+
+<pre class="ruby"><span class="ruby-identifier">meter</span> <span class="ruby-identifier">interface</span> <span class="ruby-identifier">of</span> <span class="ruby-identifier">design</span> <span class="ruby-identifier">document</span>
+</pre>
+</li><li>
+<p><code>meter</code> - array of meters</p>
+</li><li>
+<p><code>broken_by</code> - simple hash if :meters key exists then it will
+output</p>
+
+<pre>the hash broken down by meter otherwise by daily time period
+(see metering interface of design document for details)</pre>
+</li><li>
+<p><code>detailed</code> - boolean</p>
+</li></ul>
+
+<h3 id="method-c-use-label-Preconditions">Preconditions<span><a href="#method-c-use-label-Preconditions">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>It is expected that all the inputs are of the correct type
+LinearRegressionPredictors exist for the time periods and meter</p>
+
+<h3 id="method-c-use-label-Outputs">Outputs<span><a href="#method-c-use-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>returns hash array with single value, the hash is specified in meter
+interface of design document returns by meter if :meters key exists in
+<code>broken_by</code> returns <a
+href="LinearRegressionPredictor.html#method-i-daily_usage">#daily_usage</a>
+breakdowns if detailed is true</p>
+          
+          
+
+          
+          <div class="method-source-code" id="use-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 220</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">use</span>(<span class="ruby-identifier">date_range</span>, <span class="ruby-identifier">daily_time_period</span>, <span class="ruby-identifier">meter</span>, <span class="ruby-identifier">broken_by</span>, <span class="ruby-identifier">detailed</span>)
+  <span class="ruby-identifier">check_times</span>(<span class="ruby-identifier">daily_time_period</span>)
+  <span class="ruby-identifier">check_meters</span>(<span class="ruby-identifier">meter</span>)
+
+  <span class="ruby-identifier">output</span> = [{}]
+  <span class="ruby-comment"># initialise totals</span>
+  <span class="ruby-identifier">total_usage</span> = <span class="ruby-value">0</span>
+  <span class="ruby-identifier">total_daily_usage</span> = <span class="ruby-value">0</span>
+
+  <span class="ruby-comment"># two ways to return output by meter first or by daily time period first</span>
+  <span class="ruby-comment"># they need different values in hash etc</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">broken_by</span>[<span class="ruby-value">:meters</span>] <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>
+    <span class="ruby-identifier">output</span>[<span class="ruby-value">0</span>][<span class="ruby-value">:label</span>] = <span class="ruby-string">&#39;&#39;</span> <span class="ruby-comment">#not needed</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">output</span>[<span class="ruby-value">0</span>][<span class="ruby-value">:start_date</span>] = <span class="ruby-identifier">date_range</span>[<span class="ruby-value">0</span>][<span class="ruby-value">:start_date</span>]
+  <span class="ruby-identifier">output</span>[<span class="ruby-value">0</span>][<span class="ruby-value">:end_date</span>] = <span class="ruby-identifier">date_range</span>[<span class="ruby-value">0</span>][<span class="ruby-value">:end_date</span>]
+  <span class="ruby-identifier">output</span>[<span class="ruby-value">0</span>][<span class="ruby-value">:unit_of_measurement</span>] = <span class="ruby-string">&#39;kwh&#39;</span>  <span class="ruby-comment"># value for all aggregations in the system</span>
+
+  <span class="ruby-comment"># metering first</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">broken_by</span>[<span class="ruby-value">:meters</span>] <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>
+    <span class="ruby-identifier">total_usage</span>, <span class="ruby-identifier">total_daily_usage</span>, <span class="ruby-identifier">output</span>[<span class="ruby-value">0</span>][<span class="ruby-value">:meters</span>] = <span class="ruby-identifier">make_meter_daily_hash_array</span>(<span class="ruby-identifier">date_range</span>, <span class="ruby-identifier">daily_time_period</span>, <span class="ruby-identifier">meter</span>, <span class="ruby-identifier">detailed</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-comment">#must be broken down by daily time period</span>
+    <span class="ruby-identifier">output</span>[<span class="ruby-value">0</span>][<span class="ruby-value">:daily_time_periods</span>] = <span class="ruby-identifier">make_daily_meter_hash_array</span>(<span class="ruby-identifier">date_range</span>, <span class="ruby-identifier">daily_time_period</span>, <span class="ruby-identifier">meter</span>,<span class="ruby-identifier">detailed</span>)
+
+    <span class="ruby-comment">#calculate totals for each day because we haven&#39;t done that yet</span>
+    <span class="ruby-identifier">meter</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">each_meter</span><span class="ruby-operator">|</span>
+      <span class="ruby-comment"># for whole day now whole day is time from midday to midday</span>
+      <span class="ruby-identifier">prediction</span> = <span class="ruby-identifier">predict_whole_day</span>(<span class="ruby-identifier">each_meter</span>, <span class="ruby-identifier">date_range</span>)
+      <span class="ruby-comment"># total usage is sum of all the meters total usage</span>
+      <span class="ruby-identifier">total_usage</span> = <span class="ruby-identifier">total_usage</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">sum_usage</span>(<span class="ruby-identifier">prediction</span>)
+      <span class="ruby-comment">#if detailed breakdown needed keep sum of total for each day</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">detailed</span>
+        <span class="ruby-comment">#no daily total usage stored</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">total_daily_usage</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+          <span class="ruby-identifier">total_daily_usage</span> = <span class="ruby-identifier">prediction</span>
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-comment">#otherwise need to add usages for each day</span>
+          <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
+          <span class="ruby-keyword">while</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">total_daily_usage</span>.<span class="ruby-identifier">length</span>
+            <span class="ruby-identifier">total_daily_usage</span>[<span class="ruby-identifier">i</span>][<span class="ruby-value">:usage</span>] = <span class="ruby-identifier">total_daily_usage</span>[<span class="ruby-identifier">i</span>][<span class="ruby-value">:usage</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">prediction</span>[<span class="ruby-identifier">i</span>][<span class="ruby-value">:usage</span>]
+            <span class="ruby-identifier">i</span> = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+          <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">output</span>[<span class="ruby-value">0</span>][<span class="ruby-value">:usage</span>] = <span class="ruby-identifier">total_usage</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">detailed</span>
+    <span class="ruby-identifier">output</span>[<span class="ruby-value">0</span>][<span class="ruby-value">:daily_usage</span>] = <span class="ruby-identifier">total_daily_usage</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">output</span>[<span class="ruby-value">0</span>][<span class="ruby-value">:daily_usage</span>] = []
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">output</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-daily_usage" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">daily_usage</span><span
+            class="method-args">(start_date, end_date)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>creates :usage hash array between start and end date (see metering
+interface documentation for reference)</p>
+
+<p>Author: Peter McNamara</p>
+
+<h4 id="method-i-daily_usage-label-Inputs">Inputs<span><a href="#method-i-daily_usage-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>start_date</code> - start date</p>
+</li><li>
+<p><code>end_date</code> - end date</p>
+</li></ul>
+
+<h3 id="method-i-daily_usage-label-Preconditions">Preconditions<span><a href="#method-i-daily_usage-label-Preconditions">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>It is expected that all the inputs are of the correct type end date is
+after start date</p>
+
+<h3 id="method-i-daily_usage-label-Outputs">Outputs<span><a href="#method-i-daily_usage-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>returns :usage hash array between start and end date inclusive</p>
+          
+          
+
+          
+          <div class="method-source-code" id="daily_usage-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 533</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">daily_usage</span>(<span class="ruby-identifier">start_date</span>, <span class="ruby-identifier">end_date</span>)
+  <span class="ruby-comment">#generate dates between start and end inclusive</span>
+  <span class="ruby-identifier">current_date</span> = <span class="ruby-identifier">start_date</span>
+  <span class="ruby-identifier">dates</span> = [<span class="ruby-identifier">current_date</span>]
+  <span class="ruby-keyword">while</span> <span class="ruby-identifier">current_date</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">end_date</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">current_date</span> = <span class="ruby-identifier">current_date</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+    <span class="ruby-identifier">dates</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">current_date</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># create array of usages (per day)</span>
+  <span class="ruby-identifier">usages</span> = []
+  <span class="ruby-identifier">dates</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">date</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">hash</span> = {}
+    <span class="ruby-identifier">hash</span>[<span class="ruby-value">:date</span>] = <span class="ruby-identifier">date</span>
+    <span class="ruby-identifier">hash</span>[<span class="ruby-value">:usage</span>] = <span class="ruby-identifier">predict</span>(<span class="ruby-identifier">date</span>)
+    <span class="ruby-identifier">usages</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">hash</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">usages</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-predict" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">predict</span><span
+            class="method-args">(date)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>predict the usage for a date</p>
+
+<p>Author: Peter McNamara</p>
+
+<h4 id="method-i-predict-label-Inputs">Inputs<span><a href="#method-i-predict-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>date</code> -  date to predict for</p>
+</li></ul>
+
+<h3 id="method-i-predict-label-Preconditions">Preconditions<span><a href="#method-i-predict-label-Preconditions">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>It is expected that all the inputs are of the correct type</p>
+
+<h3 id="method-i-predict-label-Outputs">Outputs<span><a href="#method-i-predict-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>returns the usage calculated for the day</p>
+          
+          
+
+          
+          <div class="method-source-code" id="predict-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 565</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">predict</span>(<span class="ruby-identifier">date</span>)
+  <span class="ruby-identifier">offset_integer</span> = <span class="ruby-constant">LinearRegressionPredictor</span>.<span class="ruby-identifier">date_to_offset_integer</span>(<span class="ruby-identifier">date</span>)
+  <span class="ruby-identifier">usage</span> = <span class="ruby-identifier">a</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">b</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">offset_integer</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">usage</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-usage_by_meter" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">usage_by_meter</span><span
+            class="method-args">(start_date, end_date, daily_time_period)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Calculates usage for this meter, uses use for the functionality</p>
+
+<p>Author: Peter McNamara</p>
+
+<h4 id="method-i-usage_by_meter-label-Inputs">Inputs<span><a href="#method-i-usage_by_meter-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>start_date</code> - start date for the usage</p>
+</li><li>
+<p><code>end_date</code> - end date for the usage</p>
+</li><li>
+<p><code>daily_time_period</code> - array of daily time periods, hash is
+specified in</p>
+
+<pre class="ruby"><span class="ruby-identifier">meter</span> <span class="ruby-identifier">interface</span> <span class="ruby-identifier">of</span> <span class="ruby-identifier">design</span> <span class="ruby-identifier">document</span>
+</pre>
+</li></ul>
+
+<h3 id="method-i-usage_by_meter-label-Outputs">Outputs<span><a href="#method-i-usage_by_meter-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>returns hash array with single value, the hash is specified in meter
+interface of design document (by meter) (with <a
+href="LinearRegressionPredictor.html#method-i-daily_usage">#daily_usage</a>
+arrays)</p>
+          
+          
+
+          
+          <div class="method-source-code" id="usage_by_meter-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 168</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">usage_by_meter</span>(<span class="ruby-identifier">start_date</span>, <span class="ruby-identifier">end_date</span>, <span class="ruby-identifier">daily_time_period</span>)
+  <span class="ruby-identifier">date_range</span> = [{<span class="ruby-value">:start_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">start_date</span>, <span class="ruby-value">:end_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">end_date</span>}]
+  <span class="ruby-identifier">meter</span> = <span class="ruby-constant">Meter</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">meter_id</span>).<span class="ruby-identifier">take</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-constant">LinearRegressionPredictor</span>.<span class="ruby-identifier">use</span>(<span class="ruby-identifier">date_range</span>, <span class="ruby-identifier">daily_time_period</span>, [<span class="ruby-identifier">meter</span>], {<span class="ruby-value">:meters</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span> }, <span class="ruby-keyword">false</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-usage_by_time" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">usage_by_time</span><span
+            class="method-args">(start_date, end_date, daily_time_period)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Calculates usage for this meter, uses use for the functionality</p>
+
+<p>Author: Peter McNamara</p>
+
+<h4 id="method-i-usage_by_time-label-Inputs">Inputs<span><a href="#method-i-usage_by_time-label-Inputs">&para;</a> <a href="#top">&uarr;</a></span></h4>
+<ul><li>
+<p><code>start_date</code> - start date for the usage</p>
+</li><li>
+<p><code>end_date</code> - end date for the usage</p>
+</li><li>
+<p><code>daily_time_period</code> - array of daily time periods, hash is
+specified in</p>
+
+<pre class="ruby"><span class="ruby-identifier">meter</span> <span class="ruby-identifier">interface</span> <span class="ruby-identifier">of</span> <span class="ruby-identifier">design</span> <span class="ruby-identifier">document</span>
+</pre>
+</li></ul>
+
+<h3 id="method-i-usage_by_time-label-Outputs">Outputs<span><a href="#method-i-usage_by_time-label-Outputs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>returns hash array with single value, the hash is specified in meter
+interface of design document (by daily time period) (with <a
+href="LinearRegressionPredictor.html#method-i-daily_usage">#daily_usage</a>
+arrays)</p>
+          
+          
+
+          
+          <div class="method-source-code" id="usage_by_time-source">
+            <pre><span class="ruby-comment"># File app/models/linear_regression_predictor.rb, line 187</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">usage_by_time</span>(<span class="ruby-identifier">start_date</span>, <span class="ruby-identifier">end_date</span>, <span class="ruby-identifier">daily_time_period</span>)
+  <span class="ruby-identifier">date_range</span> = {<span class="ruby-value">:start_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">start_date</span>, <span class="ruby-value">:end_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">end_date</span>}
+  <span class="ruby-identifier">meter</span> = <span class="ruby-constant">Meter</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">meter_id</span>).<span class="ruby-identifier">take</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-constant">LinearRegressionPredictor</span>.<span class="ruby-identifier">use</span>([<span class="ruby-identifier">date_range</span>], <span class="ruby-identifier">daily_time_period</span>, [<span class="ruby-identifier">meter</span>], {}, <span class="ruby-keyword">false</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

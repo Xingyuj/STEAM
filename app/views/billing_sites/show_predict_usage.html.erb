@@ -1,0 +1,90 @@
+<script type="text/javascript">
+    var table = [];
+    var nil = null;
+    var date = <%= raw @date %>;
+    var total = <%= @total %>;
+    var lines = [];
+    var labels = <%=raw @labels%>;
+    for (i = 0; i < labels.length; i++) {
+        lines.push([]);
+        lines = <%= @lines %>;
+    }
+
+    for (i = 0; i < date.length; i++) {
+        table.push(<%= "["+@table_array.join(',')+"]" %>);
+
+    }
+    google.load('visualization', '1', {packages: ['corechart', 'line']});
+    google.setOnLoadCallback(drawCrosshairs);
+
+    function drawCrosshairs() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Date');
+        data.addColumn('number', 'Total Usage');
+        for (i = 0; i < labels.length; i++) {
+            data.addColumn('number', labels[i]);
+        }
+
+        data.addRows(table);
+
+        var options = {
+            chart: {
+                title: 'Electricity Prediction',
+                subtitle: 'by STEAM'
+            },
+            vAxis: {format: 'decimal'}
+        };
+
+        var chart = new google.charts.Line(document.getElementById('line_chart'));
+
+        chart.draw(data, google.charts.Line.convertOptions(options));
+        chart.setSelection([
+            {row: 38, column: 1}
+        ]);
+
+    }
+</script>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="page-header">
+      <h1>Usage Prediction</h1>
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <div id="line_chart" style="width: 900px; height: 500px"></div>
+  </div>
+
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="col-md-12">
+      <div class="page-header">
+        <h1>Invoice Prediction</h1>
+      </div>
+    </div>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>Invoice ID</th>
+        <th>Start time</th>
+        <th>End time</th>
+        <th>Cost</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @predict_invoices.each do |invoice| %>
+          <tr>
+            <td><%= invoice.id %></td>
+            <td><%= invoice.start_date %></td>
+            <td><%= invoice.end_date %></td>
+            <td><%= invoice.total %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

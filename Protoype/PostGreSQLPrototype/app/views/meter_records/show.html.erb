@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Meter:</strong>
+  <%= @meter_record.meter_serial %>
+</p>
+<p>
+  <strong>Date:</strong>
+  <%= @meter_record.date %>
+</p>
+<p>
+  <strong>Values:</strong>
+  <%= @meter_record.values %>
+</p>
+
+
+<%= link_to 'Back', meter_records_path %>

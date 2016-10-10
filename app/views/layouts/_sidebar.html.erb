@@ -1,0 +1,57 @@
+<div class="navbar-default sidebar" role="navigation">
+  <div class="sidebar-nav navbar-collapse">
+    <ul class="nav" id="side-menu">
+      <!-- <li class="sidebar-search">
+        <div class="input-group custom-search-form">
+          <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                  <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+        </div> -->
+        <!-- /input-group -->
+      <!-- </li> -->
+      <li id="dashboard">
+        <%= link_to '<i class="fa fa-dashboard fa-fw"></i> Dashboard'.html_safe, root_path %>
+      </li>
+      <li id="sites">
+        <%= link_to '<i class="fa fa-sitemap fa-fw"></i> Sites <span class="fa arrow"></span>'.html_safe, sites_path %>
+        <!-- <a href="#"><i class="fa fa-sitemap fa-fw"></i> Sites <span class="fa arrow"></span></a> -->
+        <ul class="nav nav-second-level">
+          <% current_user.sites.order(:id).each do |site| %>
+              <li>
+                <%= link_to "<i class='fa fa-home'></i> #{site.name}<span class='fa arrow'></span>".html_safe, site %>
+                <!-- <a href="#"><i class='fa fa-home'></i> <%= site.name %><span class='fa arrow'></span></a> -->
+                <ul class="nav nav-third-level">
+                  <% site.billing_sites.order(:id).each do |billing_site| %>
+                      <li>
+
+                            <%= link_to "<i class='fa fa-bookmark'></i> #{billing_site.name}".html_safe, billing_site %>
+
+                      </li>
+                  <% end %>
+                </ul>
+              </li>
+          <% end %>
+        </ul>
+        <!-- /.nav-second-level -->
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-database fa-fw"></i> Meter Data Management<span class="fa arrow"></span></a>
+        <!-- <a>User Management</a> -->
+        <ul class="nav nav-second-level">
+          <li>
+            <%= link_to '<i class="fa fa-folder-open-o"></i> Upload Meter Data'.html_safe, users_import_path %>
+          </li>
+          <li>
+            <%= link_to '<i class="fa fa-table"></i> Ftp Server'.html_safe, ftp_servers_path %>
+          </li>
+        </ul>
+      </li>
+
+    </ul>
+  </div>
+
+  <!-- /.sidebar-collapse -->
+</div>

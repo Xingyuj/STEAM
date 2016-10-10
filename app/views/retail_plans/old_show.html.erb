@@ -1,0 +1,97 @@
+<h1><%= @retail_plan.name %></h1>
+
+<div>
+  <%= link_to "Back to Index", billing_site_retail_plans_path(@retail_plan.billing_site_id) %>
+</div>
+
+<p>Created: <%= @retail_plan.created %></p>
+<p>Start Date: <%= @retail_plan.start_date%></p>
+<p>End Date: <%= @retail_plan.end_date%></p>
+<p>Expected Expiry Date: <%= @retail_plan.expected_expiry_date%></p>
+<p>Discount: <%= @retail_plan.discount%></p>
+
+
+<h3>DailyUsageCharge</h3>
+<table>
+  <thead>
+  <th>Name</th>
+  <th>Rate</th>
+
+  <th> Unit Of Measurement</th>
+  <th>Start Time</th>
+  <th>End Time</th>
+  </thead>
+
+  <tbody>
+  <% @retail_plan.charge_factories.each do |factory| %>
+      <tr>
+        <% factory.daily_usage_charges.each do |daily_charge| %>
+            <td><%= factory.name %></td>
+            <td><%= factory.rate %></td>
+            <td><%= daily_charge.unit_of_measurement %></td>
+            <td><%= daily_charge.start_time %></td>
+            <td><%= daily_charge.end_time%></td>
+        <% end %>
+      </tr>
+  <% end %>
+
+  </tbody>
+</table>
+
+<h3>GlobalUsageCharge</h3>
+<table>
+  <thead>
+  <th>Name</th>
+  <th>Rate</th>
+
+  <th> Unit Of Measurement</th>
+  </thead>
+  <tbody>
+  <% @retail_plan.charge_factories.each do |factory| %>
+      <tr>
+        <% factory.global_usage_charges.each do |global_charge| %>
+        <td><%= factory.name %></td>
+        <td><%= factory.rate %></td>
+        <td><%= global_charge.unit_of_measurement %></td>
+        <% end %>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
+<h3>MeteringCharge</h3>
+<table>
+   <thead>
+   <th>Name</th>
+   <th>Rate</th>
+   </thead>
+   <tbody>
+   <% @retail_plan.charge_factories.each do |factory| %>
+   <tr>
+     <% factory.metering_charges.each do |metering_charge| %>
+       <td><%= factory.name %></td>
+       <td><%= factory.rate %></td>
+     <% end %>
+   </tr>
+   <% end %>
+</tbody>
+</table>
+
+<h3>SupplyCharge</h3>
+<table>
+  <thead>
+  <th>Name</th>
+  <th>Rate</th>
+  </thead>
+  <tbody>
+  <% @retail_plan.charge_factories.each do |factory| %>
+      <tr>
+        <% factory.supply_charges.each do |supply_chagrge| %>
+        <td><%= factory.name %></td>
+        <td><%= factory.rate %></td>
+        <% end %>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

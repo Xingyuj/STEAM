@@ -1,0 +1,41 @@
+<%= bootstrap_form_for(@ftp_server) do |f| %>
+  <% if @ftp_server.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ftp_server.errors.count, "error") %> prohibited this ftp_server from being saved:</h2>
+
+      <ul>
+      <% @ftp_server.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <div class="field">
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.text_field :server %>
+  </div>
+  <div class="field">
+    <%= f.text_field :username %>
+  </div>
+  <div class="field">
+    <%= f.password_field :password %>
+  </div>
+  <div style="display: none;">
+    <%= f.date_select :last_poll, :default => Date.today, :type => "hidden" %>
+  </div>
+  <div class="field">
+    <%= f.date_select :next_poll %>
+  </div>
+  <div class="field">
+    <%= f.number_field :poll_value %>
+    <%= f.select :poll_unit, FtpServer.poll_units.keys, { label: "Look for new data every:" }%>
+  </div>
+  <div class="modal-footer">
+    <div class="actions">
+      <%= f.submit :class =>"btn btn-primary"%>
+    </div>
+  </div>
+<% end %>

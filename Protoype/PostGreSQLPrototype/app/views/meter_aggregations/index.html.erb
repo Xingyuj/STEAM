@@ -1,0 +1,31 @@
+<% content_for :title, "STEAM - Daily Aggregations" %>
+<p id="notice"><%= notice %></p>
+
+<h1>STEAM - Daily Aggregations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Meter</th>
+      <th>Date of record</th>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Aggregation</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% i = 0 %>
+    <% @meter_aggregations.each do |meter_aggregation| %>
+      <tr>
+        <td><%=i+=1%>. </td>
+        <td><%= meter_aggregation.meter_serial %></td>
+        <td><%= meter_aggregation.date %></td>
+        <td><%= meter_aggregation.start_time %></td>
+        <td><%= meter_aggregation.end_time %></td>
+        <td><%= meter_aggregation.aggregation %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

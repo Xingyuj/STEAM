@@ -1,0 +1,245 @@
+<%= simple_form_for [@billing_site,@retail_plan] do |f| %>
+    <!-- testing purpose, created by Charlene -->
+    <%= f.hidden_field :billing_site_id, value: params[:billing_site_id]  %>
+
+    <h3>Basic Information</h3>
+    <%= f.input :name, label: 'Name of the Retail Plan', error: 'Name of the plan is necessary'%>
+    <%= f.input :start_date, label: 'Start Date of Plan' %>
+    <%= f.input :end_date, label: 'End date of Plan'%>
+    <%= f.input :expected_expiry_date, label: 'Expected Expiry date of plan'%>
+    <%= f.input :discount, label: 'Discount percentage'%>
+    <%= f.error :name, id: 'name_error' %>
+
+    <% if false %>
+    <h3>BillingSite</h3>
+    <%= f.select :billing_site_id, BillingSite.all.collect{|u| [u.name, u.id]}, :prompt=>"Select a Billing Site" %>
+    <% end %>
+
+
+    <h3>DailyUsageCharge</h3>
+    <!-- charge factory -->
+    <%= f.simple_fields_for :charge_factories, @retail_plan.charge_factories.build(name: 'Retail Peak') do |item|%>
+        <%= item.input :name, readonly: true %>
+        <%= item.simple_fields_for :daily_usage_charges, item.object.daily_usage_charges.build do |c|%>
+            <%= c.input :start_time, label: 'Retail Peak Start Time' %>
+            <%= c.input :end_time, label: 'Retail Peak End Time' %>
+            <%= c.input :unit_of_measurement, label: 'Unit Of Measurement' %>
+        <% end %>
+        <%= item.input :rate, label: 'Retail Peak Rate' %>
+    <% end %>
+
+    <br>
+
+    <!-- charge factory -->
+    <%= f.simple_fields_for :charge_factories, @retail_plan.charge_factories.build(name: 'Retail Off Peak') do |item|%>
+        <%= item.input :name, readonly: true %>
+        <%= item.simple_fields_for :daily_usage_charges, item.object.daily_usage_charges.build do |c|%>
+            <%= c.input :start_time, label: 'Retail Off Peak Start Time' %>
+            <%= c.input :end_time, label: 'Retail Off Peak End Time' %>
+            <%= c.input :unit_of_measurement, label: 'Unit Of Measurement' %>
+        <% end %>
+        <%= item.input :rate, label: 'Retail Off Peak Rate' %>
+    <% end %>
+
+    <br>
+
+    <!-- charge factory -->
+    <%= f.simple_fields_for :charge_factories, @retail_plan.charge_factories.build(name: 'Retail Shoulder') do |item|%>
+        <%= item.input :name, readonly: true %>
+        <%= item.simple_fields_for :daily_usage_charges, item.object.daily_usage_charges.build do |c|%>
+            <%= c.input :start_time, label: 'Retail Shoulder Start Time' %>
+            <%= c.input :end_time, label: 'Retail Shoulder End Time' %>
+            <%= c.input :unit_of_measurement, label: 'Unit Of Measurement' %>
+        <% end %>
+        <%= item.input :rate, label: 'Retail Shoulder Rate' %>
+    <% end %>
+
+    <br>
+
+    <!-- charge factory -->
+    <%= f.simple_fields_for :charge_factories, @retail_plan.charge_factories.build(name: 'Network Peak') do |item|%>
+        <%= item.input :name, readonly: true %>
+        <%= item.simple_fields_for :daily_usage_charges, item.object.daily_usage_charges.build do |c|%>
+            <%= c.input :start_time, label: 'Network Peak Start Time' %>
+            <%= c.input :end_time, label: 'Network Peak End Time' %>
+            <%= c.input :unit_of_measurement, label: 'Unit Of Measurement' %>
+        <% end %>
+        <%= item.input :rate, label: 'Network Peak Rate' %>
+    <% end %>
+
+    <br>
+
+    <!-- charge factory -->
+    <%= f.simple_fields_for :charge_factories, @retail_plan.charge_factories.build(name: 'Network Off Peak') do |item|%>
+        <%= item.input :name, readonly: true %>
+        <%= item.simple_fields_for :daily_usage_charges, item.object.daily_usage_charges.build do |c|%>
+            <%= c.input :start_time, label: 'Network Off Peak Start Time' %>
+            <%= c.input :end_time, label: 'Network Off Peak End Time' %>
+            <%= c.input :unit_of_measurement, label: 'Unit Of Measurement' %>
+        <% end %>
+        <%= item.input :rate, label: 'Network Off Peak Rate' %>
+    <% end %>
+
+    <br>
+
+    <!-- charge factory -->
+    <%= f.simple_fields_for :charge_factories, @retail_plan.charge_factories.build(name: 'Network Shoulder') do |item|%>
+        <%= item.input :name, readonly: true %>
+        <%= item.simple_fields_for :daily_usage_charges, item.object.daily_usage_charges.build do |c|%>
+            <%= c.input :start_time, label: 'Network Shoulder Start Time' %>
+            <%= c.input :end_time, label: 'Network Shoulder End Time' %>
+            <%= c.input :unit_of_measurement, label: 'Unit Of Measurement' %>
+        <% end %>
+        <%= item.input :rate, label: 'Network Shoulder Rate' %>
+    <% end %>
+
+    <!-- not in use any more -->
+    <% if false %>
+        <%= item.input :start_time, label: 'Retail Off Peak Start Time' %>
+        <%= item.input :end_time, label: 'Retail Off Peak End Time' %>
+        <%= item.input :rate, label: 'Retail Off Peak Rate' %>
+
+        <%= item.input :start_time, label: 'Retail Shoulder Start Time' %>
+        <%= item.input :end_time, label: 'Retail Shoulder End Time' %>
+        <%= item.input :rate, label: 'Retail Shoulder Rate' %>
+
+        <%= item.input :start_time, label: 'Network Peak Start Time' %>
+        <%= item.input :end_time, label: 'Network Peak End Time' %>
+        <%= item.input :rate, label: 'Network Peak Rate' %>
+
+        <%= item.input :start_time, label: 'Network Off Peak Start Time' %>
+        <%= item.input :end_time, label: 'Network Off Peak End Time' %>
+        <%= item.input :rate, label: 'Network Off Peak Rate' %>
+
+        <%= item.input :start_time, label: 'Network Shoulder Start Time' %>
+        <%= item.input :end_time, label: 'Network Shoulder End Time' %>
+        <%= item.input :rate, label: 'Network Shoulder Rate' %>
+    <% end %>
+
+
+
+    <h3>GlobalUsageCharge</h3>
+    <!-- charge factory -->
+    <%= f.simple_fields_for :charge_factories, @retail_plan.charge_factories.build(name: 'Maximum Demand') do |item|%>
+        <%= item.input :name, readonly: true %>
+        <%= item.simple_fields_for :global_usage_charges, item.object.global_usage_charges.build do |g|%>
+            <%= g.input :unit_of_measurement, label: 'Unit Of Measurement' %>
+        <% end %>
+        <%= item.input :rate, label: 'Rate' %>
+    <% end %>
+
+    <br>
+
+    <!-- charge factory -->
+    <%= f.simple_fields_for :charge_factories, @retail_plan.charge_factories.build(name: 'Capacity Demand') do |item|%>
+        <%= item.input :name, readonly: true %>
+        <%= item.simple_fields_for :global_usage_charges, item.object.global_usage_charges.build do |g|%>
+            <%= g.input :unit_of_measurement, label: 'Unit Of Measurement' %>
+        <% end %>
+        <%= item.input :rate, label: 'Rate' %>
+    <% end %>
+
+    <br>
+
+    <!-- charge factory -->
+    <%= f.simple_fields_for :charge_factories, @retail_plan.charge_factories.build(name: 'SRES') do |item|%>
+        <%= item.input :name, readonly: true %>
+        <%= item.simple_fields_for :global_usage_charges, item.object.global_usage_charges.build do |g|%>
+            <%= g.input :unit_of_measurement, label: 'Unit Of Measurement' %>
+        <% end %>
+        <%= item.input :rate, label: 'Rate' %>
+    <% end %>
+
+    <br>
+
+    <!-- charge factory -->
+    <%= f.simple_fields_for :charge_factories, @retail_plan.charge_factories.build(name: 'LRET') do |item|%>
+        <%= item.input :name, readonly: true %>
+        <%= item.simple_fields_for :global_usage_charges, item.object.global_usage_charges.build do |g|%>
+            <%= g.input :unit_of_measurement, label: 'Unit Of Measurement' %>
+        <% end %>
+        <%= item.input :rate, label: 'Rate' %>
+    <% end %>
+
+    <br>
+
+    <!-- charge factory -->
+    <%= f.simple_fields_for :charge_factories, @retail_plan.charge_factories.build(name: 'ESC') do |item|%>
+        <%= item.input :name, readonly: true %>
+        <%= item.simple_fields_for :global_usage_charges, item.object.global_usage_charges.build do |g|%>
+            <%= g.input :unit_of_measurement, label: 'Unit Of Measurement' %>
+        <% end %>
+        <%= item.input :rate, label: 'Rate' %>
+    <% end %>
+
+    <br>
+
+    <!-- charge factory -->
+    <%= f.simple_fields_for :charge_factories, @retail_plan.charge_factories.build(name: 'AEMO') do |item|%>
+        <%= item.input :name, readonly: true %>
+        <%= item.simple_fields_for :global_usage_charges, item.object.global_usage_charges.build do |g|%>
+            <%= g.input :unit_of_measurement, label: 'Unit Of Measurement' %>
+        <% end %>
+        <%= item.input :rate, label: 'Rate' %>
+    <% end %>
+
+
+    <h3>MeteringCharge</h3>
+    <!-- charge factory -->
+    <%= f.simple_fields_for :charge_factories, @retail_plan.charge_factories.build(name: 'Per Meter') do |item|%>
+        <%= item.input :name, readonly: true %>
+        <%= item.input :rate, label: 'Rate' %>
+        <!-- not attributes in the table 'metering_charges' -->
+        <%= item.simple_fields_for :metering_charges, item.object.metering_charges.build do |nothing| %>
+            <% nothing.input :charge_factory_id, as: :hidden %>
+        <% end %>
+    <% end %>
+
+    <h3>SupplyCharge</h3>
+    <!-- charge factory -->
+    <%= f.simple_fields_for :charge_factories, @retail_plan.charge_factories.build(name: 'Per Meter Per Day') do |item|%>
+        <%= item.input :name, readonly: true %>
+        <%= item.input :rate, label: 'Rate' %>
+        <!-- not attributes in the table 'supply_charges' -->
+        <%= item.simple_fields_for :supply_charges, item.object.supply_charges.build do |nothing| %>
+            <% nothing.input :charge_factory_id, as: :hidden %>
+        <% end %>
+    <% end %>
+
+
+
+    <!-- not in use any more -->
+    <% if false %>
+        <h3>MeteringCharge</h3>
+        <%= f.simple_fields_for :metering_charges do |item|%>
+            <%= item.input :name, label: 'Name' %>
+            <%= item.input :unit_of_measurement, label: 'Unit Of Measurement' %>
+            <%= item.input :rate, label: 'Rate' %>
+        <% end %>
+        <!-- charge factory -->
+        <%= f.simple_fields_for :billing_site do |item|%>
+            <%= item.select :name, @billing_sites.collect{|u| [u.name, u.id]}, :prompt=>"Select a Billing Site" %>
+        <%end%>
+
+        <h3>SupplyCharge</h3>
+        <%= f.simple_fields_for :supply_charges do |item|%>
+            <%= item.input :name, label: 'Name' %>
+            <%= item.input :unit_of_measurement, label: 'Unit Of Measurement' %>
+            <%= item.input :rate, label: 'Rate' %>
+        <% end %>
+
+        <h3>Billing Site</h3>
+        <%= f.simple_fields_for :billing_site, @retail_plan.billing_site.build do |item| %>
+            <%= item.input :name, label: 'Site name' %>
+        <%end%>
+
+    <% end %>
+
+
+
+
+    <br>
+    <%= f.button :submit %>
+
+
+<% end %>

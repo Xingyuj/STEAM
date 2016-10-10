@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>module Metering::ClassMethods - Rails Application Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="module">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-all_day">#all_day</a>
+    
+    <li ><a href="#method-i-badDateError">#badDateError</a>
+    
+    <li ><a href="#method-i-badMeterError">#badMeterError</a>
+    
+    <li ><a href="#method-i-badTimeError">#badTimeError</a>
+    
+    <li ><a href="#method-i-bad_daily_time_periods_error">#bad_daily_time_periods_error</a>
+    
+    <li ><a href="#method-i-bad_date_range_error">#bad_date_range_error</a>
+    
+    <li ><a href="#method-i-directoryNotFoundError">#directoryNotFoundError</a>
+    
+    <li ><a href="#method-i-is_array_of_meters">#is_array_of_meters</a>
+    
+    <li ><a href="#method-i-is_date">#is_date</a>
+    
+    <li ><a href="#method-i-is_meter">#is_meter</a>
+    
+    <li ><a href="#method-i-is_time">#is_time</a>
+    
+    <li ><a href="#method-i-is_valid_daily_time_periods">#is_valid_daily_time_periods</a>
+    
+    <li ><a href="#method-i-is_valid_date_ranges">#is_valid_date_ranges</a>
+    
+    <li ><a href="#method-i-log_pg_result">#log_pg_result</a>
+    
+    <li ><a href="#method-i-midday">#midday</a>
+    
+    <li ><a href="#method-i-minutes_in_day">#minutes_in_day</a>
+    
+    <li ><a href="#method-i-minutes_in_hour">#minutes_in_hour</a>
+    
+    <li ><a href="#method-i-nem12_uom">#nem12_uom</a>
+    
+    <li ><a href="#method-i-nem12_uom_to_kwh_multiplier">#nem12_uom_to_kwh_multiplier</a>
+    
+    <li ><a href="#method-i-pgresult_to_hash">#pgresult_to_hash</a>
+    
+    <li ><a href="#method-i-time_to_minute">#time_to_minute</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="module-Metering::ClassMethods">
+  <h1 id="module-Metering::ClassMethods" class="module">
+    module Metering::ClassMethods
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-all_day" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">all_day</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="all_day-source">
+            <pre><span class="ruby-comment"># File app/models/concerns/metering.rb, line 23</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">all_day</span>
+  <span class="ruby-keyword">return</span> {
+    <span class="ruby-value">:start_time</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">midday</span>,
+    <span class="ruby-value">:end_time</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">midday</span>
+  }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-badDateError" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">badDateError</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="badDateError-source">
+            <pre><span class="ruby-comment"># File app/models/concerns/metering.rb, line 65</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">badDateError</span>
+  <span class="ruby-keyword">return</span> {
+    <span class="ruby-value">:errors</span> =<span class="ruby-operator">&gt;</span> [ <span class="ruby-string">&quot;That doesn&#39;t look like a Date to me.&quot;</span> ]
+  }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-badMeterError" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">badMeterError</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="badMeterError-source">
+            <pre><span class="ruby-comment"># File app/models/concerns/metering.rb, line 59</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">badMeterError</span>
+  <span class="ruby-keyword">return</span> {
+    <span class="ruby-value">:errors</span> =<span class="ruby-operator">&gt;</span> [ <span class="ruby-string">&quot;That doesn&#39;t look like a meter to me.&quot;</span> ]
+  }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-badTimeError" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">badTimeError</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="badTimeError-source">
+            <pre><span class="ruby-comment"># File app/models/concerns/metering.rb, line 71</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">badTimeError</span>
+  <span class="ruby-keyword">return</span> {
+    <span class="ruby-value">:errors</span> =<span class="ruby-operator">&gt;</span> [ <span class="ruby-string">&quot;That doesn&#39;t look like a Time to me.&quot;</span> ]
+  }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-bad_daily_time_periods_error" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">bad_daily_time_periods_error</span><span
+            class="method-args">(dtp)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="bad_daily_time_periods_error-source">
+            <pre><span class="ruby-comment"># File app/models/concerns/metering.rb, line 83</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">bad_daily_time_periods_error</span> <span class="ruby-identifier">dtp</span>
+  <span class="ruby-keyword">return</span> {
+    <span class="ruby-value">:errors</span> =<span class="ruby-operator">&gt;</span> [ <span class="ruby-node">&quot;Invalid daily time period. #{dtp}&quot;</span> ]
+  }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-bad_date_range_error" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">bad_date_range_error</span><span
+            class="method-args">(dr)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="bad_date_range_error-source">
+            <pre><span class="ruby-comment"># File app/models/concerns/metering.rb, line 77</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">bad_date_range_error</span> <span class="ruby-identifier">dr</span>
+  <span class="ruby-keyword">return</span> {
+    <span class="ruby-value">:errors</span> =<span class="ruby-operator">&gt;</span> [ <span class="ruby-node">&quot;Invalid date range. #{dr}&quot;</span> ]
+  }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-directoryNotFoundError" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">directoryNotFoundError</span><span
+            class="method-args">(d)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Errors</p>
+          
+          
+
+          
+          <div class="method-source-code" id="directoryNotFoundError-source">
+            <pre><span class="ruby-comment"># File app/models/concerns/metering.rb, line 53</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">directoryNotFoundError</span> <span class="ruby-identifier">d</span>
+  <span class="ruby-keyword">return</span> {
+    <span class="ruby-value">:errors</span> =<span class="ruby-operator">&gt;</span> [ <span class="ruby-node">&quot;Directory #{d} was not found.&quot;</span> ]
+  }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-is_array_of_meters" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">is_array_of_meters</span><span
+            class="method-args">(meters)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Validating arguments passed to public methods</p>
+          
+          
+
+          
+          <div class="method-source-code" id="is_array_of_meters-source">
+            <pre><span class="ruby-comment"># File app/models/concerns/metering.rb, line 180</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">is_array_of_meters</span> <span class="ruby-identifier">meters</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">meters</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Array</span>)
+  <span class="ruby-identifier">meters</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">is_meter</span> <span class="ruby-identifier">m</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-is_date" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">is_date</span><span
+            class="method-args">(d)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns true if d is a Date</p>
+          
+          
+
+          
+          <div class="method-source-code" id="is_date-source">
+            <pre><span class="ruby-comment"># File app/models/concerns/metering.rb, line 195</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">is_date</span> <span class="ruby-identifier">d</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">d</span>.<span class="ruby-identifier">instance_of?</span> <span class="ruby-constant">Date</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-is_meter" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">is_meter</span><span
+            class="method-args">(m)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Return true if m is a <a href="../Meter.html">Meter</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="is_meter-source">
+            <pre><span class="ruby-comment"># File app/models/concerns/metering.rb, line 189</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">is_meter</span> <span class="ruby-identifier">m</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">instance_of?</span> <span class="ruby-constant">Meter</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-is_time" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">is_time</span><span
+            class="method-args">(t)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns true if t is a Time</p>
+          
+          
+
+          
+          <div class="method-source-code" id="is_time-source">
+            <pre><span class="ruby-comment"># File app/models/concerns/metering.rb, line 201</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">is_time</span> <span class="ruby-identifier">t</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">t</span>.<span class="ruby-identifier">instance_of?</span> <span class="ruby-constant">Time</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-is_valid_daily_time_periods" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">is_valid_daily_time_periods</span><span
+            class="method-args">(dtps)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="is_valid_daily_time_periods-source">
+            <pre><span class="ruby-comment"># File app/models/concerns/metering.rb, line 219</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">is_valid_daily_time_periods</span> <span class="ruby-identifier">dtps</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">dtps</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">dtp</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">dtp</span>[<span class="ruby-value">:start_time</span>].<span class="ruby-identifier">instance_of?</span> <span class="ruby-constant">Time</span>              <span class="ruby-keyword">and</span> <span class="ruby-identifier">dtp</span>[<span class="ruby-value">:end_time</span>].<span class="ruby-identifier">instance_of?</span> <span class="ruby-constant">Time</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-is_valid_date_ranges" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">is_valid_date_ranges</span><span
+            class="method-args">(drs)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="is_valid_date_ranges-source">
+            <pre><span class="ruby-comment"># File app/models/concerns/metering.rb, line 206</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">is_valid_date_ranges</span> <span class="ruby-identifier">drs</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">drs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">dr</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">dr</span>[<span class="ruby-value">:start_date</span>].<span class="ruby-identifier">instance_of?</span> <span class="ruby-constant">Date</span>              <span class="ruby-keyword">and</span> <span class="ruby-identifier">dr</span>[<span class="ruby-value">:end_date</span>].<span class="ruby-identifier">instance_of?</span> <span class="ruby-constant">Date</span>              <span class="ruby-keyword">and</span> <span class="ruby-identifier">dr</span>[<span class="ruby-value">:start_date</span>] <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">dr</span>[<span class="ruby-value">:end_date</span>]
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-log_pg_result" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">log_pg_result</span><span
+            class="method-args">(result)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Dumps the contents of a query result to the logger</p>
+          
+          
+
+          
+          <div class="method-source-code" id="log_pg_result-source">
+            <pre><span class="ruby-comment"># File app/models/concerns/metering.rb, line 234</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">log_pg_result</span> <span class="ruby-identifier">result</span>
+  <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-string">&quot;Logging Postgresql Result&quot;</span>
+  <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Result: #{result}&quot;</span>
+  <span class="ruby-identifier">result</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">row</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Row: #{row}&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-string">&quot;\n&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-midday" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">midday</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="midday-source">
+            <pre><span class="ruby-comment"># File app/models/concerns/metering.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">midday</span>
+  <span class="ruby-constant">Time</span>.<span class="ruby-identifier">utc</span>(<span class="ruby-value">2000</span>, <span class="ruby-string">&#39;jan&#39;</span>, <span class="ruby-value">1</span>, <span class="ruby-value">12</span>, <span class="ruby-value">0</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-minutes_in_day" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">minutes_in_day</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the number of minutes in a day</p>
+          
+          
+
+          
+          <div class="method-source-code" id="minutes_in_day-source">
+            <pre><span class="ruby-comment"># File app/models/concerns/metering.rb, line 35</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">minutes_in_day</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-value">1440</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-minutes_in_hour" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">minutes_in_hour</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the number of minutes in an hour</p>
+          
+          
+
+          
+          <div class="method-source-code" id="minutes_in_hour-source">
+            <pre><span class="ruby-comment"># File app/models/concerns/metering.rb, line 40</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">minutes_in_hour</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-value">60</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-nem12_uom" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">nem12_uom</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Array of valid units of measurement for NEM12</p>
+          
+          
+
+          
+          <div class="method-source-code" id="nem12_uom-source">
+            <pre><span class="ruby-comment"># File app/models/concerns/metering.rb, line 91</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">nem12_uom</span>
+    <span class="ruby-keyword">return</span> [
+
+<span class="ruby-comment">#     Unit of power</span>
+      <span class="ruby-string">&#39;wh&#39;</span>,
+      <span class="ruby-string">&#39;kwh&#39;</span>,
+      <span class="ruby-string">&#39;mwh&#39;</span>,
+
+      <span class="ruby-string">&#39;varh&#39;</span>,
+      <span class="ruby-string">&#39;kvarh&#39;</span>,
+      <span class="ruby-string">&#39;mvarh&#39;</span>,
+
+      <span class="ruby-string">&#39;vah&#39;</span>,
+      <span class="ruby-string">&#39;kvah&#39;</span>,
+      <span class="ruby-string">&#39;mvah&#39;</span>,
+
+<span class="ruby-comment">#     Unit of sumting else</span>
+      <span class="ruby-string">&#39;w&#39;</span>,
+      <span class="ruby-string">&#39;kw&#39;</span>,
+      <span class="ruby-string">&#39;mw&#39;</span>,
+
+      <span class="ruby-string">&#39;var&#39;</span>,
+      <span class="ruby-string">&#39;mvar&#39;</span>,
+      <span class="ruby-string">&#39;kvar&#39;</span>,
+
+      <span class="ruby-string">&#39;va&#39;</span>,
+      <span class="ruby-string">&#39;kva&#39;</span>,
+      <span class="ruby-string">&#39;mva&#39;</span>,
+
+      <span class="ruby-string">&#39;v&#39;</span>,
+      <span class="ruby-string">&#39;kv&#39;</span>,
+
+      <span class="ruby-string">&#39;a&#39;</span>,
+      <span class="ruby-string">&#39;ka&#39;</span>,
+
+      <span class="ruby-string">&#39;pf&#39;</span>
+    ]
+  <span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-nem12_uom_to_kwh_multiplier" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">nem12_uom_to_kwh_multiplier</span><span
+            class="method-args">(old_uom)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the unit by which to multiply an aggregation to get kwh TODO Look
+over this with someone that dabbles in physics</p>
+          
+          
+
+          
+          <div class="method-source-code" id="nem12_uom_to_kwh_multiplier-source">
+            <pre><span class="ruby-comment"># File app/models/concerns/metering.rb, line 133</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">nem12_uom_to_kwh_multiplier</span> <span class="ruby-identifier">old_uom</span>
+
+  <span class="ruby-identifier">uom</span> = {
+    <span class="ruby-string">&#39;w&#39;</span> =<span class="ruby-operator">&gt;</span>  <span class="ruby-value">1</span>,
+    <span class="ruby-string">&#39;kw&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>,
+    <span class="ruby-string">&#39;mw&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>,
+
+    <span class="ruby-string">&#39;wh&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1.0</span> <span class="ruby-operator">/</span> <span class="ruby-value">1000</span>,
+    <span class="ruby-string">&#39;kwh&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>,
+    <span class="ruby-string">&#39;mwh&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1000</span>,
+
+    <span class="ruby-string">&#39;varh&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>,
+    <span class="ruby-string">&#39;kvarh&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>,
+    <span class="ruby-string">&#39;mvarh&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>,
+
+    <span class="ruby-string">&#39;var&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>,
+    <span class="ruby-string">&#39;kvar&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>,
+    <span class="ruby-string">&#39;mvar&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>,
+
+    <span class="ruby-string">&#39;vah&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>,
+    <span class="ruby-string">&#39;kvah&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>,
+    <span class="ruby-string">&#39;mvah&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>,
+
+    <span class="ruby-string">&#39;va&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>,
+    <span class="ruby-string">&#39;kva&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>,
+    <span class="ruby-string">&#39;mva&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>,
+
+    <span class="ruby-string">&#39;v&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>,
+    <span class="ruby-string">&#39;kv&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>,
+
+    <span class="ruby-string">&#39;a&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>,
+    <span class="ruby-string">&#39;ka&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>,
+
+    <span class="ruby-string">&#39;pf&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+  }
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">uom</span>[<span class="ruby-identifier">old_uom</span>.<span class="ruby-identifier">downcase</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-pgresult_to_hash" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">pgresult_to_hash</span><span
+            class="method-args">(result)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Transforms a PostGresql result object into a hash This needs a little work
+– don&#39;t use it until Reuben&#39;s finished fixing it</p>
+          
+          
+
+          
+          <div class="method-source-code" id="pgresult_to_hash-source">
+            <pre><span class="ruby-comment"># File app/models/concerns/metering.rb, line 11</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">pgresult_to_hash</span> <span class="ruby-identifier">result</span>
+  <span class="ruby-identifier">response</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">row</span> = {}
+    <span class="ruby-identifier">r</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">row</span>[<span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_sym</span>] = <span class="ruby-identifier">v</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">response</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-time_to_minute" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">time_to_minute</span><span
+            class="method-args">(t)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Converts a Time object to an integer, which is the minute of the day</p>
+          
+          
+
+          
+          <div class="method-source-code" id="time_to_minute-source">
+            <pre><span class="ruby-comment"># File app/models/concerns/metering.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">time_to_minute</span> <span class="ruby-identifier">t</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">t</span>.<span class="ruby-identifier">hour</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">minutes_in_hour</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">t</span>.<span class="ruby-identifier">min</span>.<span class="ruby-identifier">to_i</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

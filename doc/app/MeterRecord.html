@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>class MeterRecord - Rails Application Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">ActiveRecord::Base
+  
+</div>
+
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="Metering.html">Metering</a>
+  
+  
+  </ul>
+</div>
+
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-import_nem12">::import_nem12</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-MeterRecord">
+  <h1 id="class-MeterRecord" class="class">
+    class MeterRecord
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-import_nem12" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">import_nem12</span><span
+            class="method-args">(directory, meters)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Import NEM12, reads the given directory, and imports any NEM12 records
+found, provided the records is for a <a href="Meter.html">Meter</a> in the
+received array of Meters</p>
+
+<p>{</p>
+
+<pre>:meters =&gt; {
+  serial(string) =&gt; {
+    :inserted =&gt; integer,
+    :ignored =&gt; integer
+  },
+  serial(string) =&gt; {
+    :inserted =&gt; integer,
+    :ignored =&gt; integer
+  },
+},
+:errors =&gt; [
+  &quot;Some string&quot;,
+  &quot;Some other string&quot;
+]</pre>
+
+<p>no meters == {} no errors == []</p>
+          
+          
+
+          
+          <div class="method-source-code" id="import_nem12-source">
+            <pre><span class="ruby-comment"># File app/models/meter_record.rb, line 45</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">import_nem12</span> <span class="ruby-identifier">directory</span>, <span class="ruby-identifier">meters</span>
+
+<span class="ruby-comment">#   Check that the directory exists, error if it doesn&#39;t</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">directoryNotFoundError</span> <span class="ruby-identifier">directory</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">directory</span> <span class="ruby-keyword">and</span> <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">exist?</span> <span class="ruby-identifier">directory</span>
+<span class="ruby-comment">#   Check that only Meters exist in the meters array</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">badMeterError</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">is_array_of_meters</span> <span class="ruby-identifier">meters</span>
+<span class="ruby-comment">#   The arguments are good, run the import</span>
+
+
+<span class="ruby-comment">#   Get a hash of meter serial/ids.</span>
+<span class="ruby-comment">#   If the record isn&#39;t in the whitelist, it doesn&#39;t get in.</span>
+    <span class="ruby-identifier">whitelist</span> = <span class="ruby-constant">Meter</span>.<span class="ruby-identifier">whitelist</span> <span class="ruby-identifier">meters</span>
+
+<span class="ruby-comment">#   We want to keep track of the date range so that we can aggregate easily</span>
+    <span class="ruby-identifier">start_date</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">tomorrow</span>
+    <span class="ruby-identifier">end_date</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span> <span class="ruby-operator">-</span> <span class="ruby-value">40</span>.<span class="ruby-identifier">years</span>
+
+<span class="ruby-comment">#   TODO check for bad filename, add to return errors</span>
+
+<span class="ruby-comment">#   Check each file in the directory</span>
+    <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">glob</span>(<span class="ruby-node">&quot;#{directory}/*.csv&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">filename</span><span class="ruby-operator">|</span>
+      <span class="ruby-comment">#logger.info &quot;Reading #{filename}&quot;</span>
+<span class="ruby-comment">#     Initialise some stuff</span>
+      <span class="ruby-identifier">nmi</span> = <span class="ruby-string">&quot;&quot;</span>
+      <span class="ruby-identifier">serial</span> = <span class="ruby-string">&quot;&quot;</span>
+      <span class="ruby-identifier">interval</span> = <span class="ruby-value">1</span>
+      <span class="ruby-identifier">meter_records</span> = []
+
+<span class="ruby-comment">#     Read each line of the file</span>
+      <span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-string">&#39;r&#39;</span>)
+      <span class="ruby-keyword">while</span> <span class="ruby-operator">!</span><span class="ruby-identifier">file</span>.<span class="ruby-identifier">eof?</span>
+        <span class="ruby-identifier">record</span> = <span class="ruby-identifier">file</span>.<span class="ruby-identifier">readline</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;,&quot;</span>)
+<span class="ruby-comment">#       Check what kind of reord this is</span>
+
+<span class="ruby-comment">#       TODO test that record[0] exists</span>
+        <span class="ruby-identifier">identifier</span> = <span class="ruby-identifier">record</span>[<span class="ruby-value">0</span>]
+        <span class="ruby-keyword">case</span> <span class="ruby-identifier">identifier</span>
+          <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;100&#39;</span>
+<span class="ruby-comment">#TODO       Anything?</span>
+          <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;200&#39;</span>
+            <span class="ruby-identifier">valid_200_record</span> = <span class="ruby-keyword">false</span>
+<span class="ruby-comment">#           Validate the record</span>
+            <span class="ruby-keyword">if</span> <span class="ruby-identifier">validate_200_record</span> <span class="ruby-identifier">record</span>
+<span class="ruby-comment">#             Guard using whitelist and meter serial number</span>
+<span class="ruby-comment">#             Maybe quicker just to let this stuff happen</span>
+              <span class="ruby-identifier">serial</span> = <span class="ruby-identifier">record</span>[<span class="ruby-value">6</span>]
+              <span class="ruby-comment">#logger.info &quot;Reading valid 200 Record for serial #{serial}&quot;</span>
+              <span class="ruby-keyword">if</span> <span class="ruby-identifier">whitelist</span>.<span class="ruby-identifier">value?</span> <span class="ruby-identifier">serial</span>
+                <span class="ruby-comment">#logger.info &quot;200 Record is in whitelist&quot;</span>
+                <span class="ruby-identifier">valid_200_record</span> = <span class="ruby-keyword">true</span>
+<span class="ruby-comment">#               Data for this meter will be imported</span>
+                <span class="ruby-identifier">nmi</span> = <span class="ruby-identifier">record</span>[<span class="ruby-value">1</span>]
+                <span class="ruby-identifier">register</span> = <span class="ruby-identifier">record</span>[<span class="ruby-value">3</span>]
+                <span class="ruby-identifier">interval</span> = <span class="ruby-identifier">record</span>[<span class="ruby-value">8</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-comment"># Num of minutes per interval</span>
+                <span class="ruby-comment">#logger.info &quot;Setting interval to #{interval}&quot;</span>
+                <span class="ruby-identifier">uom</span> = <span class="ruby-identifier">record</span>[<span class="ruby-value">7</span>] <span class="ruby-comment"># Unit of Measurement</span>
+              <span class="ruby-comment">#else</span>
+                <span class="ruby-comment">#logger.info &quot;200 Record is not in whitelist&quot;</span>
+                <span class="ruby-comment">#logger.info whitelist</span>
+              <span class="ruby-keyword">end</span>
+
+            <span class="ruby-comment">#else</span>
+<span class="ruby-comment">#             This is not a valid 200 record</span>
+              <span class="ruby-comment">#logger.info &quot;Invalid 200 record&quot;</span>
+            <span class="ruby-keyword">end</span>
+          <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;300&#39;</span>
+
+<span class="ruby-comment">#TODO       Only do this stuff if a valid 200 record has been read</span>
+<span class="ruby-comment">#TODO       Validate300</span>
+            <span class="ruby-keyword">if</span> <span class="ruby-identifier">valid_200_record</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">validate_300_record</span> <span class="ruby-identifier">record</span>, <span class="ruby-identifier">interval</span>
+<span class="ruby-comment">#             This is what we really need the guard for</span>
+              <span class="ruby-keyword">if</span> <span class="ruby-identifier">whitelist</span>.<span class="ruby-identifier">value?</span> <span class="ruby-identifier">serial</span>
+                <span class="ruby-comment">#logger.info &quot;Reading 300 Record&quot;</span>
+<span class="ruby-comment">#               Write the record</span>
+                <span class="ruby-identifier">usage</span> = <span class="ruby-identifier">record</span>[<span class="ruby-value">2</span><span class="ruby-operator">...</span><span class="ruby-value">2</span><span class="ruby-operator">+</span><span class="ruby-identifier">minutes_in_day</span><span class="ruby-operator">/</span><span class="ruby-identifier">interval</span>].<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">to_f</span> }
+                <span class="ruby-identifier">date</span> = <span class="ruby-identifier">record</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_date</span>
+
+<span class="ruby-comment">#               Keep track of the earliest and latest date</span>
+<span class="ruby-comment">#               so that we know what date range to aggregate</span>
+                <span class="ruby-identifier">start_date</span> = <span class="ruby-identifier">date</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">date</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">start_date</span>
+                <span class="ruby-identifier">end_date</span> = <span class="ruby-identifier">date</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">date</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">end_date</span>
+
+<span class="ruby-comment">#               These are the values that will be inserted</span>
+                <span class="ruby-identifier">meter_records</span>.<span class="ruby-identifier">push</span>(
+                  <span class="ruby-node">&quot;(
+                    #{whitelist.key(serial)},
+                    &#39;#{register}&#39;,
+                    &#39;#{date}&#39;,
+                    #{interval},
+                    &#39;#{uom}&#39;,
+                    ARRAY#{usage}
+                  )&quot;</span>
+                )
+              <span class="ruby-keyword">else</span>
+
+              <span class="ruby-keyword">end</span>
+
+            <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+
+<span class="ruby-comment">#     Mass insert the records for this file</span>
+<span class="ruby-comment"># =&gt;  TODO  / This doesn&#39;t return anything.</span>
+<span class="ruby-comment">#           / We would like to return enough information to give the user or log</span>
+<span class="ruby-comment">#           / a good indication of what the import managed to do</span>
+<span class="ruby-comment">#           / -- i.e., how many records were inserted for each meter,</span>
+<span class="ruby-comment">#           / how many records were ignored, etc.</span>
+<span class="ruby-comment">#           / This is a problem, because the postgresql rule on meter_records,</span>
+<span class="ruby-comment">#           / ignore_duplicate_meter_records, won&#39;t allow a return value, and</span>
+<span class="ruby-comment">#           / regular inserts won&#39;t either while that rule is in place.</span>
+<span class="ruby-comment">#           / Possibly the rule can be fixed up? Possibly we can use a different</span>
+<span class="ruby-comment">#           / strategy to find that information?</span>
+      <span class="ruby-keyword">if</span> ( <span class="ruby-identifier">meter_records</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> )
+<span class="ruby-comment">#       This doesn&#39;t return anything :(</span>
+        <span class="ruby-identifier">sql</span> = <span class="ruby-node">&quot;INSERT INTO meter_records
+                (
+                  meter_id,
+                  register,
+                  date,
+                  interval,
+                  unit_of_measurement,
+                  usage
+                )
+              VALUES
+                #{meter_records.join(&quot;, &quot;)}&quot;</span>
+
+        <span class="ruby-comment">#logger.info sql</span>
+<span class="ruby-comment">#       Run the query</span>
+        <span class="ruby-identifier">result</span> = <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">raw_connection</span>.<span class="ruby-identifier">exec</span> <span class="ruby-identifier">sql</span>
+        <span class="ruby-comment">#log_pg_result result</span>
+      <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">end</span>
+
+<span class="ruby-comment">#   Get the time periods -- used to create aggregations -- from Billing</span>
+    <span class="ruby-identifier">daily_time_periods</span> = <span class="ruby-constant">Meter</span>.<span class="ruby-identifier">get_daily_time_periods</span> <span class="ruby-identifier">meters</span>
+
+<span class="ruby-comment">#   We need to include a time period for the whole day&#39;s usage</span>
+<span class="ruby-comment">#   Moving this to aggregate_and_store so that it gets picked up by reggregations</span>
+<span class="ruby-comment">#    daily_time_periods.push(all_day)</span>
+
+    <span class="ruby-identifier">date_range</span> = [ { <span class="ruby-value">:start_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">start_date</span>, <span class="ruby-value">:end_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">end_date</span> } ]
+<span class="ruby-comment">#   Now create the aggregations for these Meters over the relevant date range</span>
+    <span class="ruby-constant">MeterAggregation</span>.<span class="ruby-identifier">aggregate_and_store</span> <span class="ruby-identifier">date_range</span>, <span class="ruby-identifier">daily_time_periods</span>, <span class="ruby-identifier">meters</span>
+
+<span class="ruby-comment">#   Return some stuff -- this to be superseded by actual real information</span>
+<span class="ruby-comment">#   See comments above the sql query in this method</span>
+    <span class="ruby-identifier">meters</span> = {}
+    <span class="ruby-identifier">whitelist</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">id</span>, <span class="ruby-identifier">serial</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">meters</span>[<span class="ruby-identifier">serial</span>] = <span class="ruby-value">1</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">errors</span> = []
+
+<span class="ruby-comment">#    return sql</span>
+
+    <span class="ruby-keyword">return</span> {
+      <span class="ruby-value">:meters</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">meters</span>,
+      <span class="ruby-value">:errors</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">errors</span>
+    }
+
+  <span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

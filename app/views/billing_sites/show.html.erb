@@ -1,0 +1,508 @@
+<div class="row">
+  <div class="col-md-12">
+    <!-- <p id="notice"><%= notice %></p> -->
+    <div class="page-header">
+      <%# link_to "Sites /", sites_path %>
+      <%# link_to @billing_site.site.name + " /", @billing_site.site %>
+      <%# @billing_site.name %>
+      <ol class="breadcrumb">
+        <li><%= link_to "Sites", sites_path %></li>
+        <li><%= link_to @billing_site.site.name, @billing_site.site %></li>
+        <li class="active"><%= @billing_site.name %></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <!-- <h3>Billing Site: <%= @billing_site.name %></h3> -->
+    <p>
+      <strong>Name:</strong>
+      <%= @billing_site.name %>
+    </p>
+
+    <p>
+      <strong>Created:</strong>
+      <%= @billing_site.created.strftime("%B %d, %Y") %>
+    </p>
+
+    <%# link_to "Edit", edit_billing_site_path(:site_id => @billing_site.site_id), :class => "btn btn-success" %>
+
+    <!-- Button trigger modal, added by Charlene -->
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editBillingSite">Edit</button>
+
+    <!-- Modal -->
+    <div id="editBillingSite" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editBillingSiteModalLabel">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Editing <%= @billing_site.name %></h4>
+          </div>
+
+          <%= render 'form', billing_site: @billing_site, :site_id => @billing_site.site_id %>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Make sure Predictions don't happen without having valid meter data in place -->
+    <% if @meters.first != nil && @retail_plans.first != nil %>
+        <% if @invoices.first != nil %>
+            <%= link_to "Prediction", show_predictions_billing_site_path, :class => "btn btn-primary", :data => {:no_turbolink => true} %>
+        <% else %>
+            <button class="btn btn-default" disabled=true>
+              Not enough data to predict
+            </button>
+        <% end %>
+        <%= link_to "Usage", show_usage_billing_site_path, class: "btn btn-primary", :data => {:no_turbolink => true} %>
+    <% else %>
+        <button class="btn btn-default" disabled=true>
+          Usage
+        </button>
+    <% end %>
+
+
+    <h1></h1>
+
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-md-8">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <%# link_to "Create a New Meter", new_meter_path(:billing_site => @billing_site.id),
+                    :class => "btn btn-default pull-right" %>
+
+        <!-- added by Charlene -->
+        <button id="newMeterBtn" type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#newMeter">
+          Create a New Meter
+        </button>
+
+        <!-- Modal -->
+        <div id="newMeter" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" style="color:black">New Meter</h4>
+              </div>
+
+              <%= render partial: 'meters/form', locals: {:@meter => Meter.new, :billing_site => @billing_site.id} %>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- new meter modal script-->
+        <script>
+
+        </script>
+
+        <h4>Meter Management</h4>
+
+      </div>
+      <div class="panel-body">
+
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>Serial</th>
+            <th>Nmi</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <% @meters.each do |meter| %>
+              <tr>
+                <td>
+                  <%# link_to meter.serial, meter %>
+                  <!-- added by Charlene -->
+                  <%= meter.serial %>
+                </td>
+                <td><%= meter.nmi %></td>
+                <td>
+                  <%# link_to 'Edit', edit_meter_path(meter, :billing_site => @billing_site.id), :class => "btn btn-success btn-xs" %>
+                  <!-- added by Charlene -->
+                  <button id="editMeterBtn" type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#editMeter_<%= meter.id %>">
+                    Edit
+                  </button>
+
+                  <!-- Modal -->
+                  <div id="editMeter_<%= meter.id %>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" style="color:black">Edit Meter</h4>
+                        </div>
+
+                        <%= render partial: 'meters/form', locals: {:@meter => meter, :billing_site => @billing_site.id} %>
+
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <%= link_to 'Delete', meter, method: :delete, data: {confirm: 'Are you sure?'},
+                              :class => "btn btn-danger btn-xs" %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <% if @meters.first != nil %>
+            <%= link_to 'Create a New Retail Plan', new_billing_site_retail_plan_path(@billing_site),
+                        :class => "btn btn-default pull-right" %>
+        <% else %>
+            <button class="btn btn-default pull-right" disabled=true>
+              Add meters before creating a new Retail Plan
+            </button>
+        <% end %>
+
+        <h4>Retail Plan Management</h4>
+
+      </div>
+      <div class="panel-body">
+
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>Retail Plan Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Active?</th>
+            <th colspan="3"></th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <% @retail_plans.each do |retail_plan| %>
+              <tr>
+                <td><%= link_to retail_plan.name, billing_site_retail_plan_path(retail_plan) %></td>
+
+                <td><%= retail_plan.start_date %></td>
+                <td><%= retail_plan.end_date %></td>
+                <td><%= link_to "edit", edit_billing_site_retail_plan_path(retail_plan), :class => "btn btn-success btn-xs" %></td>
+                <td><%= link_to "Delete", billing_site_retail_plan_path(retail_plan), method: :delete, data: {confirm: 'Are you certain you want to delete this?'},
+                                :class => "btn btn-danger btn-xs" %></td>
+                <% if (retail_plan.start_date <= Date.today && retail_plan.end_date >= Date.today) %>
+                    <td>Yes</td>
+                <% else %>
+                    <td>No</td>
+                <% end %>
+              </tr>
+          <% end %>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <!-- changed by Charlene -->
+        <% if @retail_plans.first != nil %>
+            <!-- Checks if any retail plan is present, only then display the import invoice option -->
+            <%= link_to "Import an Invoice", import_invoice_invoices_path(:billing_site => @billing_site.id),
+                        :class => "btn btn-default pull-right" %>
+        <% else %>
+
+
+            <!-- Add any text here, like "create retail plan before importing an invoice-->
+            <button class="btn btn-default pull-right" disabled=true>
+              Add a Retail Plan before importing an invoice
+            </button>
+
+        <% end %>
+
+        <h4>Invoice Management</h4>
+
+        <thead>
+
+
+        <%= simple_form_for @billing_site, :method => :post do |f| %>
+
+
+            <tr>
+              <div class="row">
+                <div class='col-sm-4' style="
+                width: 25%;">
+                  Select the Date Range to Display Invoices:
+                </div>
+                <div class='col-sm-4' style="
+                width: 25%;">
+                  <div class="form-group">
+                    <div class='input-group date' id='datetimepicker1'>
+                      <input name='dateFrom' type='text' class="form-control" placeholder="From" onblur="myFunction()"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    </div>
+
+                  </div>
+                </div>
+
+
+                <div class='col-sm-4' style="
+                width: 25%;">
+                  <div class="form-group">
+                    <div class='input-group date' id='datetimepicker2'>
+                      <input name='dateTo' type='text' class="form-control" placeholder="To" onblur="myFunction2()"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-3"><p> Or select financial year: </p></div>
+                <div class='col-sm-3'>
+                  <div class="form-group">
+                    <%- # create list of financial years for display              -%>
+                    <% second_date = [*(Date.today.year-9)..(Date.today.year+1)] -%>
+                    <% first_date = [*(Date.today.year-10)..(Date.today.year)] -%>
+                    <% dates = first_date.zip(second_date) -%>
+                    <% dates = dates.map { |a, b| a.to_s + '-' + b.to_s } -%>
+                    <% dates = dates.zip(first_date) -%>
+
+                    <%= select_tag('FinYears', options_for_select(dates),
+                                   class: "form-control", :id => "selectionForm",
+                                   :onchange => "changeDates()") %>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <%= submit_tag 'Display', :class => "btn btn-success", :style => "width: 100%;" %>
+                </div>
+              </div>
+            </tr>
+
+        <% end %>
+        </div>
+
+
+      <script type="text/javascript">
+          $(function () {
+              $('#datetimepicker1').datetimepicker({
+                  format: 'ddd, MMMM Do YYYY',
+
+              });
+
+              $('#datetimepicker2').datetimepicker({
+                  format: 'ddd, MMMM Do YYYY'
+              });
+
+          });
+          function myFunction() {
+              document.getElementById("demo").innerHTML =
+                      $('#datetimepicker1').data("DateTimePicker").viewDate();
+          }
+          function myFunction2() {
+              document.getElementById("demo2").innerHTML =
+                      $('#datetimepicker2').data("DateTimePicker").viewDate();
+          }
+          function changeDates() {
+              var val = document.getElementById("selectionForm").value;
+              var date1 = new Date(val, 6, 1);
+              var next_year = date1.getFullYear() + 1;
+              var date2 = new Date(next_year, 5, 30)
+
+              $('#datetimepicker1').data("DateTimePicker").date(date1);
+              $('#datetimepicker2').data("DateTimePicker").date(date2);
+          }
+      </script>
+    </div>
+
+
+    </thead>
+
+    <div class="panel-body">
+      <table class="table table-hover">
+        <tbody>
+        <%- # for each invoice hash               -%>
+        <% @invoices.each do |invoice| %>
+
+            <!-- testing -->
+            <tr>
+              <% testing = true %>
+              <% if testing %>
+                  <% debug invoice.class %>
+                  <% debug invoice %>
+              <% end %>
+            </tr>
+            <!-- testing end -->
+
+
+            <tr id="<%= dom_id(invoice[:Imported]) %>">
+              <%- # format dates from imported invoice before displaying              -%>
+
+              <% dateRange = invoice[:Imported].start_date.to_formatted_s(:long_ordinal) + ' to ' + invoice[:Imported].end_date.to_formatted_s(:long_ordinal) %>
+              <td style="
+              width: 35%;
+              " ><%= dateRange %></td>
+
+              <%- # display currency in correct format              -%>
+              <td><%= number_to_currency(invoice[:Imported].total) %></td>
+
+              <%- # format the values in the Generated Hash array               -%>
+              <% options = invoice[:GeneratedValues].map { |a, b| [a.to_formatted_s(:long_ordinal), {id: b[:id], total: number_to_currency(b[:total])}] } %>
+              <% options = options.map { |a, b| [a, ActiveSupport::JSON.encode(b)] } %>
+
+              <!-- create a selectbox of generated invoices for the current imported invoice -->
+              <td>
+                <%= select_tag('selectGenerated', options_for_select(options),
+                               :id => invoice[:GeneratedValues][0][1][:id]).to_s %>
+              </td>
+
+              <td id="gen_total"><%= number_to_currency(invoice[:GeneratedValues][0][1][:total])%></td>
+
+              <!-- Auto display selected total from JSON with JQuery -->
+              <td>
+                <div class="results">
+                  <a class="btn btn-primary btn-xs" data-method="post" id=<%= invoice[:Imported].id %>>Compare</a>
+                </div>
+
+                <script>
+
+                    var gen_id = <%=invoice[:GeneratedValues][0][1][:id]%>;
+                    var imp_id = <%= invoice[:Imported].id %>;
+
+
+                    var url1 = "/invoices/compare?invoice%5BGenerated_id%5D=";
+                    var url2 = gen_id.toString();
+                    var url3 = "&invoice%5BImported_id%5D=";
+                    var url4 = imp_id.toString();
+                    var fin_url = url1.concat(url2, url3, url4);
+
+                    document.getElementById(imp_id).href = fin_url;
+
+                    var j = document.getElementById("<%=(invoice[:GeneratedValues][0][1][:id]).to_s%>").value;
+
+                    document.getElementById("<%=(invoice[:GeneratedValues][0][1][:id]).to_s%>").onchange = function () {
+                        updateLink()
+                    };
+
+
+                    function updateLink() {
+                        var j = document.getElementById("<%=(invoice[:GeneratedValues][0][1][:id]).to_s%>").value;
+
+
+                        obj = JSON.parse(j);
+                        gen_id = obj.id;
+
+                        var url1 = "/invoices/compare?invoice%5BGenerated_id%5D=";
+                        var url2 = gen_id.toString();
+                        var url3 = "&invoice%5BImported_id%5D=";
+                        var url4 = imp_id.toString();
+                        var fin_url = url1 + url2 + url3 + url4;
+
+                        //alert(fin_url);
+                        document.getElementById(imp_id).href = fin_url;
+                        document.getElementById("gen_total").innerHTML = obj.total;
+                        //alert(fin_url);
+                    }
+
+
+                    $('.results').html(jQuery.parseJSON($('#selectGenerated').val()).total);
+
+                    $('#selectGenerated').on('change', function () {
+                        $('.results').html(jQuery.parseJSON($('#selectGenerated').val()).total);
+                    });
+                </script>
+              </td>
+
+              <!--Use Jquery to change link-->
+              <td>
+                <% link_to "Compare",
+                           compare_invoices_path(invoice: {Imported_id: invoice[:Imported],
+                                                           Generated_id: invoice[:GeneratedValues][0][1][:id]}),
+                           :class => "btn btn-primary btn-xs", :method => :post %>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+
+
+<% if false %>
+
+    <!-- From FrontEnd_2-->
+    <td><%= link_to retail_plan.name, retail_plan_path(retail_plan) %></td>
+    <td><%= link_to "Edit", edit_retail_plan_path(retail_plan.id, :retail_plan => @billing_site.id), :class => "btn btn-success btn-xs" %></td>
+    <td><%= link_to "Delete", retail_plan_path(retail_plan.id), method: :delete,
+                    data: {confirm: 'Are you certain you want to delete this?'}, :class => "btn btn-danger btn-xs" %></td>
+
+    <!--Invoice-->
+    <td><%= invoice %></td>
+    <td><%= link_to "Delete", invoice_path(invoice.id), method: :delete,
+                    data: {confirm: 'Are you certain you want to delete this?'}, :class => "btn btn-danger btn-xs" %></td>
+
+
+    <!-- Billing_2 code for Billing site-->
+    <p>
+      <strong>Name:</strong>
+      <%= @billing_site.name %>
+    </p>
+
+    <p>
+      <strong>Site:</strong>
+      <%= @billing_site.site_id %>
+    </p>
+
+    <p>
+      <strong>Created:</strong>
+      <%= @billing_site.created %>
+    </p>
+
+    <%= link_to 'Edit', edit_billing_site_path(@billing_site) %> |
+    <%= link_to 'Back', billing_sites_path %>
+
+
+    <!-- testing purpose created by Charlene -->
+    <br>
+    <%= link_to pluralize(@billing_site.retail_plans.size, 'Retail Plan'), billing_site_retail_plans_path(@billing_site) %>
+<% end %>
+
+<script type="text/javascript">
+    $('div.page-header a').on("click", function (e) {
+        e.preventDefault();
+
+        document.location = $(this).attr("href");
+    });
+
+</script>
+<style>
+    div.input-group.date {
+        color: black;
+    }
+
+</style>

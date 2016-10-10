@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="page-header">
+      <!-- <ol class="breadcrumb">
+        <li><%#= link_to "Home", root_path %> </li>
+        <li class="active">Ftp Server</li>
+      </ol> -->
+      <div class="pull-right">
+        <!--<a data-toggle="modal" class="btn btn-primary pull-right" data-target=".bs-example-modal-sm">New Ftp Server</a>-->
+        <%= link_to "New Ftp Server", new_ftp_server_path, :class => "btn btn-primary", "data-toggle" => "modal", "data-target" => ".bs-example-modal-sm" %>
+      </div>
+
+      <h1>Ftp Server</h1>
+    </div>
+  </div>
+  <div class="col-md-3">
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Server</th>
+              <th>Username</th>
+              <th>Password</th>
+              <th>Last poll</th>
+              <th>Next poll</th>
+              <th>Poll unit</th>
+              <th>Poll value</th>
+              <th>User</th>
+              <th colspan="3"></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <% @ftp_servers.each do |ftp_server| %>
+                <tr>
+                  <td><%= link_to ftp_server.name, ftp_server %></td>
+                  <td><%= ftp_server.server %></td>
+                  <td><%= ftp_server.username %></td>
+                  <td><%= ftp_server.password %></td>
+                  <td><%= ftp_server.last_poll %></td>
+                  <td><%= ftp_server.next_poll %></td>
+                  <td><%= ftp_server.poll_unit %></td>
+                  <td><%= ftp_server.poll_value %></td>
+                  <td><%= ftp_server.user_id %></td>
+                  <!--<td><%= link_to 'Show', ftp_server %></td>-->
+                  <td>
+                    <%= link_to "Edit", edit_ftp_server_path(ftp_server), :class => "btn btn-success btn-xs", "data-toggle" => "modal", "data-target" => ".bs-example-modal-sm" %>
+                  </td>
+                  <td><%= link_to 'Destroy', ftp_server, method: :delete, data: {confirm: 'Are you sure?'},:class=>"btn btn-danger btn-xs" %></td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%# The modal block %>
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+

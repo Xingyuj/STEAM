@@ -1,0 +1,93 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1 class="page-header">Site List</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Address1</th>
+            <th>Address2</th>
+            <th>Created</th>
+            <th colspan="3"></th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <% @sites.each do |site| %>
+              <tr>
+                <td class="site"><%= link_to site.name, site %></td>
+                <td><%= site.address1 %></td>
+                <td><%= site.address2 %></td>
+                <td><%= site.created.strftime("%B %d, %Y") %></td>
+                <td>
+                  <%# link_to "Edit", edit_site_path(site), :class => "btn btn-success btn-xs", "data-toggle" => "modal", "data-target" => ".bs-example-modal-lg" %>   
+
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#editSite_<%= site.id %>" >Edit</button>
+
+                  <!-- editSite Modal -->
+                  <div id="editSite_<%= site.id %>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editSiteModalLabel">
+                    <div class="modal-dialog modal-lg">
+                       <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title">Editing <%= site.name %></h4>
+                        </div>
+
+                        <%= render 'form', :@site => site %>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <%= link_to 'Delete', site, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-xs" %>
+
+                </td>
+              </tr>
+
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<br>
+<%# link_to "New sites", new_site_path, :class => "btn btn-primary", "data-toggle" => "modal", "data-target" => ".bs-example-modal-lg" %>
+<!-- changed by Charlene -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newSite">Create a new site</button>
+<!--<a data-toggle="modal" class="btn btn-info" href="#{new_billing_site_path}" data-target=".bs-example-modal-lg">Click me !</a>-->
+<div id="newSite" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- changed by Charlene -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">New Site</h4>
+      </div>
+
+      <%= render partial: 'form', locals: {:@site => Site.new} %>
+
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $('td.site a').on("click", function(e){
+    e.preventDefault();
+      
+    document.location = $(this).attr("href");
+  });
+</script>
+

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>class ImportedInvoice - Rails Application Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">ActiveRecord::Base
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li class="calls-super" ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-importCSV">#importCSV</a>
+    
+    <li ><a href="#method-i-invoice_directory">#invoice_directory</a>
+    
+    <li ><a href="#method-i-store_file">#store_file</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-ImportedInvoice">
+  <h1 id="class-ImportedInvoice" class="class">
+    class ImportedInvoice
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(retail_plan, file)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File app/models/imported_invoice.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">retail_plan</span>, <span class="ruby-identifier">file</span>)
+  <span class="ruby-keyword">super</span>()
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">importCSV</span>(<span class="ruby-identifier">retail_plan</span>, <span class="ruby-identifier">file</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-importCSV" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">importCSV</span><span
+            class="method-args">(retail_plan, file)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="importCSV-source">
+            <pre><span class="ruby-comment"># File app/models/imported_invoice.rb, line 20</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">importCSV</span>(<span class="ruby-identifier">retail_plan</span>, <span class="ruby-identifier">file</span>)
+
+  <span class="ruby-comment"># Using Dynamic usage_charge_types get from ChargeFactory.charge_types.</span>
+  <span class="ruby-comment"># Downside is may loss concrete_charge from real invoice csv file, if the charge name of csv cant be found in retail plan</span>
+  <span class="ruby-ivar">@usage_charge_types</span> = <span class="ruby-constant">ChargeFactory</span>.<span class="ruby-identifier">charge_types</span>
+  <span class="ruby-comment"># Static usage_charge_types is no longer used</span>
+  <span class="ruby-comment"># @usage_charge_types = [&quot;retail peak&quot;, &quot;retail shoulder&quot;, &quot;retail off peak&quot;, &quot;network peak&quot;, &quot;network shoulder&quot;, &quot;network off peak&quot;, &quot;maximum demand&quot;, &quot;capacity charge&quot;,</span>
+  <span class="ruby-comment">#  &quot;aemo ancillary charge&quot;, &quot;aemo pool charge&quot;, &quot;total aemo charge&quot;, &quot;srec charge&quot;, &quot;lret charge&quot;, &quot;esc charge&quot;, &quot;metering charge&quot;]</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">file</span> = <span class="ruby-identifier">file</span>.<span class="ruby-identifier">original_filename</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">retail_plan_id</span> = <span class="ruby-identifier">retail_plan</span>.<span class="ruby-identifier">id</span>
+
+  <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">foreach</span>(<span class="ruby-identifier">file</span>.<span class="ruby-identifier">path</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">row</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">content</span> = <span class="ruby-identifier">row</span>.<span class="ruby-identifier">each_slice</span>(<span class="ruby-value">2</span>).<span class="ruby-identifier">to_h</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">start_date</span> = <span class="ruby-identifier">content</span>[<span class="ruby-string">&quot;Start Date&quot;</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">content</span>[<span class="ruby-string">&quot;Start Date&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> 
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">end_date</span> = <span class="ruby-identifier">content</span>[<span class="ruby-string">&quot;End Date&quot;</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">content</span>[<span class="ruby-string">&quot;End Date&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> 
+    <span class="ruby-comment">#self.state = content[&quot;State&quot;] if content[&quot;State&quot;] != nil    there is no attribute to store &quot;State&quot;</span>
+    <span class="ruby-comment">#self.issue_date = content[&quot;Start Date&quot;] if content[&quot;Start Date&quot;] != nil   there is no issue_date in a real invoice</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">distribution_loss_factor</span> = <span class="ruby-identifier">content</span>[<span class="ruby-string">&quot;Distribution Loss Factor&quot;</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">content</span>[<span class="ruby-string">&quot;Distribution Loss Factor&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> 
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">marginal_loss_factor</span> = <span class="ruby-identifier">content</span>[<span class="ruby-string">&quot;Marginal Loss Factor&quot;</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">content</span>[<span class="ruby-string">&quot;Marginal Loss Factor&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>
+    <span class="ruby-comment">#last value of csv is total</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">total</span> = <span class="ruby-identifier">content</span>[<span class="ruby-keyword">nil</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">content</span>[<span class="ruby-keyword">nil</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> 
+
+    <span class="ruby-keyword">if</span>(<span class="ruby-identifier">content</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">first!</span>=<span class="ruby-keyword">nil</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">content</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">downcase</span>.<span class="ruby-identifier">in?</span>(<span class="ruby-ivar">@usage_charge_types</span>))
+      <span class="ruby-identifier">charge_factory</span> = <span class="ruby-identifier">retail_plan</span>.<span class="ruby-identifier">charge_factories</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;lower(name) = ?&quot;</span>, <span class="ruby-identifier">content</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">downcase</span>).<span class="ruby-identifier">take</span>
+      <span class="ruby-comment"># Static usage_charge_types is no longer used, code below in comment is part of static usage_charge_types, used for checking mismatched charge types</span>
+      <span class="ruby-comment"># if !charge_factory</span>
+      <span class="ruby-comment">#   logger.debug &quot;Charge name in CSV:&quot;+content.keys.first.downcase.to_s+&quot; cant be found in correspoding retailplan of this system&quot;</span>
+      <span class="ruby-comment">#   # raise &quot;Charge name in CSV:&quot;+content.keys.first.downcase.to_s+&quot; cant be found in correspoding retailplan of this system&quot;</span>
+      <span class="ruby-comment">#   next</span>
+      <span class="ruby-comment"># end</span>
+
+      <span class="ruby-comment">#call import_concrete_charge in charge_factory to import concrete charges</span>
+      <span class="ruby-identifier">charge_factory</span>.<span class="ruby-identifier">import_concrete_charge</span> <span class="ruby-keyword">self</span>, <span class="ruby-identifier">content</span>[<span class="ruby-identifier">content</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">first</span>]
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-invoice_directory" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">invoice_directory</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="invoice_directory-source">
+            <pre><span class="ruby-comment"># File app/models/imported_invoice.rb, line 16</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">invoice_directory</span>
+  <span class="ruby-ivar">@path</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-store_file" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">store_file</span><span
+            class="method-args">(file)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="store_file-source">
+            <pre><span class="ruby-comment"># File app/models/imported_invoice.rb, line 9</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">store_file</span>(<span class="ruby-identifier">file</span>)
+  <span class="ruby-identifier">name</span> = <span class="ruby-identifier">file</span>.<span class="ruby-identifier">original_filename</span>
+  <span class="ruby-identifier">directory</span> = <span class="ruby-string">&quot;/home&quot;</span>
+  <span class="ruby-ivar">@path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">directory</span>, <span class="ruby-identifier">name</span>)
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">path</span>, <span class="ruby-string">&quot;wb&quot;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">file</span>.<span class="ruby-identifier">read</span>) }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

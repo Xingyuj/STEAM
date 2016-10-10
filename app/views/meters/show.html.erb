@@ -1,0 +1,31 @@
+<!-- changed by Charlene, should not be used -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="page-header">
+      <ol class="breadcrumb">
+        <li><%= link_to @meter.billing_site.site.name, @meter.billing_site.site %></li>
+		    <li><%= link_to @meter.billing_site.name, @meter.billing_site %></li>		
+        <li class="active">meter_id: <%= @meter.id %></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<h3>Meter_ID: <%= @meter.id %></h3>
+<p>
+  <strong>Serial:</strong>
+  <%= @meter.serial %>
+</p>
+
+<p>
+  <strong>Nmi:</strong>
+  <%= @meter.nmi %>
+</p>
+
+<p>
+  <strong>Billing Site:</strong>
+  <%= link_to @meter.billing_site.name, @meter.billing_site %>
+</p>
+
+<%= link_to 'Edit', edit_meter_path(@meter, :billing_site => @meter.billing_site_id), :class => "btn btn-success" %>
+

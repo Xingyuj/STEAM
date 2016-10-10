@@ -1,0 +1,31 @@
+<%= form_for(@billing) do |f| %>
+      <p>Hello???</p>
+      <div class="field">
+        <%= f.select :start_time_hour, options_for_select(Billing.hours.keys) %>
+        <%= f.select :start_time_minute, options_for_select(Billing.minutes.keys) %>
+        <%#= f.label :start_time %><br>
+        <%#=f.time_select(:start_time) %>
+      </div>
+      <div class="field">
+        <%= f.select :end_time_hour, options_for_select(Billing.hours.keys) %>
+        <%= f.select :end_time_minute, options_for_select(Billing.minutes.keys) %>
+        <%#= f.label :end_time %><br>
+        <%#=f.time_select(:end_time) %>
+      </div>
+
+  <% if @billing.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@billing.errors.count, "error") %> prohibited this billing from being saved:</h2>
+
+      <ul>
+      <% @billing.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

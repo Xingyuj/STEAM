@@ -1,0 +1,142 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="page-header">
+    <%# link_to "Sites /", sites_path %>
+    <%# @site.name %>
+      <ol class="breadcrumb">
+          <li><%= link_to "Sites", sites_path %></li>
+          <li class="active"><%= @site.name %></li>
+        </ol>
+    </div>
+  </div>
+</div>
+<div class="row">  
+  <div class="col-md-4">
+    <p>
+      <strong>Name:</strong>
+      <%= @site.name %>
+    </p>
+
+    <p>
+      <strong>Address1:</strong>
+      <%= @site.address1 %>
+    </p>
+
+    <p>
+      <strong>Address2:</strong>
+      <%= @site.address2 %>
+    </p>
+
+    <p>
+      <strong>Created:</strong>
+      <%= @site.created.strftime("%B %d, %Y") %>
+    </p>
+
+    <!-- Button trigger modal -->
+    <%# link_to "Edit", edit_site_path(@site), :class => "btn btn-success" %>
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editSite">Edit</button>
+
+    <!-- Modal -->
+    <div id="editSite" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editSiteModalLabel">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Editing <%= @site.name %></h4>
+          </div>
+
+          <%= render 'form', site: @site %>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-8">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+
+        <!-- Button trigger modal -->
+        <%# link_to "New", new_billing_site_path(:site_id => @site.id),
+                    :class =>"btn btn-default pull-right", "data-toggle" => "modal", "data-target" => "#newBillingSite" %>
+        <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#newBillingSite">New</button>
+
+        <!-- Modal -->
+        <div id="newBillingSite" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" style="color:black">New Billing Site</h4>
+              </div>
+
+              <%= render partial: 'billing_sites/form', locals: { :@billing_site => BillingSite.new, :site_id => @site.id } %>
+
+            </div>
+          </div>
+        </div>
+
+        <h4>Billing Sites</h4>
+
+      </div>
+      <div class="panel-body">
+
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Created</th>
+            <th colspan="3"></th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <% @billing_sites.each do |billing_site| %>
+              <tr>
+                <td class="billing_site"><%= link_to billing_site.name, billing_site %></td>
+                <td><%= billing_site.created%></td>
+
+                <!-- Button trigger modal -->
+                <td>
+                  <%# link_to 'Edit', edit_billing_site_path(billing_site, :site_id => @site.id), :class => "btn btn-success btn-xs", "data-toggle" => "modal", "data-target" => ".bs-example-modal-sm" %>
+                  <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#editBillingSite_<%= billing_site.id %>">Edit</button>
+                </td>
+                <!-- Modal -->
+                <div id="editBillingSite_<%= billing_site.id %>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editBillingSiteModalLabel">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Editing <%= billing_site.name %></h4>
+                      </div>
+
+                      <%= render partial: 'billing_sites/form', locals: { :@billing_site => billing_site, :site_id => @site.id } %>
+                      <%# debug billing_site %>
+
+                    </div>
+                  </div>
+                </div>
+
+                <td><%= link_to 'Delete', billing_site, method: :delete, data: { confirm: 'Are you sure?' },
+                                :class => "btn btn-danger btn-xs"%></td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('div.page-header a').on("click", function(e){
+    e.preventDefault();
+      
+    document.location = $(this).attr("href");
+  });
+  $('td.billing_site a').on("click", function(e){
+    e.preventDefault();
+      
+    document.location = $(this).attr("href");
+  });
+</script>

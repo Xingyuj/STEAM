@@ -1,0 +1,12 @@
+<%= form_for :invoice, url: { action: "select_date_period"} do |f| %>
+  <div>
+    <%= f.label "predict an invoice:" %>
+  </div>
+  <div class="field">
+    <%= f.label :invoice %><br>
+    <%= f.select :invoice_id, @invoices.collect{|u| [u.file, u.id]}, :prompt=>"select a imported invoice" %><br>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

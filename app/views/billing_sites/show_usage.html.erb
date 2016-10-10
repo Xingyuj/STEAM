@@ -1,0 +1,110 @@
+<script type="text/javascript">
+    var table = [];
+    var nil = null;
+    var date = <%=raw @date %>;
+    var total = <%= @total %>;
+    var lines = [];
+    var labels = <%=raw @labels%>;
+    var lines = <%= @lines %>;
+
+    for (i = 0; i < date.length; i++) {
+        table.push(<%= "["+@table_array.join(',')+"]" %>);
+    }
+
+    google.load('visualization', '1', {packages: ['corechart', 'line']});
+    google.load('visualization', '1', {packages: ['corechart', 'bar']});
+    google.setOnLoadCallback(drawLineChart);
+    google.setOnLoadCallback(drawBarChart);
+    function drawLineChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Time');
+        data.addColumn('number', 'Total Usage');
+        for (i = 0; i < labels.length; i++) {
+            data.addColumn('number', labels[i]);
+        }
+
+        data.addRows(table);
+
+        var options = {
+            chart: {
+                title: 'Electricity Usage',
+                subtitle: 'by STEAM'
+            },
+            vAxis: {format: 'decimal'}
+        };
+
+        var chart = new google.charts.Line(document.getElementById('line_chart'));
+
+        chart.draw(data, google.charts.Line.convertOptions(options));
+        chart.setSelection([
+            {row: 38, column: 1}
+        ]);
+
+    }
+
+    function drawBarChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Time');
+        data.addColumn('number', 'Total')
+        for (i = 0; i < labels.length; i++) {
+            data.addColumn('number', labels[i]);
+        }
+        data.addRows(table);
+
+        var options = {
+            chart: {
+                title: 'Electricity Usage',
+                subtitle: ''
+            },
+            bars: 'vertical',
+            vAxis: {format: 'decimal'}
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('bar_chart'));
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+    }
+</script>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="page-header">
+      <div class="pull-right">
+        <!--This the button on the right of the header-->
+      </div>
+      <h1>Displaying Electricity Usage</h1>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= bootstrap_form_tag layout: :inline do |f| %>
+        <strong>Start
+          Date:</strong> <%= f.text_field :start_date, hide_label: true, class: 'datepicker', value: @start_date %>
+        <strong>End
+          Date:</strong> <%= f.text_field :end_date, hide_label: true, class: 'datepicker', value: @end_date %>
+        <%= f.select :interval, ["Daily", "Monthly", "Quarterly"], {label: "Interval:", selected: @interval}, {data: {behavior: "datepicker"}} %>
+        <%= f.form_group :type, label: {text: "As: "} do %>
+            <%= f.radio_button :type, 'line', label: "Line", checked: @type.eql?('line') %>
+            <%= f.radio_button :type, 'bar', label: "Bar", checked: @type.eql?('bar') %>
+        <% end %>
+        <%= f.submit 'Update', class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <% if @type == 'line' %>
+        <div id="line_chart" style="width: 900px; height: 500px; margin: 20px"></div>
+    <% else %>
+        <div id="bar_chart" style="width: 900px; height: 500px; margin: 20px"></div>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.datepicker').datepicker({format: "yyyy-mm-dd"});
+    });
+</script>

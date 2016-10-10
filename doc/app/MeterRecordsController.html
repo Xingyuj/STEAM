@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>class MeterRecordsController - Rails Application Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="ApplicationController.html">ApplicationController</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-create">#create</a>
+    
+    <li ><a href="#method-i-destroy">#destroy</a>
+    
+    <li ><a href="#method-i-edit">#edit</a>
+    
+    <li ><a href="#method-i-get_date_ranges">#get_date_ranges</a>
+    
+    <li ><a href="#method-i-get_meters">#get_meters</a>
+    
+    <li ><a href="#method-i-import_nem12">#import_nem12</a>
+    
+    <li ><a href="#method-i-index">#index</a>
+    
+    <li ><a href="#method-i-multiple_predicted_usage">#multiple_predicted_usage</a>
+    
+    <li ><a href="#method-i-multiple_usage">#multiple_usage</a>
+    
+    <li ><a href="#method-i-new">#new</a>
+    
+    <li ><a href="#method-i-show">#show</a>
+    
+    <li ><a href="#method-i-single_predicted_usage">#single_predicted_usage</a>
+    
+    <li ><a href="#method-i-single_usage">#single_usage</a>
+    
+    <li ><a href="#method-i-truncate">#truncate</a>
+    
+    <li ><a href="#method-i-truncate_records">#truncate_records</a>
+    
+    <li ><a href="#method-i-update">#update</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-MeterRecordsController">
+  <h1 id="class-MeterRecordsController" class="class">
+    class MeterRecordsController
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-create" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>POST /meter_records POST /meter_records.json</p>
+          
+          
+
+          
+          <div class="method-source-code" id="create-source">
+            <pre><span class="ruby-comment"># File app/controllers/meter_records_controller.rb, line 155</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
+  <span class="ruby-ivar">@meter_record</span> = <span class="ruby-constant">MeterRecord</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">meter_record_params</span>)
+
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@meter_record</span>.<span class="ruby-identifier">save</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@meter_record</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Meter record was successfully created.&#39;</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:show</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:created</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@meter_record</span> }
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:new</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@meter_record</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-destroy" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">destroy</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>DELETE /meter_records/1 DELETE /meter_records/1.json</p>
+          
+          
+
+          
+          <div class="method-source-code" id="destroy-source">
+            <pre><span class="ruby-comment"># File app/controllers/meter_records_controller.rb, line 185</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
+  <span class="ruby-ivar">@meter_record</span>.<span class="ruby-identifier">destroy</span>
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">meter_records_url</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Meter record was successfully destroyed.&#39;</span> }
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:no_content</span> }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-edit" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">edit</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>GET /meter_records/1/edit</p>
+          
+          
+
+          
+          <div class="method-source-code" id="edit-source">
+            <pre><span class="ruby-comment"># File app/controllers/meter_records_controller.rb, line 150</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_date_ranges" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_date_ranges</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_date_ranges-source">
+            <pre><span class="ruby-comment"># File app/controllers/meter_records_controller.rb, line 16</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_date_ranges</span>
+  <span class="ruby-keyword">return</span> [
+    {
+      <span class="ruby-value">:start_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;2001-06-23&#39;</span>.<span class="ruby-identifier">to_date</span>,
+      <span class="ruby-value">:end_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;2002-06-29&#39;</span>.<span class="ruby-identifier">to_date</span>,
+    },
+    {
+      <span class="ruby-value">:start_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;2001-06-30&#39;</span>.<span class="ruby-identifier">to_date</span>,
+      <span class="ruby-value">:end_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;2002-07-6&#39;</span>.<span class="ruby-identifier">to_date</span>,
+    }
+  ]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_meters" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_meters</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_meters-source">
+            <pre><span class="ruby-comment"># File app/controllers/meter_records_controller.rb, line 6</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_meters</span>
+  <span class="ruby-identifier">meters</span> = []
+  <span class="ruby-identifier">meters</span>.<span class="ruby-identifier">push</span> <span class="ruby-constant">Meter</span>.<span class="ruby-identifier">find_by_serial</span>(<span class="ruby-string">&#39;2021&#39;</span>)
+  <span class="ruby-identifier">meters</span>.<span class="ruby-identifier">push</span> <span class="ruby-constant">Meter</span>.<span class="ruby-identifier">find_by_serial</span>(<span class="ruby-string">&#39;2022&#39;</span>)
+  <span class="ruby-identifier">meters</span>.<span class="ruby-identifier">push</span> <span class="ruby-constant">Meter</span>.<span class="ruby-identifier">find_by_serial</span>(<span class="ruby-string">&#39;2023&#39;</span>)
+  <span class="ruby-identifier">meters</span>.<span class="ruby-identifier">push</span> <span class="ruby-constant">Meter</span>.<span class="ruby-identifier">find_by_serial</span>(<span class="ruby-string">&#39;2024&#39;</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">meters</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-import_nem12" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">import_nem12</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Calls the static class method Meter.import</p>
+          
+          
+
+          
+          <div class="method-source-code" id="import_nem12-source">
+            <pre><span class="ruby-comment"># File app/controllers/meter_records_controller.rb, line 31</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">import_nem12</span>
+
+  <span class="ruby-identifier">truncate_records</span>
+
+  <span class="ruby-identifier">meters</span> = <span class="ruby-identifier">get_meters</span>
+  <span class="ruby-identifier">directory</span> = <span class="ruby-string">&quot;homes/reuben/test&quot;</span>
+  <span class="ruby-identifier">directory</span> = <span class="ruby-string">&quot;homes/reuben/09-07-2015&quot;</span>
+  <span class="ruby-comment">#directory = &quot;homes/reuben/1&quot;</span>
+  <span class="ruby-comment">#directory = &quot;homes/testdata&quot;</span>
+  <span class="ruby-identifier">result</span> = <span class="ruby-constant">Meter</span>.<span class="ruby-identifier">import_nem12</span>(<span class="ruby-identifier">directory</span>, <span class="ruby-identifier">meters</span>)
+  <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-identifier">result</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;index&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-index" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">index</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>GET /meter_records GET /meter_records.json</p>
+          
+          
+
+          
+          <div class="method-source-code" id="index-source">
+            <pre><span class="ruby-comment"># File app/controllers/meter_records_controller.rb, line 135</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
+  <span class="ruby-ivar">@meter_records</span> = <span class="ruby-constant">MeterRecord</span>.<span class="ruby-identifier">all</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-multiple_predicted_usage" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">multiple_predicted_usage</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="multiple_predicted_usage-source">
+            <pre><span class="ruby-comment"># File app/controllers/meter_records_controller.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">multiple_predicted_usage</span>
+  <span class="ruby-identifier">date_ranges</span> = <span class="ruby-identifier">get_date_ranges</span>
+  <span class="ruby-identifier">meters</span> = <span class="ruby-identifier">get_meters</span>
+  <span class="ruby-identifier">dtps</span> = <span class="ruby-constant">Meter</span>.<span class="ruby-identifier">get_daily_time_periods</span> <span class="ruby-identifier">meters</span>
+
+  <span class="ruby-comment">#MeterAggregation.aggregate_missing_data date_ranges, dtps, meters</span>
+
+  <span class="ruby-comment">#usages = Meter.predicted_usage_by_meter date_ranges, dtps, meters</span>
+  <span class="ruby-comment">#usages = Meter.predicted_usage_by_time date_ranges, dtps, meters</span>
+  <span class="ruby-identifier">usages</span> = <span class="ruby-constant">Meter</span>.<span class="ruby-identifier">detailed_predicted_usage_by_meter</span> <span class="ruby-identifier">date_ranges</span>, <span class="ruby-identifier">dtps</span>, <span class="ruby-identifier">meters</span>
+  <span class="ruby-comment">#usages = Meter.detailed_predicted_usage_by_time date_ranges, dtps, meters</span>
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">usages</span>
+
+  <span class="ruby-comment">#redirect_to action: &#39;index&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-multiple_usage" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">multiple_usage</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Calls the <a href="Meter.html#method-c-usage">Meter.usage</a> static class
+method</p>
+          
+          
+
+          
+          <div class="method-source-code" id="multiple_usage-source">
+            <pre><span class="ruby-comment"># File app/controllers/meter_records_controller.rb, line 46</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">multiple_usage</span>
+  <span class="ruby-identifier">date_ranges</span> = <span class="ruby-identifier">get_date_ranges</span>
+  <span class="ruby-identifier">meters</span> = <span class="ruby-identifier">get_meters</span>
+  <span class="ruby-identifier">dtps</span> = <span class="ruby-constant">Meter</span>.<span class="ruby-identifier">get_daily_time_periods</span> <span class="ruby-identifier">meters</span>
+
+  <span class="ruby-comment">#MeterAggregation.aggregate_missing_data date_ranges, dtps, meters</span>
+
+  <span class="ruby-comment">#usages = Meter.usage_by_meter date_ranges, dtps, meters</span>
+  <span class="ruby-identifier">usages</span> = <span class="ruby-constant">Meter</span>.<span class="ruby-identifier">usage_by_time</span> <span class="ruby-identifier">date_ranges</span>, <span class="ruby-identifier">dtps</span>, <span class="ruby-identifier">meters</span>
+  <span class="ruby-comment">#usages = Meter.detailed_usage_by_meter date_ranges, dtps, meters</span>
+  <span class="ruby-comment">#usages = Meter.detailed_usage_by_time date_ranges, dtps, meters</span>
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">usages</span>
+
+  <span class="ruby-comment">#redirect_to action: &#39;index&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>GET /meter_records/new</p>
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File app/controllers/meter_records_controller.rb, line 145</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@meter_record</span> = <span class="ruby-constant">MeterRecord</span>.<span class="ruby-identifier">new</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-show" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">show</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>GET /meter_records/1 GET /meter_records/1.json</p>
+          
+          
+
+          
+          <div class="method-source-code" id="show-source">
+            <pre><span class="ruby-comment"># File app/controllers/meter_records_controller.rb, line 141</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-single_predicted_usage" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">single_predicted_usage</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Calls the meter.usage instance method</p>
+          
+          
+
+          
+          <div class="method-source-code" id="single_predicted_usage-source">
+            <pre><span class="ruby-comment"># File app/controllers/meter_records_controller.rb, line 96</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">single_predicted_usage</span>
+    <span class="ruby-identifier">meter</span> = <span class="ruby-identifier">get_meters</span>[<span class="ruby-value">3</span>]
+    <span class="ruby-identifier">date_ranges</span> = <span class="ruby-identifier">get_date_ranges</span>
+    <span class="ruby-identifier">dtps</span> = <span class="ruby-constant">Meter</span>.<span class="ruby-identifier">get_daily_time_periods</span> [<span class="ruby-identifier">meter</span>]
+
+<span class="ruby-comment">#    usage = meter.predicted_usage_by_meter(date_ranges, dtps)</span>
+<span class="ruby-comment">#    usage = meter.predicted_usage_by_time(date_ranges, dtps)</span>
+<span class="ruby-comment">#    usage = meter.detailed_predicted_usage_by_meter(date_ranges, dtps)</span>
+    <span class="ruby-identifier">usage</span> = <span class="ruby-identifier">meter</span>.<span class="ruby-identifier">detailed_predicted_usage_by_time</span>(<span class="ruby-identifier">date_ranges</span>, <span class="ruby-identifier">dtps</span>)
+
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">usage</span>
+
+<span class="ruby-comment">#    redirect_to action: &#39;index&#39;</span>
+  <span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-single_usage" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">single_usage</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Calls the meter.usage instance method</p>
+          
+          
+
+          
+          <div class="method-source-code" id="single_usage-source">
+            <pre><span class="ruby-comment"># File app/controllers/meter_records_controller.rb, line 80</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">single_usage</span>
+    <span class="ruby-identifier">meter</span> = <span class="ruby-identifier">get_meters</span>[<span class="ruby-value">3</span>]
+    <span class="ruby-identifier">date_ranges</span> = <span class="ruby-identifier">get_date_ranges</span>
+    <span class="ruby-identifier">dtps</span> = <span class="ruby-constant">Meter</span>.<span class="ruby-identifier">get_daily_time_periods</span> [<span class="ruby-identifier">meter</span>]
+
+<span class="ruby-comment">#    usage = meter.usage_by_meter(date_ranges, dtps)</span>
+<span class="ruby-comment">#    usage = meter.usage_by_time(date_ranges, dtps)</span>
+    <span class="ruby-identifier">usage</span> = <span class="ruby-identifier">meter</span>.<span class="ruby-identifier">detailed_usage_by_meter</span>(<span class="ruby-identifier">date_ranges</span>, <span class="ruby-identifier">dtps</span>)
+<span class="ruby-comment">#    usage = meter.detailed_usage_by_time(date_ranges, dtps)</span>
+
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">usage</span>
+
+<span class="ruby-comment">#    redirect_to action: &#39;index&#39;</span>
+  <span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-truncate" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">truncate</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Empty the Records table, restart the index</p>
+          
+          
+
+          
+          <div class="method-source-code" id="truncate-source">
+            <pre><span class="ruby-comment"># File app/controllers/meter_records_controller.rb, line 123</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">truncate</span>
+  <span class="ruby-identifier">truncate_records</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;index&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-truncate_records" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">truncate_records</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="truncate_records-source">
+            <pre><span class="ruby-comment"># File app/controllers/meter_records_controller.rb, line 128</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">truncate_records</span>
+  <span class="ruby-identifier">sql</span> = <span class="ruby-string">&quot;TRUNCATE TABLE meter_records RESTART IDENTITY;&quot;</span>
+  <span class="ruby-identifier">result</span> = <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">raw_connection</span>.<span class="ruby-identifier">exec</span> <span class="ruby-identifier">sql</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-update" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>PATCH/PUT /meter_records/1 PATCH/PUT /meter_records/1.json</p>
+          
+          
+
+          
+          <div class="method-source-code" id="update-source">
+            <pre><span class="ruby-comment"># File app/controllers/meter_records_controller.rb, line 171</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@meter_record</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">meter_record_params</span>)
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@meter_record</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Meter record was successfully updated.&#39;</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:show</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:ok</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@meter_record</span> }
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:edit</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@meter_record</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

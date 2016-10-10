@@ -1,0 +1,275 @@
+<!-- <div class="col-xs-28"> the maximum is 12 -->
+<%= simple_form_for [@billing_site, @retail_plan], :html => {:class => "form-horizontal"},
+                    wrapper: :horizontal_form,
+                    wrapper_mappings: {
+                            datetime: :horizontal_multi_select,
+                            date: :horizontal_multi_select,
+                            time: :horizontal_multi_select
+                    } do |f| %>
+
+    <%= f.hidden_field :billing_site_id, value: params[:billing_site_id] %>
+
+    <div class="col-xs-8">
+      <h3>Basic Information</h3>
+
+      <%= f.input :name, label: 'Name of the Retail Plan',
+                  error: 'Name of the plan is necessary',
+                  placeholder: "Retail Plan Name",
+                  wrapper: :field4 %>
+
+      <%= f.input :start_date, label: 'Start Date of Plan' %>
+      <%= f.input :end_date, label: 'End date of Plan' %>
+
+
+      <%= f.input :expected_expiry_date, label: 'Expected Expiry date of plan' %>
+      <!-- wrapper: :field(1..12) -->
+      <%= f.input :discount, input_html: {value: "0.2"}, label: 'Discount percentage', wrapper: :field2 %>
+      <%= f.input :billing_interval, collection: ["Quarterly", "Monthly"], :default => "Quarterly", wrapper: :field3 %> <br/>
+      <%= f.error :name, id: 'name_error' %>
+    </div>
+
+    <div class="col-xs-8">
+      <h3>Charges</h3>
+      <!-- charge factory -->
+      <%= f.simple_fields_for :daily_usage_charges, @retail_plan.daily_usage_charges.build(name: 'Retail Peak') do |item| %>
+
+          <%= item.input :unit_of_measurement, collection: ["kWh", "MWh", "GWh"], :default => "kWh", wrapper: :field2 %> <br/> <br/>
+          
+          <%= item.input :name, readonly: true, wrapper: :field4 %>
+
+          <%= item.input :start_time, label: 'Retail Peak Start Time' %>
+          <%= item.input :end_time, label: 'Retail Peak End Time' %>
+
+          <%= item.input :rate, label: 'Retail Peak Rate', input_html: {value: "3.5"},
+                         wrapper: :field2 %>
+      <% end %>
+    </div>
+
+    <br>
+    <div class="col-xs-8">
+      <!-- charge factory -->
+      <%= f.simple_fields_for :daily_usage_charges, @retail_plan.daily_usage_charges.build(name: 'Retail Off Peak') do |item| %>
+          <%= item.input :name, readonly: true, wrapper: :field4 %>
+
+          <%= item.input :start_time, label: 'Retail Off Peak Start Time' %>
+          <%= item.input :end_time, label: 'Retail Off Peak End Time' %>
+
+          <%= item.input :unit_of_measurement, label: 'Unit Of Measurement', input_html: {value: "kWh"},
+                         wrapper: :field2 %>
+          <%= item.input :rate, label: 'Retail Off Peak Rate', input_html: {value: "3.5"}, wrapper: :field2 %>
+      <% end %>
+    </div>
+
+
+    <br>
+    <div class="col-xs-8">
+      <!-- charge factory -->
+      <%= f.simple_fields_for :daily_usage_charges, @retail_plan.daily_usage_charges.build(name: 'Retail Shoulder') do |item| %>
+          <%= item.input :name, readonly: true, wrapper: :field4 %>
+
+          <%= item.input :start_time, label: 'Retail Shoulder Start Time' %>
+          <%= item.input :end_time, label: 'Retail Shoulder End Time' %>
+
+          <%= item.input :unit_of_measurement, label: 'Unit Of Measurement', input_html: {value: "kWh"},
+                         wrapper: :field2 %>
+          <%= item.input :rate, label: 'Retail Shoulder Rate', input_html: {value: "3.5"}, wrapper: :field2 %>
+      <% end %>
+    </div>
+
+    <br>
+    <div class="col-xs-8">
+      <!-- charge factory -->
+      <%= f.simple_fields_for :daily_usage_charges, @retail_plan.daily_usage_charges.build(name: 'Network Peak') do |item| %>
+          <%= item.input :name, readonly: true, wrapper: :field4 %>
+
+          <%= item.input :start_time, label: 'Network Peak Start Time' %>
+          <%= item.input :end_time, label: 'Network Peak End Time' %>
+
+
+          <%= item.input :unit_of_measurement, label: 'Unit Of Measurement', input_html: {value: "kWh"},
+                         wrapper: :field2 %>
+          <%= item.input :rate, label: 'Network Peak Rate', input_html: {value: "3.5"}, wrapper: :field2 %>
+      <% end %>
+    </div>
+    <br>
+    <div class="col-xs-8">
+      <!-- charge factory -->
+      <%= f.simple_fields_for :daily_usage_charges, @retail_plan.daily_usage_charges.build(name: 'Network Off Peak') do |item| %>
+          <%= item.input :name, readonly: true, wrapper: :field4 %>
+
+          <%= item.input :start_time, label: 'Network Off Peak Start Time' %>
+          <%= item.input :end_time, label: 'Network Off Peak End Time' %>
+
+
+          <%= item.input :unit_of_measurement, label: 'Unit Of Measurement', input_html: {value: "kWh"},
+                         wrapper: :field2 %>
+          <%= item.input :rate, label: 'Network Off Peak Rate', input_html: {value: "3.5"}, wrapper: :field2 %>
+      <% end %>
+    </div>
+    <br>
+    <div class="col-xs-8">
+      <!-- charge factory -->
+      <%= f.simple_fields_for :daily_usage_charges, @retail_plan.daily_usage_charges.build(name: 'Network Shoulder') do |item| %>
+          <%= item.input :name, readonly: true, wrapper: :field4 %>
+
+          <%= item.input :start_time, label: 'Network Shoulder Start Time' %>
+          <%= item.input :end_time, label: 'Network Shoulder End Time' %>
+
+          <%= item.input :unit_of_measurement, label: 'Unit Of Measurement', input_html: {value: "kWh"},
+                         wrapper: :field2 %>
+          <%= item.input :rate, label: 'Network Shoulder Rate', input_html: {value: "0"}, wrapper: :field2 %>
+      <% end %>
+    </div>
+
+    <div class="col-xs-8">
+      <!-- charge factory -->
+      <%= f.simple_fields_for :capacity_charges, @retail_plan.capacity_charges.build(name: 'Maximum Demand') do |item| %>
+          <%= item.input :name, readonly: true, wrapper: :field4 %>
+          <%= item.input :period, :as => :hidden, input_html: {value: "billing_period"} %>
+          <%= item.input :unit_of_measurement, label: 'Unit Of Measurement', input_html: {value: "kWh"},
+                         wrapper: :field2 %>
+          <%= item.input :rate, label: 'Rate', input_html: {value: "3.5"}, wrapper: :field2 %>
+      <% end %>
+    </div>
+    <br>
+
+    <div class="col-xs-8">
+      <!-- charge factory -->
+      <%= f.simple_fields_for :capacity_charges, @retail_plan.capacity_charges.build(name: 'Capacity Charge') do |item| %>
+          <%= item.input :name, readonly: true, wrapper: :field4 %>
+          <%= item.input :period, :as => :hidden, input_html: {value: "year"} %>
+          <%= item.input :unit_of_measurement, label: 'Unit Of Measurement', input_html: {value: "kWh"},
+                         wrapper: :field2 %>
+          <%= item.input :rate, label: 'Rate', input_html: {value: "3.5"}, wrapper: :field2 %>
+      <% end %>
+    </div>
+    <br>
+    <div class="col-xs-8">
+      <!-- charge factory -->
+      <%= f.simple_fields_for :certificate_charges, @retail_plan.certificate_charges.build(name: 'SREC Charge') do |item| %>
+          <%= item.input :name, readonly: true, wrapper: :field4 %>
+          <%= item.input :unit_of_measurement, label: 'Unit Of Measurement', wrapper: :field2 %>
+          <%= item.input :rate, label: 'STP %', wrapper: :field2 %>
+      <% end %>
+    </div>
+    <br>
+    <div class="col-xs-8">
+
+      <!-- charge factory -->
+      <%= f.simple_fields_for :certificate_charges, @retail_plan.certificate_charges.build(name: 'LRET Charge') do |item| %>
+          <%= item.input :name, readonly: true, wrapper: :field4 %>
+          <%= item.input :unit_of_measurement, label: 'Unit Of Measurement', wrapper: :field2 %>
+          <%= item.input :rate, label: 'RPP %', wrapper: :field2 %>
+      <% end %>
+
+      <br>
+
+    </div>
+    <!-- charge factory -->
+    <div class="col-xs-8">
+      <%= f.simple_fields_for :certificate_charges, @retail_plan.certificate_charges.build(name: 'ESC Charge') do |item| %>
+          <%= item.input :name, readonly: true, wrapper: :field4 %>
+          <%= item.input :unit_of_measurement, label: 'Unit Of Measurement', wrapper: :field2 %>
+          <%= item.input :rate, label: 'Target %', wrapper: :field2, input_html: {value: "0"} %>
+      <% end %>
+
+      <br>
+      <!-- charge factory -->
+      <%= f.simple_fields_for :global_usage_charges, @retail_plan.global_usage_charges.build(name: 'AEMO Ancillary Charge') do |item| %>
+          <%= item.input :name, readonly: true, wrapper: :field4 %>
+          <%= item.input :unit_of_measurement, label: 'Unit Of Measurement', wrapper: :field2 %>
+          <%= item.input :rate, label: 'Rate', wrapper: :field4 %>
+      <% end %>
+
+      <%= f.simple_fields_for :global_usage_charges, @retail_plan.global_usage_charges.build(name: 'AEMO Pool Charge') do |item| %>
+          <%= item.input :name, readonly: true, wrapper: :field4 %>
+          <%= item.input :unit_of_measurement, label: 'Unit Of Measurement', wrapper: :field2 %>
+          <%= item.input :rate, label: 'Rate', wrapper: :field4 %>
+      <% end %>
+    </div>
+
+
+    <div class="col-xs-8">
+
+      <!-- charge factory -->
+      <%= f.simple_fields_for :metering_charges, @retail_plan.metering_charges.build(name: 'Metering Charge') do |item| %>
+          <%= item.input :name, readonly: true, wrapper: :field4 %>
+          <%= item.input :rate, label: 'Rate', input_html: {value: "0"}, wrapper: :field2 %>
+      <% end %>
+    </div>
+
+    <div class="col-xs-8">
+
+      <!-- charge factory -->
+
+      <%= f.simple_fields_for :supply_charges, @retail_plan.supply_charges.build(name: 'Supply Charge') do |item| %>
+          <%= item.input :name, readonly: true, wrapper: :field4 %>
+          <%= item.input :rate, label: 'Rate', input_html: {value: "0"}, wrapper: :field2 %>
+
+      <% end %>
+    </div>
+
+
+    <script>
+        var val = "kWh";
+        document.getElementById("retail_plan_daily_usage_charges_attributes_1_unit_of_measurement").defaultValue = val;
+        document.getElementById("retail_plan_daily_usage_charges_attributes_2_unit_of_measurement").defaultValue = val;
+        document.getElementById("retail_plan_daily_usage_charges_attributes_3_unit_of_measurement").defaultValue = val;
+        document.getElementById("retail_plan_daily_usage_charges_attributes_4_unit_of_measurement").defaultValue = val;
+        document.getElementById("retail_plan_daily_usage_charges_attributes_5_unit_of_measurement").defaultValue = val;
+        document.getElementById("retail_plan_capacity_charges_attributes_0_unit_of_measurement").defaultValue = val;
+        document.getElementById("retail_plan_capacity_charges_attributes_1_unit_of_measurement").defaultValue = val;
+        document.getElementById("retail_plan_certificate_charges_attributes_0_unit_of_measurement").defaultValue = val;
+        document.getElementById("retail_plan_certificate_charges_attributes_1_unit_of_measurement").defaultValue = val;
+        document.getElementById("retail_plan_certificate_charges_attributes_2_unit_of_measurement").defaultValue = val;
+        document.getElementById("retail_plan_global_usage_charges_attributes_0_unit_of_measurement").defaultValue = val;
+        document.getElementById("retail_plan_global_usage_charges_attributes_1_unit_of_measurement").defaultValue = val;
+
+        document.getElementById("retail_plan_daily_usage_charges_attributes_1_unit_of_measurement").readOnly = true;
+        document.getElementById("retail_plan_daily_usage_charges_attributes_2_unit_of_measurement").readOnly = true;
+        document.getElementById("retail_plan_daily_usage_charges_attributes_3_unit_of_measurement").readOnly = true;
+        document.getElementById("retail_plan_daily_usage_charges_attributes_4_unit_of_measurement").readOnly = true;
+        document.getElementById("retail_plan_daily_usage_charges_attributes_5_unit_of_measurement").readOnly = true;
+        document.getElementById("retail_plan_capacity_charges_attributes_0_unit_of_measurement").readOnly = true;
+        document.getElementById("retail_plan_capacity_charges_attributes_1_unit_of_measurement").readOnly = true;
+        document.getElementById("retail_plan_certificate_charges_attributes_0_unit_of_measurement").readOnly = true;
+        document.getElementById("retail_plan_certificate_charges_attributes_1_unit_of_measurement").readOnly = true;
+        document.getElementById("retail_plan_certificate_charges_attributes_2_unit_of_measurement").readOnly = true;
+        document.getElementById("retail_plan_global_usage_charges_attributes_0_unit_of_measurement").readOnly = true;
+        document.getElementById("retail_plan_global_usage_charges_attributes_1_unit_of_measurement").readOnly = true;
+
+        document.getElementById("retail_plan_daily_usage_charges_attributes_0_unit_of_measurement").onchange = function () {
+            setUnits()
+        };
+
+        function setUnits() {
+            var val = document.getElementById("retail_plan_daily_usage_charges_attributes_0_unit_of_measurement");
+            var newVal = val.options[val.selectedIndex].value;
+            document.getElementById("retail_plan_daily_usage_charges_attributes_1_unit_of_measurement").defaultValue= newVal;
+            document.getElementById("retail_plan_daily_usage_charges_attributes_2_unit_of_measurement").defaultValue = newVal;
+            document.getElementById("retail_plan_daily_usage_charges_attributes_3_unit_of_measurement").defaultValue= newVal;
+            document.getElementById("retail_plan_daily_usage_charges_attributes_4_unit_of_measurement").defaultValue= newVal;
+            document.getElementById("retail_plan_daily_usage_charges_attributes_5_unit_of_measurement").defaultValue = newVal;
+            document.getElementById("retail_plan_capacity_charges_attributes_0_unit_of_measurement").defaultValue = newVal;
+            document.getElementById("retail_plan_capacity_charges_attributes_1_unit_of_measurement").defaultValue = newVal;
+            document.getElementById("retail_plan_certificate_charges_attributes_0_unit_of_measurement").defaultValue = newVal;
+            document.getElementById("retail_plan_certificate_charges_attributes_1_unit_of_measurement").defaultValue = newVal;
+            document.getElementById("retail_plan_certificate_charges_attributes_2_unit_of_measurement").defaultValue = newVal;
+            document.getElementById("retail_plan_global_usage_charges_attributes_0_unit_of_measurement").defaultValue = newVal;
+            document.getElementById("retail_plan_global_usage_charges_attributes_1_unit_of_measurement").defaultValue = newVal;
+
+            
+        }
+    </script>
+
+    <div class="col-xs-8">
+      <div class="form-group">
+        <div class="col-sm-offset-1">
+          <%= f.button :submit, class: "btn btn-success" %>
+        </div>
+      </div>
+    </div>
+
+<% end %>
+<!-- </div> -->
+

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Steam</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+</head>
+<body>
+  <%= render 'layouts/notification' %>
+  <% if user_signed_in? %>
+  <div class="wrapper">
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+      <%= render 'layouts/header' %>
+      <%= render 'layouts/sidebar' %>
+    </nav>
+    <div id="page-wrapper">
+      <%= yield %>
+    </div>
+  </div>
+  <% else %>
+    <div>
+      <%= yield %>
+    </div>
+  <% end %>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<h1>This is predicted invoice</h1>
+
+<% if Rails.env.development? %>
+    <%= debug params %> <br>
+<% end %>
+
+<%=  link_to 'Predict another', predictNew_invoices_path%> <br>
+
+<div>
+    <% @invoice.attributes.each_pair do |name, value| %>
+    <%= name %>: <%= value %> <br>
+  <% end %>
+</div>

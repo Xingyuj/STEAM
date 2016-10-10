@@ -1,0 +1,35 @@
+<br>
+<%= form_for :invoice, url: { action: "create_imported_invoice",
+                              controller: "invoices", billing_site: params[:billing_site]} do |f| %>
+	<div>
+		<%= f.file_field :file, :title=>"Import an invoice from your computer" %>
+	</div>
+	<br>
+    <div>
+      <div style="
+      display: inline-block;
+      ">
+        <%= f.label :retail_plan %>:
+      </div>
+      <div style="
+      display: inline-block;
+              width: 91%;
+      ">
+        <%= f.select :retail_plan_id, @retail_plans.collect{|u| [u.name, u.id]},
+                        :prompt=>"select a retail plan"%>
+      </div>
+
+
+
+    </div>
+
+	<div>
+		<%= f.submit "Import", :class=>"btn btn-primary", :style=>"margin-top:10px;" %>
+	</div>
+<% end %>
+
+<script type="text/javascript">
+	$(document).ready(function(){$('input[type=file]').bootstrapFileInput();});
+    document.getElementById("invoice_retail_plan_id").className = "form-control";
+    $(".form-control").css("width","20%");
+</script>

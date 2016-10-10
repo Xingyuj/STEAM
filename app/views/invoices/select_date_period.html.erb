@@ -1,0 +1,14 @@
+<%= form_for :invoice, url: { action: "create_predicted_invoice"} do |f| %>
+  <div>
+    <%= f.label "create_predicted_invoice:" %>
+  </div>
+  <div class="field">
+    <%= f.label @imported_invoice.file %><br>
+    <%= f.hidden_field :invoice_selected, value: @imported_invoice.id %>
+    <%= f.label :select_date_period %><br>
+    <%= f.select :selected_date_period, @predictable_billing_periods, :prompt=>"select a date period" %><br>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

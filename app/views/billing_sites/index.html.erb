@@ -1,0 +1,35 @@
+<!-- changed by Charlene -->
+<div class="row">
+  <div class="col-md-12">
+    <p id="notice"><%= notice %></p>
+    <h1 class="page-header">Listing Billing Sites</h1>
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Site</th>
+      <th>Created</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @billing_sites.each do |billing_site| %>
+      <tr>
+        <td><%= billing_site.name %></td>
+        <td><%= billing_site.site_id %></td>
+        <td><%= billing_site.created %></td>
+        <td><%= link_to 'Show', billing_site %></td>
+        <td><%= link_to 'Edit', edit_billing_site_path(billing_site) %></td>
+        <td><%= link_to 'Destroy', billing_site, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Billing site', new_billing_site_path %>

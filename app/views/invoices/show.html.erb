@@ -1,0 +1,91 @@
+<!-- changed by Charlene -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="page-header">
+		<h1>Show an invoice</h1>
+    </div>
+  </div>
+</div>
+
+
+<% if !Rails.env.development? %>
+    <%= debug params %> <br>
+<% end %>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <h3>Reading data from database</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr> 
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>  
+      <tbody> 
+        <tr>
+          <td><b>Start Date</b></td> 
+          <td><%=@invoice.start_date %></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><b>End Date</b></td>
+          <td><%=@invoice.end_date %></td> 
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><h4>Loss Factor Info</h4></td> 
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><b>Distribution Loss Factor</b></td> 
+          <td><%= @invoice.distribution_loss_factor %>%</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><b>Marginal Loss Factor</b></td> 
+          <td><%= @invoice.marginal_loss_factor %>%</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><b>Meter Identifier</b></td> 
+          <td>xxxxxx</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><b>Consumption</b></td>
+          <td><b>Rate</b></td>
+          <td><b>Totoal Cost</b></td> 
+        </tr>
+        <% @invoice.concrete_charges.each do |charge| %>
+        <tr>
+          <td><b><%= charge.charge_factory.name %></b></td>
+          <td>xxxx</td>
+          <td><%= charge.charge_factory.rate %></td>
+          <td>$<%= charge.amount %></td> 
+        </tr>
+        <% end %>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><b>Total Charge</b></td>
+          <td>$<%= @invoice.total %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>  
+
+  
+

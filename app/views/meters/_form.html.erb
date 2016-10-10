@@ -1,0 +1,26 @@
+<!-- changed by Charlene -->
+<div class="modal-body">
+<%= simple_form_for(@meter, :html => {:class => "form-horizontal"}, wrapper: :horizontal_form) do |f| %>
+
+      <div id="error_explanation" class="bg-danger text-danger">
+      </div>
+
+      <div class="field">
+        <%= f.input :serial, hint: 'minimum 2, maximum 12 characters', label_html: { style: 'color: black' },
+                    error: 'Serial is mandatory, please specify one' %>
+      </div>
+      <div class="field">
+        <%= f.input :nmi, hint: 'should be 10 characters', label_html: { style: 'color: black' },
+                    error: 'NMI is 10 characters long, please specify one with 10 characters' %>
+      </div>
+      <div class="field">
+        <%= f.hidden_field :billing_site_id ,:value=>params[:billing_site] || billing_site %>
+      </div>
+</div>
+
+<div class="modal-footer">
+      <div class="actions">
+        <%= f.button :submit, :class =>"btn btn-primary" %>
+      </div>
+<% end %>
+</div>

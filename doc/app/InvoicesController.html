@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>class InvoicesController - Rails Application Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="ApplicationController.html">ApplicationController</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-create_generated_invoice">#create_generated_invoice</a>
+    
+    <li ><a href="#method-i-create_imported_invoice">#create_imported_invoice</a>
+    
+    <li ><a href="#method-i-create_predicted_invoice">#create_predicted_invoice</a>
+    
+    <li ><a href="#method-i-destroy">#destroy</a>
+    
+    <li ><a href="#method-i-generateNew">#generateNew</a>
+    
+    <li ><a href="#method-i-import_invoice">#import_invoice</a>
+    
+    <li ><a href="#method-i-index">#index</a>
+    
+    <li ><a href="#method-i-predictNew">#predictNew</a>
+    
+    <li ><a href="#method-i-select_date_period">#select_date_period</a>
+    
+    <li ><a href="#method-i-show">#show</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-InvoicesController">
+  <h1 id="class-InvoicesController" class="class">
+    class InvoicesController
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-create_generated_invoice" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_generated_invoice</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>post: /invoices/generate</p>
+          
+          
+
+          
+          <div class="method-source-code" id="create_generated_invoice-source">
+            <pre><span class="ruby-comment"># File app/controllers/invoices_controller.rb, line 143</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_generated_invoice</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-value">:invoice</span>][<span class="ruby-string">&quot;invoice_id&quot;</span>].<span class="ruby-identifier">blank?</span>
+                <span class="ruby-comment">#Based on the selection of imported invoice from the user</span>
+                <span class="ruby-identifier">imported_invoice</span> = <span class="ruby-constant">ImportedInvoice</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:invoice</span>][<span class="ruby-value">:invoice_id</span>])
+                <span class="ruby-ivar">@invoice</span> = <span class="ruby-constant">GeneratedInvoice</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">imported_invoice</span>.<span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">except!</span>(<span class="ruby-string">&quot;file&quot;</span>))
+                <span class="ruby-keyword">if</span> <span class="ruby-ivar">@invoice</span>.<span class="ruby-identifier">save</span>
+                        <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:show</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Invoice was successfully generated.&#39;</span> }
+                        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:show</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:created</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@invoice</span> }
+                        <span class="ruby-keyword">return</span>
+                      <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                                <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:generateNew</span> }
+                                <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@invoice</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
+                                <span class="ruby-keyword">return</span>
+                        <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;Some Fields Are Missing, Please Fill in All Required Items!&quot;</span>
+                <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">generateNew_invoices_path</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-create_imported_invoice" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_imported_invoice</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>importing a CSV file /invoices/import</p>
+          
+          
+
+          
+          <div class="method-source-code" id="create_imported_invoice-source">
+            <pre><span class="ruby-comment"># File app/controllers/invoices_controller.rb, line 33</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_imported_invoice</span>
+
+        <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-value">:invoice</span>].<span class="ruby-identifier">blank?</span>
+                <span class="ruby-identifier">file</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:invoice</span>][<span class="ruby-value">:file</span>]
+                <span class="ruby-identifier">file_name</span> = <span class="ruby-identifier">file</span>.<span class="ruby-identifier">original_filename</span>
+                <span class="ruby-comment">#the file with same file_name will not be imported</span>
+                <span class="ruby-keyword">if</span> <span class="ruby-constant">ImportedInvoice</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">file</span><span class="ruby-operator">:</span> <span class="ruby-identifier">file_name</span>) <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>
+                        <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;The file to be imported is already existing, please select another file!&quot;</span>
+                        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">import_invoice_invoices_path</span>
+                        <span class="ruby-keyword">return</span>
+                <span class="ruby-keyword">end</span>
+
+                <span class="ruby-keyword">case</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">extname</span>(<span class="ruby-identifier">file_name</span>)
+                <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;.csv&quot;</span>
+                <span class="ruby-identifier">retail_plan</span> = <span class="ruby-constant">RetailPlan</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:invoice</span>][<span class="ruby-value">:retail_plan_id</span>])  <span class="ruby-comment">#Get speciifc Retail plan, then import the retail plan data along with file and file_name.</span>
+                        <span class="ruby-ivar">@invoice</span> = <span class="ruby-constant">ImportedInvoice</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">retail_plan</span>, <span class="ruby-identifier">file</span>)
+                <span class="ruby-comment"># @csv_file_store = @invoice.store_file(file,file_name) #do we need to store a ImportedInvoice in a file locally?</span>
+                        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@invoice</span>.<span class="ruby-identifier">save</span>
+                                <span class="ruby-comment">#after importing invoice, create new GeneratedInvoice</span>
+                                <span class="ruby-ivar">@generated_invoice</span> = <span class="ruby-constant">GeneratedInvoice</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@invoice</span>.<span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">except!</span>(<span class="ruby-string">&quot;file&quot;</span>))
+                                <span class="ruby-keyword">if</span> <span class="ruby-ivar">@generated_invoice</span>.<span class="ruby-identifier">save</span>
+                          <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-string">&quot;generated_invoices for &#39;&quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@invoice</span>.<span class="ruby-identifier">file</span><span class="ruby-operator">+</span><span class="ruby-string">&quot;&#39; are successfully created&quot;</span>
+                                <span class="ruby-keyword">else</span>
+                          <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-string">&quot;generated_invoices for &#39;&quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@invoice</span>.<span class="ruby-identifier">file</span><span class="ruby-operator">+</span><span class="ruby-string">&quot;&#39; fail to create&quot;</span>
+                                <span class="ruby-keyword">end</span>
+
+           <span class="ruby-identifier">bs_id</span> = <span class="ruby-identifier">retail_plan</span>.<span class="ruby-identifier">billing_site_id</span>
+                            <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">billing_site_url</span>(<span class="ruby-identifier">bs_id</span>), <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Invoice was successfully imported.&#39;</span>
+                                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                                <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:show</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:imported</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@invoice</span> }
+                                <span class="ruby-keyword">return</span>
+                              <span class="ruby-keyword">end</span>
+                        <span class="ruby-keyword">else</span>
+                                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                                        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:generateNew</span> }
+                                        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@invoice</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
+                                        <span class="ruby-keyword">return</span>
+                                <span class="ruby-keyword">end</span>
+                        <span class="ruby-keyword">end</span>
+                        
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;Please import a CSV file!&quot;</span>
+                        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">new_invoice_path</span>
+                        <span class="ruby-keyword">return</span>
+                <span class="ruby-keyword">end</span>
+
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;You have not import an invoice yet!&quot;</span>
+                <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">new_invoice_path</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-create_predicted_invoice" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_predicted_invoice</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>post: /invoices/predict</p>
+          
+          
+
+          
+          <div class="method-source-code" id="create_predicted_invoice-source">
+            <pre><span class="ruby-comment"># File app/controllers/invoices_controller.rb, line 101</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_predicted_invoice</span>
+<span class="ruby-identifier">invoice_selected</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:invoice</span>][<span class="ruby-string">&quot;invoice_selected&quot;</span>]
+<span class="ruby-ivar">@imported_invoice</span> = <span class="ruby-constant">ImportedInvoice</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">invoice_selected</span>)
+        <span class="ruby-ivar">@predictable_billing_periods</span> = <span class="ruby-ivar">@imported_invoice</span>.<span class="ruby-identifier">retail_plan</span>.<span class="ruby-identifier">predictable_billing_periods</span>
+        <span class="ruby-ivar">@predictable_billing_periods</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">predictable_billing_period</span><span class="ruby-operator">|</span>
+                <span class="ruby-keyword">if</span> <span class="ruby-identifier">predictable_billing_period</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:invoice</span>][<span class="ruby-string">&quot;selected_date_period&quot;</span>].<span class="ruby-identifier">to_s</span>
+                        <span class="ruby-ivar">@date_period_selected</span> = <span class="ruby-identifier">predictable_billing_period</span>
+                        <span class="ruby-keyword">break</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">invoice_selected</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@date_period_selected</span>.<span class="ruby-identifier">blank?</span>
+                <span class="ruby-comment">#Based on the selection of imported invoice from the user</span>
+                <span class="ruby-identifier">attributes</span> = <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">load</span>( <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-ivar">@imported_invoice</span>.<span class="ruby-identifier">attributes</span>))
+                <span class="ruby-identifier">attributes</span>[<span class="ruby-string">&quot;start_date&quot;</span>] = <span class="ruby-ivar">@date_period_selected</span>[<span class="ruby-value">:start_date</span>]
+                <span class="ruby-identifier">attributes</span>[<span class="ruby-string">&quot;end_date&quot;</span>] = <span class="ruby-ivar">@date_period_selected</span>[<span class="ruby-value">:end_date</span>]
+                <span class="ruby-ivar">@invoice</span> = <span class="ruby-constant">PredictedInvoice</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">except!</span>(<span class="ruby-string">&quot;file&quot;</span>))
+                <span class="ruby-keyword">if</span> <span class="ruby-ivar">@invoice</span>.<span class="ruby-identifier">save</span>
+                        <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:show</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;PredictedInvoice was successfully generated.&#39;</span> }
+                        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:show</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:created</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@invoice</span> }
+                        <span class="ruby-keyword">return</span>
+                      <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                                <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:generateNew</span> }
+                                <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@invoice</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
+                                <span class="ruby-keyword">return</span>
+                        <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;Some Fields Are Missing, Please Fill in All Required Items!&quot;</span>
+                <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">predictNew_invoices_path</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-destroy" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">destroy</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="destroy-source">
+            <pre><span class="ruby-comment"># File app/controllers/invoices_controller.rb, line 13</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
+        <span class="ruby-ivar">@invoice</span> = <span class="ruby-constant">Invoice</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+        <span class="ruby-ivar">@retail_plan</span> = <span class="ruby-constant">RetailPlan</span>.<span class="ruby-identifier">find</span>(<span class="ruby-ivar">@invoice</span>.<span class="ruby-identifier">retail_plan_id</span>)
+        <span class="ruby-identifier">billing_site_id</span> = <span class="ruby-ivar">@retail_plan</span>.<span class="ruby-identifier">billing_site_id</span>
+        <span class="ruby-ivar">@invoice</span>.<span class="ruby-identifier">destroy</span>
+        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">billing_site_url</span>(<span class="ruby-identifier">billing_site_id</span>), <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Invoice has been destroyed successfully !&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-generateNew" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">generateNew</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>get: /invoices/generateNew</p>
+          
+          
+
+          
+          <div class="method-source-code" id="generateNew-source">
+            <pre><span class="ruby-comment"># File app/controllers/invoices_controller.rb, line 138</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">generateNew</span>
+        <span class="ruby-ivar">@invoices</span> = <span class="ruby-constant">ImportedInvoice</span>.<span class="ruby-identifier">all</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-import_invoice" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">import_invoice</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>/invoices/new</p>
+          
+          
+
+          
+          <div class="method-source-code" id="import_invoice-source">
+            <pre><span class="ruby-comment"># File app/controllers/invoices_controller.rb, line 22</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">import_invoice</span>
+        <span class="ruby-comment"># @invoice = Invoice.new</span>
+<span class="ruby-ivar">@retail_plans</span> = <span class="ruby-constant">RetailPlan</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">billing_site_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:billing_site</span>])
+        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@retail_plans</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>
+                <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">billing_site_url</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:billing_site</span>]), <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Please Create Retail Plan first!&#39;</span>
+                <span class="ruby-keyword">return</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-index" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">index</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>/invoices</p>
+          
+          
+
+          
+          <div class="method-source-code" id="index-source">
+            <pre><span class="ruby-comment"># File app/controllers/invoices_controller.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
+        <span class="ruby-ivar">@invoices</span> = <span class="ruby-constant">Invoice</span>.<span class="ruby-identifier">all</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-predictNew" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">predictNew</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>get: /invoices/predictNew</p>
+          
+          
+
+          
+          <div class="method-source-code" id="predictNew-source">
+            <pre><span class="ruby-comment"># File app/controllers/invoices_controller.rb, line 86</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">predictNew</span>
+        <span class="ruby-ivar">@invoices</span> = <span class="ruby-constant">ImportedInvoice</span>.<span class="ruby-identifier">all</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-select_date_period" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">select_date_period</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="select_date_period-source">
+            <pre><span class="ruby-comment"># File app/controllers/invoices_controller.rb, line 90</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">select_date_period</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-value">:invoice</span>][<span class="ruby-string">&quot;invoice_id&quot;</span>].<span class="ruby-identifier">blank?</span>
+                <span class="ruby-ivar">@imported_invoice</span> = <span class="ruby-constant">ImportedInvoice</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:invoice</span>][<span class="ruby-value">:invoice_id</span>])
+                <span class="ruby-ivar">@predictable_billing_periods</span> = <span class="ruby-ivar">@imported_invoice</span>.<span class="ruby-identifier">retail_plan</span>.<span class="ruby-identifier">predictable_billing_periods</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;Please Select an Imported Invoice&quot;</span>
+                <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">predictNew_invoices_path</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-show" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">show</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>invoices/:id</p>
+          
+          
+
+          
+          <div class="method-source-code" id="show-source">
+            <pre><span class="ruby-comment"># File app/controllers/invoices_controller.rb, line 9</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
+        <span class="ruby-ivar">@invoice</span> = <span class="ruby-constant">Invoice</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

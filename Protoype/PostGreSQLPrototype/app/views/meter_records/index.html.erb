@@ -1,0 +1,33 @@
+<% content_for :title, "STEAM - Meter Records" %>
+<p id="notice"><%= notice %></p>
+
+<h1>STEAM - Meter Records</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Meter Serial</th>
+      <th>Date</th>
+      <th>Interval</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% i = 0 %>
+    <% @meter_records.each do |meter_record| %>
+      <tr>
+        <td><%=i+=1%>. </td>
+        <td><%= meter_record.meter_serial %></td>
+        <td><%= meter_record.date %></td>
+        <td><%= meter_record.meter_interval %></td>
+        <td><%= link_to 'Show', meter_record %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Meter record', new_meter_record_path %>
